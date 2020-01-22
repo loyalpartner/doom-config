@@ -4,9 +4,33 @@
 #+STARTUP: inlineimages nofold
 
 * Table of Contents :TOC_3:noexport:
-- [[#rss-快捷键][RSS 快捷键]]
+- [[#editor][editor]]
+  - [[#multiple-cursor][multiple cursor]]
+- [[#app][app]]
+  - [[#rss-快捷键][RSS 快捷键]]
 
-* RSS 快捷键
+* editor
+** multiple cursor
+| 快捷键 | 描述             |
+|--------+------------------|
+| =gzd=  | 生成鼠标-下      |
+| =gzD=  | 生成鼠标-上      |
+| =gzj=  | 生成鼠标-移动下  |
+| =gzk=  | 生成鼠标-移动上  |
+| =gzm=  | 生成鼠标-所有    |
+| =gzn=  | 跳转鼠标-下      |
+| =gzp=  | 跳转鼠标-上      |
+| =gzN=  | 跳转鼠标-尾      |
+| =gzP=  | 跳转鼠标-首      |
+| =gzu=  | undo             |
+| =gzq=  | undo all         |
+| =gzt=  | toggle cursor    |
+| =gzz=  | make cursor here |
+| =gzI=  | unknow           |
+| =gzA=  | unknow           |
+|--------+------------------|
+* app
+** RSS 快捷键
 | 键 | 功能         |
 |----+--------------|
 | gu | 更新 rss     |

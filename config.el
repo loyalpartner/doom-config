@@ -93,7 +93,7 @@
       :g
       "C-c ." 'insert-translated-name-insert
       "M-c" 'pyim-convert-code-at-point
-      :n "g SPC" 'evilnc-fanyi-operator
+      :n "g\/" 'evilnc-fanyi-operator
       :i "C-b" 'backward-char
       :i "C-f" 'forward-char
       (:when (featurep! :term vterm)
