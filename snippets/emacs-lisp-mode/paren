@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: paren
+# uuid:paren
+# key: p
+# condition: t
+# --
+($0)

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: square
+# uuid:square
+# key: [
+# condition: t
+# --
+[$1]$0

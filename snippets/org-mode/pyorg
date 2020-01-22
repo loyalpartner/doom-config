@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: pyorg
+# uuid: pyorg
+# key: pyorg
+# condition: t
+# --
+#+BEGIN_SRC python :results output
+$1
+#+END_SRC
