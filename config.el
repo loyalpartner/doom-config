@@ -20,7 +20,8 @@
 ;; font string. You generally only need these two:
 ;; test
 (setq doom-font (font-spec :family "SauceCodePro NF" :size 11)
-      doom-variable-pitch-font (font-spec :family "SauceCodePro NF"))
+      ;; doom-variable-pitch-font (font-spec :family "SauceCodePro NF")
+      )
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -63,6 +64,13 @@
 ;; they are implemented.
 
 (use-package! youdao-dictionary :commands (youdao-dictionary-search))
+
+(use-package! google-translate :commands (google-translate-at-point)
+              :init
+              (setq google-translate-default-source-language "en"
+                    google-translate-default-target-language "zh-CN"
+                    google-translate--tkk-url "http://translate.google.cn"
+                    google-translate-base-url "http://translate.google.cn/translate_a/single"))
 (use-package! google-this :commands (google-this))
 (use-package! insert-translated-name :commands (insert-translated-name-insert))
 (use-package! atomic-chrome :defer 10 :config (atomic-chrome-start-server))
@@ -93,16 +101,17 @@
       :g
       "C-c ." 'insert-translated-name-insert
       "M-c" 'pyim-convert-code-at-point
+
+
       :n "g\/" 'evilnc-fanyi-operator
       :i "C-b" 'backward-char
       :i "C-f" 'forward-char
       (:when (featurep! :term vterm)
-        :map vterm-mode-map "M-/" #'+vterm/toggle)
+        :map vterm-mode-map  "C-`" #'+vterm/toggle)
       (:when (featurep! :app rss)
         :map elfeed-search-mode-map
         :n "gu" #'elfeed-update
         :n "c" #'elfeed-search-clear-filter)
-            
 
       :leader "on" '=rss
       :leader "/" 'google-this
@@ -120,7 +129,9 @@
 
 (evil-define-operator evilnc-fanyi-operator (beg end type)
   (interactive "<R>")
-  (youdao-dictionary-search (buffer-substring-no-properties beg end)))
+  ;; (youdao-dictionary-search (buffer-substring-no-properties beg end))
+  (google-translate-translate "en" "zh-CN"
+                              (buffer-substring-no-properties beg end)))
 
 (when (featurep! :editor lispy)
   (after! lispyville

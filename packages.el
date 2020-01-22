@@ -42,7 +42,9 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
-(package! google-translate)
+;; (package! google-translate)
+(package! google-translate
+  :recipe (:host github :repo "loyalpartner/google-translate"))
 
 (package! youdao-dictionary)
 
@@ -57,12 +59,7 @@
 
 (package! posframe)
 
-;; (package! pyim-greatdict
-;;   :recipe (:host github :repo "tumashu/pyim-greatdict"))
-
 (package! leetcode :recipe (:host github :repo "kaiwk/leetcode.el"))
-
-;; (package! window-numbering)
 
 (package! atomic-chrome)
 
