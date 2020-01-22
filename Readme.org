@@ -1,0 +1,17 @@
+#+TITLE:   emacs config
+#+DATE:    January 22, 2020
+#+SINCE:   {replace with next tagged release version}
+#+STARTUP: inlineimages nofold
+
+* Table of Contents :TOC_3:noexport:
+- [[#rss-快捷键][RSS 快捷键]]
+
+* RSS 快捷键
+| 键 | 功能         |
+|----+--------------|
+| gu | 更新 rss     |
+| go | 浏览器打开   |
+| s  | search       |
+| c  | clear search |
+| +  | tag          |
+| -  | untag        |

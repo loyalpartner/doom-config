@@ -19,8 +19,8 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 ;; test
-(setq doom-font (font-spec :family "Fira Mono" :size 11)
-      doom-variable-pitch-font (font-spec :family "Fira Mono"))
+(setq doom-font (font-spec :family "SauceCodePro NF" :size 11)
+      doom-variable-pitch-font (font-spec :family "SauceCodePro NF"))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -78,13 +78,13 @@
         pyim-page-tooltip 'popup
         pyim-page-length 5)
   (setq-default pyim-english-input-switch-functions
-        '(pyim-probe-dynamic-english
-          pyim-probe-isearch-mode
-          pyim-probe-program-mode
-          pyim-probe-org-structure-template))
+                '(pyim-probe-dynamic-english
+                  pyim-probe-isearch-mode
+                  pyim-probe-program-mode
+                  pyim-probe-org-structure-template))
   (setq-default pyim-punctuation-half-width-functions
-        '(pyim-probe-punctuation-line-beginning
-          pyim-probe-punctuation-after-punctuation))
+                '(pyim-probe-punctuation-line-beginning
+                  pyim-probe-punctuation-after-punctuation))
   (pyim-isearch-mode 1)
   (pyim-basedict-enable))
 
@@ -98,6 +98,13 @@
       :i "C-f" 'forward-char
       (:when (featurep! :term vterm)
         :map vterm-mode-map "M-/" #'+vterm/toggle)
+      (:when (featurep! :app rss)
+        :map elfeed-search-mode-map
+        :n "gu" #'elfeed-update
+        :n "c" #'elfeed-search-clear-filter)
+            
+
+      :leader "on" '=rss
       :leader "/" 'google-this
       (:when (featurep! :ui window-select +numbers)
         :leader "0" 'winum-select-window-0-or-10
@@ -124,9 +131,9 @@
 ;; exit insert mode save buffer
 (add-hook 'evil-insert-state-exit-hook
           (lambda () (when (and
-                   (buffer-file-name)
-                   (buffer-modified-p))
-               (basic-save-buffer))))
+                            (buffer-file-name)
+                            (buffer-modified-p))
+                       (basic-save-buffer))))
 
 ;; (use-package leetcode
 ;;   :config
