@@ -65,4 +65,7 @@
 
 (package! grip-mode)
 
+;; (package! exec-path-from-shell)
+;; (package! snails :recipe (:host github :repo "manateelazycat/snails" :no-byte-compile t))
+
 ;; (package! pinyinlib)

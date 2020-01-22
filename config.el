@@ -75,6 +75,13 @@
 (use-package! insert-translated-name :commands (insert-translated-name-insert))
 (use-package! atomic-chrome :defer 10 :config (atomic-chrome-start-server))
 (use-package! grip-mode :commands (grip-mode))
+(use-package! posframe)
+;; (use-package! exec-path-from-shell
+;;   :when IS-MAC
+;;   :config
+;;   (setq exec-path-from-shell-arguments '("-l"))
+;;   (exec-path-from-shell-initialize))
+;; (use-package! snails :config (set-evil-initial-state! 'snails-mode 'emacs))
 
 (use-package! pyim-basedict
   :after pyim
@@ -83,7 +90,7 @@
   :config
   (setq default-input-method "pyim"
         pyim-default-scheme 'xiaohe-shuangpin
-        pyim-page-tooltip 'popup
+        pyim-page-tooltip 'posframe
         pyim-page-length 5)
   (setq-default pyim-english-input-switch-functions
                 '(pyim-probe-dynamic-english
@@ -95,6 +102,10 @@
                   pyim-probe-punctuation-after-punctuation))
   (pyim-isearch-mode 1)
   (pyim-basedict-enable))
+
+(after! lispyville
+   (when (featurep! :editor lispy)
+     (lispyville-set-key-theme '(operators c-w text-objects))))
 
 (when (featurep! :ui window-select +numbers) (winum-mode +1))
 (map! :after evil
@@ -133,11 +144,9 @@
   (google-translate-translate "en" "zh-CN"
                               (buffer-substring-no-properties beg end)))
 
-(when (featurep! :editor lispy)
-  (after! lispyville
-    (lispyville-set-key-theme '(operators c-w text-objects))))
 
-(setq org-use-sub-superscripts t)
+
+;; (setq org-use-sub-superscripts t)
 
 ;; exit insert mode save buffer
 (add-hook 'evil-insert-state-exit-hook
