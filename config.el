@@ -92,16 +92,21 @@
         pyim-default-scheme 'xiaohe-shuangpin
         pyim-page-tooltip 'posframe
         pyim-page-length 5)
-  (setq-default pyim-english-input-switch-functions
-                '(pyim-probe-dynamic-english
-                  pyim-probe-isearch-mode
-                  pyim-probe-program-mode
-                  pyim-probe-org-structure-template))
+  (setq-default pyim-english-input-switch-functions '(private/pyim-english-prober))
   (setq-default pyim-punctuation-half-width-functions
                 '(pyim-probe-punctuation-line-beginning
                   pyim-probe-punctuation-after-punctuation))
   (pyim-isearch-mode 1)
   (pyim-basedict-enable))
+
+(defun private/pyim-english-prober ()
+  (cond ((and (boundp 'insert-translated-name-active-overlay)
+              insert-translated-name-active-overlay)
+         nil)
+        (t '(pyim-probe-dynamic-english
+             pyim-probe-isearch-mode
+             pyim-probe-program-mode
+             pyim-probe-org-structure-template))))
 
 (after! lispyville
    (when (featurep! :editor lispy)
@@ -118,7 +123,8 @@
       :i "C-b" 'backward-char
       :i "C-f" 'forward-char
       (:when (featurep! :term vterm)
-        :map vterm-mode-map  "C-`" #'+vterm/toggle)
+        :map vterm-mode-map  "C-`" #'+vterm/toggle
+        :n "C-p" #'vterm--self-insert)
       (:when (featurep! :app rss)
         :map elfeed-search-mode-map
         :n "gu" #'elfeed-update
