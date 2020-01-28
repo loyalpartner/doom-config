@@ -52,20 +52,8 @@
 
 (package! insert-translated-name :recipe (:host github :repo "manateelazycat/insert-translated-name"))
 
-;; (package! liberime-config
-;;   :recipe (:host github
-;;                  :repo "xhcoding/liberime"
-;;                  :files ("liberime-config.el" "src" "CMakeLists.txt" "Makefile")))
-
 (package! posframe)
-
-(package! leetcode :recipe (:host github :repo "kaiwk/leetcode.el"))
 
 (package! atomic-chrome)
 
 (package! grip-mode)
-
-;; (package! exec-path-from-shell)
-;; (package! snails :recipe (:host github :repo "manateelazycat/snails" :no-byte-compile t))
-
-;; (package! pinyinlib)

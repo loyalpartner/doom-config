@@ -65,7 +65,7 @@
 
 (use-package! youdao-dictionary :commands (youdao-dictionary-search))
 
-(use-package! google-translate :commands (google-translate-at-point)
+(use-package! google-translate :commands (google-translate-at-point google-translate-translate)
               :init
               (setq google-translate-default-source-language "en"
                     google-translate-default-target-language "zh-CN"
@@ -112,7 +112,7 @@
    (when (featurep! :editor lispy)
      (lispyville-set-key-theme '(operators c-w text-objects))))
 
-(when (featurep! :ui window-select +numbers) (winum-mode +1))
+;; (when (featurep! :ui window-select +numbers) (winum-mode +1))
 (map! :after evil
       :g
       "C-c ." 'insert-translated-name-insert
@@ -161,7 +161,3 @@
                             (buffer-modified-p))
                        (basic-save-buffer))))
 
-;; (use-package leetcode
-;;   :config
-;;   (setq leetcode-prefer-language "python3"
-;;         leetcode-prefer-sql "mysql"))
