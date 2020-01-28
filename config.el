@@ -42,7 +42,7 @@
 
 (setq evil-embrace-show-help-p t
       evil-escape-key-sequence "hh"
-      evil-escape-delay 0.5)
+      evil-escape-delay 0.3)
 
 (setq mac-option-modifier 'super
       mac-command-modifier 'meta)
@@ -76,12 +76,6 @@
 (use-package! atomic-chrome :defer 10 :config (atomic-chrome-start-server))
 (use-package! grip-mode :commands (grip-mode))
 (use-package! posframe)
-;; (use-package! exec-path-from-shell
-;;   :when IS-MAC
-;;   :config
-;;   (setq exec-path-from-shell-arguments '("-l"))
-;;   (exec-path-from-shell-initialize))
-;; (use-package! snails :config (set-evil-initial-state! 'snails-mode 'emacs))
 
 (use-package! pyim-basedict
   :after pyim
@@ -110,14 +104,15 @@
 
 (after! lispyville
    (when (featurep! :editor lispy)
-     (lispyville-set-key-theme '(operators c-w text-objects))))
+     (lispyville-set-key-theme '(operators c-w))))
+     ;; (lispyville-set-key-theme '(operators c-w text-objects))
 
 ;; (when (featurep! :ui window-select +numbers) (winum-mode +1))
+;; TODO
 (map! :after evil
       :g
       "C-c ." 'insert-translated-name-insert
       "M-c" 'pyim-convert-code-at-point
-
 
       :n "g\/" 'evilnc-fanyi-operator
       :i "C-b" 'backward-char
@@ -129,6 +124,12 @@
         :map elfeed-search-mode-map
         :n "gu" #'elfeed-update
         :n "c" #'elfeed-search-clear-filter)
+      (:when (featurep! :editor lispy)
+        :map lispy-mode-map
+        :i "C-e" #'lispy-move-end-of-line
+        :i "C-d" #'lispy-delete
+        :i "C-k" #'lispy-kill
+        :i "C-y" #'lispy-yank)      
 
       :leader "on" '=rss
       :leader "/" 'google-this
