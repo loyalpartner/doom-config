@@ -65,73 +65,27 @@
 
 (use-package! youdao-dictionary :commands (youdao-dictionary-search))
 
-(use-package! google-translate :commands (google-translate-at-point google-translate-translate)
-              :init
-              (setq google-translate-default-source-language "en"
-                    google-translate-default-target-language "zh-CN"
-                    google-translate--tkk-url "http://translate.google.cn"
-                    google-translate-base-url "http://translate.google.cn/translate_a/single"))
 (use-package! google-this :commands (google-this))
-(use-package! insert-translated-name :commands (insert-translated-name-insert))
 (use-package! atomic-chrome :defer 10 :config (atomic-chrome-start-server))
 (use-package! grip-mode :commands (grip-mode))
 (use-package! posframe)
 
-(use-package! pyim-basedict
-  :after pyim
-  :when (featurep! :input chinese)
-  ;; :bind ("M-/" . toggle-input-method)
-  :config
-  (setq default-input-method "pyim"
-        pyim-default-scheme 'xiaohe-shuangpin
-        pyim-page-tooltip 'posframe
-        pyim-page-length 5)
-  (setq-default pyim-english-input-switch-functions '(private/pyim-english-prober))
-  (setq-default pyim-punctuation-half-width-functions
-                '(pyim-probe-punctuation-line-beginning
-                  pyim-probe-punctuation-after-punctuation))
-  (pyim-isearch-mode 1)
-  (pyim-basedict-enable))
 
-(defun private/pyim-english-prober ()
-  (cond ((and (boundp 'insert-translated-name-active-overlay)
-              insert-translated-name-active-overlay)
-         nil)
-        (t '(pyim-probe-dynamic-english
-             pyim-probe-isearch-mode
-             pyim-probe-program-mode
-             pyim-probe-org-structure-template))))
-
-(after! lispyville
-   (when (featurep! :editor lispy)
-     (lispyville-set-key-theme '(operators c-w))))
-     ;; (lispyville-set-key-theme '(operators c-w text-objects))
-
-;; (when (featurep! :ui window-select +numbers) (winum-mode +1))
-;; TODO
 (map! :after evil
-      :g
-      "C-c ." 'insert-translated-name-insert
-      "M-c" 'pyim-convert-code-at-point
-
-      :n "g\/" 'evilnc-fanyi-operator
+      ;; :n "g\/" 'evilnc-fanyi-operator
       :i "C-b" 'backward-char
       :i "C-f" 'forward-char
       (:when (featurep! :term vterm)
         :map vterm-mode-map  "C-`" #'+vterm/toggle
         :n "C-p" #'vterm--self-insert)
-      (:when (featurep! :app rss)
-        :map elfeed-search-mode-map
-        :n "gu" #'elfeed-update
-        :n "c" #'elfeed-search-clear-filter)
       (:when (featurep! :editor lispy)
         :map lispy-mode-map
         :i "C-e" #'lispy-move-end-of-line
         :i "C-d" #'lispy-delete
         :i "C-k" #'lispy-kill
-        :i "C-y" #'lispy-yank)      
+        :i "C-y" #'lispy-yank
+        :textobj "d" #'lispyville-inner-atom #'lispyville-a-atom)
 
-      :leader "on" '=rss
       :leader "/" 'google-this
       (:when (featurep! :ui window-select +numbers)
         :leader "0" 'winum-select-window-0-or-10
@@ -145,14 +99,6 @@
         :leader "8" 'winum-select-window-8
         :leader "9" 'winum-select-window-9))
 
-(evil-define-operator evilnc-fanyi-operator (beg end type)
-  (interactive "<R>")
-  ;; (youdao-dictionary-search (buffer-substring-no-properties beg end))
-  (google-translate-translate "en" "zh-CN"
-                              (buffer-substring-no-properties beg end)))
-
-
-
 ;; (setq org-use-sub-superscripts t)
 
 ;; exit insert mode save buffer
@@ -161,4 +107,3 @@
                             (buffer-file-name)
                             (buffer-modified-p))
                        (basic-save-buffer))))
-

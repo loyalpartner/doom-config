@@ -43,14 +43,11 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 
 ;; (package! google-translate)
-(package! google-translate
-  :recipe (:host github :repo "loyalpartner/google-translate"))
 
 (package! youdao-dictionary)
 
 (package! google-this)
 
-(package! insert-translated-name :recipe (:host github :repo "manateelazycat/insert-translated-name"))
 
 (package! posframe)
 

@@ -8,6 +8,8 @@
   - [[#multiple-cursor][multiple cursor]]
 - [[#app][app]]
   - [[#rss-快捷键][RSS 快捷键]]
+- [[#private][private]]
+  - [[#chinese][chinese]]
 
 * editor
 ** multiple cursor
@@ -39,3 +41,11 @@
 | c  | clear search |
 | +  | tag          |
 | -  | untag        |
+* private
+** chinese
+| 键       | 功能                       |
+|----------+----------------------------|
+| =SPC yy= | 翻译(iw,is,i"....)         |
+| =SPC yr= | 翻译(iw,is,i"....)，并替换 |
+| =C-c .=  | 输入一端中文，并翻译       |
+|----------+----------------------------|
