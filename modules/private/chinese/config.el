@@ -7,7 +7,7 @@
         pyim-default-scheme 'xiaohe-shuangpin
         pyim-page-tooltip 'posframe
         pyim-page-length 5)
-  (setq-default pyim-english-input-switch-functions '(private/pyim-english-prober))
+  (setq-default pyim-english-input-switch-functions (private/pyim-english-prober))
   (setq-default pyim-punctuation-half-width-functions
                 '(pyim-probe-punctuation-line-beginning
                   pyim-probe-punctuation-after-punctuation))
@@ -22,6 +22,7 @@
              pyim-probe-isearch-mode
              pyim-probe-program-mode
              pyim-probe-org-structure-template))))
+test,我可以我不可以
 
 (map! :after pyim
       :g "M-c" #'pyim-convert-code-at-point)
