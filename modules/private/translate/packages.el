@@ -6,3 +6,10 @@
 
 (package! insert-translated-name
   :recipe (:host github :repo "manateelazycat/insert-translated-name"))
+
+(package! sdcv
+  :recipe (:host github :repo "manateelazycat/sdcv"))
+
+(package! company-english-helper
+  :recipe (:host github :repo "manateelazycat/company-english-helper"))
+
