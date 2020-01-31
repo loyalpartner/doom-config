@@ -107,3 +107,14 @@
                             (buffer-file-name)
                             (buffer-modified-p))
                        (basic-save-buffer))))
+
+(after! circe
+  (set-irc-server! "irc.freenode.net"
+                   `(:tls t
+                          :port 6697
+                          :nick "likaikai"
+                          :sasl-username "likaikai"
+                          :sasl-password "1234qaz"
+                          :channels ("#emacs" "#archlinux-cn" "#vim"))))
+
+
