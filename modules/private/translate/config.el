@@ -54,7 +54,7 @@
          (target (if (translate-chinese-word-p text) "en" "zh-CN")))
     (google-translate-translate source target text)))
 
-(evil-define-operator evilnc-search-and-replace-operator (beg end type)
+(evil-define-operator evilnc-translate-and-replace-operator (beg end type)
   "查询并替换."
   (interactive "<R>")
   (let* ((text (buffer-substring-no-properties beg end))
@@ -70,5 +70,5 @@
       :i "C-x C-y" #'company-english-helper-search
       :n  "g." #'sdcv-search-pointer+
       :leader :desc "Google 翻译长句" "yy" #'evilnc-translate-operator
-      :leader :desc "中文英文互相转换" "yr" #'evilnc-search-and-replace-operator
+      :leader :desc "中文英文互相转换" "yr" #'evilnc-translate-and-replace-operator
       :leader :desc "SDCV 单词翻译" "yd" #'sdcv-search-pointer+)
