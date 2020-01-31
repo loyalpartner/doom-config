@@ -10,7 +10,7 @@
         google-translate-listen-url "http://translate.google.cn/translate_tts"))
 (use-package! insert-translated-name :commands insert-translated-name-insert)
 
-(use-package! company-english-helper :commands toggle-company-english-helper)
+(use-package! company-english-helper :commands toggle-company-english-helper company-english-helper-search)
 
 ;; sdcv翻译当前单词
 (use-package! sdcv
