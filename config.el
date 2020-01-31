@@ -47,6 +47,7 @@
 (setq mac-option-modifier 'super
       mac-command-modifier 'meta)
 
+(setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s))
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
