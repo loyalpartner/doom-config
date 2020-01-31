@@ -65,7 +65,6 @@
 ;; they are implemented.
 
 (use-package! youdao-dictionary :commands (youdao-dictionary-search))
-
 (use-package! google-this :commands (google-this))
 (use-package! atomic-chrome :defer 10 :config (atomic-chrome-start-server))
 (use-package! grip-mode :commands (grip-mode))
@@ -76,6 +75,7 @@
       ;; :n "g\/" 'evilnc-fanyi-operator
       :i "C-b" 'backward-char
       :i "C-f" 'forward-char
+
       (:when (featurep! :term vterm)
         :map vterm-mode-map  "C-`" #'+vterm/toggle
         :n "C-p" #'vterm--self-insert)
@@ -110,12 +110,16 @@
                        (basic-save-buffer))))
 
 (after! circe
-  (set-irc-server! "irc.freenode.net"
+  ;; (set-irc-server! "irc.freenode.net"
+  ;;                  `(:tls t
+  ;;                         :port 6697
+  ;;                         :nick "likaikai"
+  ;;                         :sasl-username "likaikai"
+  ;;                         :sasl-password "1234qaz"
+  ;;                         :channels ("#emacs" "#archlinux-cn" "#vim")))
+  (set-irc-server! "irc.gitter.im"
                    `(:tls t
                           :port 6697
-                          :nick "likaikai"
-                          :sasl-username "likaikai"
-                          :sasl-password "1234qaz"
+                          :nick "loyalpartner"
+                          :pass "b878503553ccb36ab8e61de3424643896e777626"
                           :channels ("#emacs" "#archlinux-cn" "#vim"))))
-
-
