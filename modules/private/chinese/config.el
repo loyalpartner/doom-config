@@ -22,7 +22,6 @@
              pyim-probe-isearch-mode
              pyim-probe-program-mode
              pyim-probe-org-structure-template))))
-test,我可以我不可以
 
 (map! :after pyim
       :g "M-c" #'pyim-convert-code-at-point)
