@@ -165,7 +165,7 @@
        ;;web               ; the tubes
 
        :email
-       ;;(mu4e +gmail)
+       (mu4e)
        ;;notmuch
        ;;(wanderlust +gmail)
 
@@ -188,4 +188,5 @@
        chinese
        translate
        rss
-       irc)
+       irc
+       mu4e)
