@@ -37,3 +37,5 @@
                       ;; (smtpmail-stream-type . 'starttls)
                       (mu4e-compose-signature . "---\n凯"))
                     t)
+
+(map! :leader "om" #'=mu4e)

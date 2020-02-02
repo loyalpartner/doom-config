@@ -10,6 +10,7 @@
   - [[#rss-快捷键][RSS 快捷键]]
 - [[#private][private]]
   - [[#chinese][chinese]]
+  - [[#mu4e][mu4e]]
 
 * editor
 ** multiple cursor
@@ -51,3 +52,5 @@
 | =C-c .=  | 输入一端中文，并翻译       |
 | =g .=    | SDCV 翻译当前单词          |
 |----------+----------------------------|
+** mu4e
+=SPC om= 打开 mu4e
