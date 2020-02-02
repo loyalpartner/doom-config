@@ -13,3 +13,5 @@
                           :port 6697
                           :nick "loyalpartner"
                           :pass "b878503553ccb36ab8e61de3424643896e777626")))
+
+(map! :leader "oi" #'=irc)

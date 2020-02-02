@@ -11,6 +11,7 @@
 - [[#private][private]]
   - [[#chinese][chinese]]
   - [[#mu4e][mu4e]]
+  - [[#irc][irc]]
 
 * editor
 ** multiple cursor
@@ -54,3 +55,5 @@
 |----------+----------------------------|
 ** mu4e
 =SPC om= 打开 mu4e
+** irc
+=SPC oi= 打开 irc
