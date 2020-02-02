@@ -1,7 +1,7 @@
 ;;; private/translate/config.el -*- lexical-binding: t; -*-
 
 (use-package! google-translate
-  :commands google-translate-at-point google-translate-translate
+  :commands google-translate-at-point google-translate-translate google-translate-request
   :init
   (setq google-translate-default-source-language "en"
         google-translate-default-target-language "zh-CN"

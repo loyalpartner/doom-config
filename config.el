@@ -89,16 +89,17 @@
 
       :leader "/" 'google-this
       (:when (featurep! :ui window-select +numbers)
-        :leader "0" 'winum-select-window-0-or-10
-        :leader "1" 'winum-select-window-1
-        :leader "2" 'winum-select-window-2
-        :leader "3" 'winum-select-window-3
-        :leader "4" 'winum-select-window-4
-        :leader "5" 'winum-select-window-5
-        :leader "6" 'winum-select-window-6
-        :leader "7" 'winum-select-window-7
-        :leader "8" 'winum-select-window-8
-        :leader "9" 'winum-select-window-9))
+        :leader
+        "0" 'winum-select-window-0-or-10
+        "1" 'winum-select-window-1
+        "2" 'winum-select-window-2
+        "3" 'winum-select-window-3
+        "4" 'winum-select-window-4
+        "5" 'winum-select-window-5
+        "6" 'winum-select-window-6
+        "7" 'winum-select-window-7
+        "8" 'winum-select-window-8
+        "9" 'winum-select-window-9))
 
 ;; (setq org-use-sub-superscripts t)
 
