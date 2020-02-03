@@ -70,6 +70,8 @@
 (use-package! grip-mode :commands (grip-mode))
 (use-package! posframe)
 
+(after! evil-embrace
+  (setq evil-embrace-show-help-p t))
 
 (map! :after evil
       ;; :n "g\/" 'evilnc-fanyi-operator
