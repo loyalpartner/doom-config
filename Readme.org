@@ -5,6 +5,8 @@
 
 * Table of Contents :TOC_3:noexport:
 - [[#editor][editor]]
+  - [[#evil][evil]]
+    - [[#evil-sneak][evil-sneak]]
   - [[#multiple-cursor][multiple cursor]]
 - [[#app][app]]
   - [[#rss-快捷键][RSS 快捷键]]
@@ -14,6 +16,12 @@
   - [[#irc][irc]]
 
 * editor
+** evil
+*** evil-sneak
+=s xx=
+=dz xx= or =dx xx=
+=yz xx= or =yx xx=
+
 ** multiple cursor
 | 快捷键         | 描述             |
 |----------------+------------------|
