@@ -14,7 +14,7 @@
 
 ;; sdcv翻译当前单词
 (use-package! sdcv
-  :commands sdcv-search-pointer+ sdcv-search-pointer
+  :commands sdcv-search-pointer+ sdcv-search-pointer sdcv-search-input
   :config
   (setq sdcv-dictionary-data-dir (expand-file-name "~/.stardict/dic")
         sdcv-say-word-p t
@@ -66,9 +66,16 @@
       (kill-region beg end)
       (insert result))))
 
+(evil-define-operator evilnc-sdcv-translate-operator (beg end type)
+  "SDCV 查询短语"
+  (interactive "<R>")
+  (let* ((text (buffer-substring-no-properties beg end)))
+    (sdcv-search-input (format "\"%s\"" text))))
+
 (map! :g "C-c ." #'insert-translated-name-insert
       :i "C-x C-y" #'company-english-helper-search
-      :n  "g." #'sdcv-search-pointer+
-      :leader :desc "Google 翻译长句" "yy" #'evilnc-translate-operator
-      :leader :desc "中文英文互相转换" "yr" #'evilnc-translate-and-replace-operator
-      :leader :desc "SDCV 单词翻译" "yd" #'sdcv-search-pointer+)
+      :n  "g." #'sdcv-search-pointer
+      :leader
+      :desc "Google 翻译长句" "yy" #'evilnc-translate-operator
+      :desc "中文英文互相转换" "yr" #'evilnc-translate-and-replace-operator
+      :desc "SDCV 翻译短语" "yd" #'evilnc-sdcv-translate-operator)
