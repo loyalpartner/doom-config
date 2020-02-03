@@ -9,7 +9,6 @@
   (let ((buffers (doom-buffers-in-mode 'elfeed-search-mode nil t)))
     (if buffers
         (ignore (switch-to-buffer (car buffers)))
-      (require 'elfeed)
       (delete-other-windows)
       (switch-to-buffer (doom-fallback-buffer))
       t)))
@@ -22,6 +21,7 @@
          (message "elfeed buffers are already open"))
         ((call-interactively #'elfeed))))
 
+;;;###autoload
 (defun +rss/quit ()
   (interactive)
   (when (and (featurep! :ui workspaces)
