@@ -74,7 +74,7 @@
 
 (map! :g "C-c ." #'insert-translated-name-insert
       :i "C-x C-y" #'company-english-helper-search
-      :n  "g." #'sdcv-search-pointer
+      :n  "g." #'sdcv-search-pointer+
       :leader
       :desc "Google 翻译长句" "yy" #'evilnc-translate-operator
       :desc "中文英文互相转换" "yr" #'evilnc-translate-and-replace-operator
