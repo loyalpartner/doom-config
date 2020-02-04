@@ -14,6 +14,7 @@
   - [[#chinese][chinese]]
   - [[#mu4e][mu4e]]
   - [[#irc][irc]]
+  - [[#web-search][web-search]]
 
 * editor
 ** evil
@@ -65,3 +66,6 @@
 =SPC om= 打开 mu4e
 ** irc
 =SPC oi= 打开 irc
+** web-search
+=SPC so= search
+=SPC u SPC so= choose provider search
