@@ -23,5 +23,17 @@
              pyim-probe-program-mode
              pyim-probe-org-structure-template))))
 
+;; https://support.google.com/websearch/forum/AAAAgtjJeM4P4qBTZlImoA/?hl=en&gpf=%23!topic%2Fwebsearch%2FP4qBTZlImoA
+;; 替换默认的 google engine 建议，使其在国内也能用
+(setq counsel-search-engines-alist
+  '((google
+     "https://suggestqueries.google.cn/complete/search?oe=utf-8"
+     "https://www.google.com/search?q="
+     counsel--search-request-data-google)
+    (ddg
+     "https://duckduckgo.cn/ac/"
+     "https://duckduckgo.com/html/?q="
+     counsel--search-request-data-ddg)))
+
 (map! :after pyim
       :g "M-c" #'pyim-convert-code-at-point)
