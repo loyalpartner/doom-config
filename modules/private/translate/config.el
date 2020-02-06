@@ -30,6 +30,8 @@
           "懒虫简明汉英词典"
           "朗道英汉字典5.0"
           "朗道汉英字典5.0"
+          "牛津英汉双解美化版"
+          "新华字典"
           ;; "KDic11万英汉词典"
           ;; "XDICT英汉辞典"
           ;; "XDICT汉英辞典"
@@ -46,6 +48,7 @@
 (defun translate-chinese-word-p (word)
     (if (and word (string-match "\\cc" word)) t nil))
 
+;;;autoload
 (evil-define-operator evilnc-translate-operator (beg end type)
   "中英文互相翻译."
   (interactive "<R>")
@@ -54,6 +57,7 @@
          (target (if (translate-chinese-word-p text) "en" "zh-CN")))
     (google-translate-translate source target text)))
 
+;;;autoload
 (evil-define-operator evilnc-translate-and-replace-operator (beg end type)
   "查询并替换."
   (interactive "<R>")
@@ -66,15 +70,26 @@
       (kill-region beg end)
       (insert result))))
 
+;;;autoload
 (evil-define-operator evilnc-sdcv-translate-operator (beg end type)
   "SDCV 查询短语"
   (interactive "<R>")
+  (message "%d %d" beg end)
   (let* ((text (buffer-substring-no-properties beg end)))
-    (sdcv-search-input (format "\"%s\"" text))))
+    (sdcv-search-pointer (format "\"%s\"" text))))
+
+;;;autoload
+;;;https://emacs.stackexchange.com/questions/21626/how-to-apply-call-interactively-to-an-interactive-command-that-accepts-the-uni
+(defun translate-sdcv-at-point(args)
+  "C-u g ."
+  (interactive "P")
+  (cond ((or (region-active-p) args) (execute-extended-command 'nil "evilnc-sdcv-translate-operator") )
+        ;; ((region-active-p) (sdcv-search-detail (format "\"%s\"" (sdcv-region-or-word))))
+        (t (sdcv-search-pointer+))))
 
 (map! :g "C-c ." #'insert-translated-name-insert
       :i "C-x C-y" #'company-english-helper-search
-      :n  "g." #'sdcv-search-pointer+
+      :nv  "g." #'translate-sdcv-at-point
       :leader
       :desc "Google 翻译长句" "yy" #'evilnc-translate-operator
       :desc "中文英文互相转换" "yr" #'evilnc-translate-and-replace-operator
