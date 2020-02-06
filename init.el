@@ -179,6 +179,7 @@
        
        :checkers
        syntax
+       ;; grammar
 
        
        :config

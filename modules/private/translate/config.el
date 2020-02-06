@@ -14,7 +14,11 @@
 
 ;; sdcv翻译当前单词
 (use-package! sdcv
-  :commands sdcv-search-pointer+ sdcv-search-pointer sdcv-search-input
+  :commands
+  sdcv-search-pointer+
+  sdcv-search-pointer
+  sdcv-search-input
+  sdcv-search-input+
   :config
   (setq sdcv-dictionary-data-dir (expand-file-name "~/.stardict/dic")
         sdcv-say-word-p t
@@ -25,7 +29,7 @@
           "朗道英汉字典5.0"
           "朗道汉英字典5.0"
           "新华字典"))
-  (setq sdcv-dictionary-complete-list   ;setup dictionary list for complete search
+  (setq sdcv-dictionary-complete-list ;setup dictionary list for complete search
         '("懒虫简明英汉词典"
           "懒虫简明汉英词典"
           "朗道英汉字典5.0"
@@ -95,6 +99,8 @@
       :desc "SDCV 翻译短语" "yd" #'evilnc-sdcv-translate-operator)
 
 ;;; 定义 sdcv:key 链接，方便查询
-(org-link-set-parameters "sdcv" :follow #'org-link--sdcv-query)
+(after! org
+  (org-link-set-parameters "sdcv" :follow #'org-link--sdcv-query))
+
 (defun org-link--sdcv-query (word)
-  (sdcv-search-detail (format "\"%s\"" word)))
+  (sdcv-search-input+ (format "\"%s\"" word)))

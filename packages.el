@@ -44,11 +44,6 @@
 
 ;; (package! google-translate)
 
-(package! youdao-dictionary)
-
-(package! google-this)
-
-
 (package! posframe)
 
 (package! atomic-chrome)

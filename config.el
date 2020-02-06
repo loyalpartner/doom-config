@@ -33,8 +33,20 @@
       elfeed-db-directory "~/org/elfeeddb")
 
 (after! org
-  (add-to-list 'org-capture-templates '("l" "links" item (file+olp "~/org/inbox.org" "Links" ) "- %:annotation \n\n"))
-  (add-to-list 'org-capture-templates '("R" "RSS" entry (file+headline "~/org/elfeed.org" "Links/blogs" ) "** %:annotation \n\n")))
+  (add-to-list 'org-capture-templates
+               '("l" "links" item
+                 (file+olp "~/org/inbox.org" "Links" )
+                 "- %:annotation \n\n"))
+  (add-to-list 'org-capture-templates
+               '("R" "RSS" entry
+                 (file+headline "~/org/elfeed.org" "Links/blogs" )
+                 "** %:annotation \n\n"))
+  (add-to-list 'org-capture-templates
+               '("w" "save word" plain
+                 (file "~/org/word.org")
+                 "[[sdcv:%c][%c]]"))
+  (dolist (module '(ol-info ol-irc))
+    (add-to-list 'org-modules module)))
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
@@ -64,8 +76,6 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
-(use-package! youdao-dictionary :commands (youdao-dictionary-search))
-(use-package! google-this :commands (google-this))
 (use-package! atomic-chrome :defer 10 :config (atomic-chrome-start-server))
 (use-package! grip-mode :commands (grip-mode))
 (use-package! posframe)
@@ -73,9 +83,8 @@
 (after! evil-embrace
   (setq evil-embrace-show-help-p t))
 
-(map! :after evil
-      ;; :n "g\/" 'evilnc-fanyi-operator
-      :i "C-b" 'backward-char
+
+(map! :i "C-b" 'backward-char
       :i "C-f" 'forward-char
 
       (:when (featurep! :term vterm)
@@ -86,10 +95,18 @@
         :i "C-e" #'lispy-move-end-of-line
         :i "C-d" #'lispy-delete
         :i "C-k" #'lispy-kill
-        :i "C-y" #'lispy-yank
-        :textobj "d" #'lispyville-inner-atom #'lispyville-a-atom)
+        :i "C-y" #'lispy-yank)
 
-      :leader "/" 'google-this
+      (:when (and (featurep! :tools lsp) (featurep! :tools debugger))
+        :map dap-mode-map
+        :n "'" #'dap-hydra)
+
+      :map Info-mode-map
+      :v "w" #'evil-forward-word-end
+
+      :leader
+      "/" 'google-this
+
       (:when (featurep! :ui window-select +numbers)
         :leader
         "0" 'winum-select-window-0-or-10
