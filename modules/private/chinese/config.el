@@ -31,9 +31,12 @@
      "https://www.google.com/search?q="
      counsel--search-request-data-google)
     (ddg
-     "https://duckduckgo.cn/ac/"
+     "https://duckduckgo.com/ac/"
      "https://duckduckgo.com/html/?q="
      counsel--search-request-data-ddg)))
+
+(add-to-list '+lookup-provider-url-alist '("Baidu" "http://www.baidu.com?wd=%s"))
+(add-to-list '+lookup-provider-url-alist '("Emacs China" "https://emacs-china.org/search?q=%s"))
 
 (map! :after pyim
       :g "M-c" #'pyim-convert-code-at-point)
