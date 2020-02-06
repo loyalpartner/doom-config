@@ -90,17 +90,33 @@
         ;; ((region-active-p) (sdcv-search-detail (format "\"%s\"" (sdcv-region-or-word))))
         (t (sdcv-search-pointer+))))
 
+;;; 定义 sdcv:key 链接，方便查询
+(after! org
+  (org-link-set-parameters "sdcv" :follow #'org-link--sdcv-query)
+
+  (add-to-list 'org-capture-templates
+               '("w" "save word" plain
+                 (file "~/org/word.org")
+                 "[[sdcv:%c][%c]]"))
+
+  (defun translate-save-word ()
+    (interactive)
+    (let ((text (if mark-active
+                    (buffer-substring-no-properties (region-beginning)
+                                                    (region-end))
+                  (thing-at-point 'word))))
+      (kill-new text)
+      (org-capture 'nil "w")
+      (yank-pop)))
+
+  (defun org-link--sdcv-query (word)
+    (sdcv-search-input+ (format "\"%s\"" word))))
+
 (map! :g "C-c ." #'insert-translated-name-insert
       :i "C-x C-y" #'company-english-helper-search
       :nv  "g." #'translate-sdcv-at-point
       :leader
+      :desc "添加单词到 word.org" "yc" #'translate-save-word
       :desc "Google 翻译长句" "yy" #'evilnc-translate-operator
       :desc "中文英文互相转换" "yr" #'evilnc-translate-and-replace-operator
       :desc "SDCV 翻译短语" "yd" #'evilnc-sdcv-translate-operator)
-
-;;; 定义 sdcv:key 链接，方便查询
-(after! org
-  (org-link-set-parameters "sdcv" :follow #'org-link--sdcv-query))
-
-(defun org-link--sdcv-query (word)
-  (sdcv-search-input+ (format "\"%s\"" word)))

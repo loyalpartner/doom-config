@@ -41,10 +41,6 @@
                '("R" "RSS" entry
                  (file+headline "~/org/elfeed.org" "Links/blogs" )
                  "** %:annotation \n\n"))
-  (add-to-list 'org-capture-templates
-               '("w" "save word" plain
-                 (file "~/org/word.org")
-                 "[[sdcv:%c][%c]]"))
   (dolist (module '(ol-info ol-irc))
     (add-to-list 'org-modules module)))
 
