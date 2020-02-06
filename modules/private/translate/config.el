@@ -81,7 +81,6 @@
 ;;;autoload
 ;;;https://emacs.stackexchange.com/questions/21626/how-to-apply-call-interactively-to-an-interactive-command-that-accepts-the-uni
 (defun translate-sdcv-at-point(args)
-  "C-u g ."
   (interactive "P")
   (cond ((or (region-active-p) args) (execute-extended-command 'nil "evilnc-sdcv-translate-operator") )
         ;; ((region-active-p) (sdcv-search-detail (format "\"%s\"" (sdcv-region-or-word))))
@@ -94,3 +93,8 @@
       :desc "Google 翻译长句" "yy" #'evilnc-translate-operator
       :desc "中文英文互相转换" "yr" #'evilnc-translate-and-replace-operator
       :desc "SDCV 翻译短语" "yd" #'evilnc-sdcv-translate-operator)
+
+;;; 定义 sdcv:key 链接，方便查询
+(org-link-set-parameters "sdcv" :follow #'org-link--sdcv-query)
+(defun org-link--sdcv-query (word)
+  (sdcv-search-detail (format "\"%s\"" word)))
