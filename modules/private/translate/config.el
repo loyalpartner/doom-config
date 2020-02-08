@@ -57,8 +57,9 @@
   "中英文互相翻译."
   (interactive "<R>")
   (let* ((text (buffer-substring-no-properties beg end))
-         (source (if (translate-chinese-word-p text) "zh-CN" "en"))
-         (target (if (translate-chinese-word-p text) "en" "zh-CN")))
+         (word (thing-at-point 'word))
+         (source (if (translate-chinese-word-p word) "zh-CN" "en"))
+         (target (if (translate-chinese-word-p word) "en" "zh-CN")))
     (google-translate-translate source target text)))
 
 ;;;autoload
