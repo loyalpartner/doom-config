@@ -39,10 +39,13 @@
                  "- %:annotation \n\n"))
   (add-to-list 'org-capture-templates
                '("R" "RSS" entry
-                 (file+headline "~/org/elfeed.org" "Links/blogs" )
+                 (file+olp "~/org/elfeed.org" "Links" "blogs" )
                  "** %:annotation \n\n"))
-  (dolist (module '(ol-info ol-irc))
-    (add-to-list 'org-modules module)))
+
+  (mapc (lambda (mode)
+            (add-to-list 'org-modules mode))
+        '(ol-info ol-irc)))
+  ;; (dolist (module '(ol-info ol-irc)) (add-to-list 'org-modules module)))
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:

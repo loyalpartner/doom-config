@@ -19,6 +19,7 @@
   sdcv-search-pointer
   sdcv-search-input
   sdcv-search-input+
+  sdcv-translate-result
   :config
   (setq sdcv-dictionary-data-dir (expand-file-name "~/.stardict/dic")
         sdcv-say-word-p t
@@ -78,10 +79,19 @@
 ;;;autoload
 (evil-define-operator evilnc-sdcv-translate-operator (beg end type)
   "SDCV 查询短语"
-  (interactive "<R>")
   (message "%d %d" beg end)
   (let* ((text (buffer-substring-no-properties beg end)))
     (sdcv-search-pointer (format "\"%s\"" text))))
+
+;;;autoload
+(evil-define-operator evilnc-sdcv-add-link-operator (beg end type)
+  "SDCV 添加链接"
+  (interactive "<R>")
+  (let ((text (buffer-substring-no-properties beg end)))
+    (when (not (equal text ""))
+      (progn
+        (kill-region beg end)
+        (insert (format "[[sdcv:%s][%s]]" text text))))))
 
 ;;;autoload
 ;;;https://emacs.stackexchange.com/questions/21626/how-to-apply-call-interactively-to-an-interactive-command-that-accepts-the-uni
@@ -93,7 +103,9 @@
 
 ;;; 定义 sdcv:key 链接，方便查询
 (after! org
-  (org-link-set-parameters "sdcv" :follow #'org-link--sdcv-query)
+  (org-link-set-parameters "sdcv"
+                           :follow #'org-link--sdcv-query
+                           :export #'org-link--words-export)
 
   (add-to-list 'org-capture-templates
                '("w" "save word" plain
@@ -111,13 +123,21 @@
       (yank-pop)))
 
   (defun org-link--sdcv-query (word)
-    (sdcv-search-input+ (format "\"%s\"" word))))
+    (sdcv-search-input+ (format "\"%s\"" word)))
+  
+  (defun org-link--words-export (path desc format)
+    (let* ((result (sdcv-translate-result
+                    (format "%s" desc) sdcv-dictionary-simple-list)))
+      (format "<div>%s<div>%s</div><br></div>" desc
+              (s-replace "-->" "<br>" result)))))
 
+;; (s-replace "abc" "" "abcd")
 (map! :g "C-c ." #'insert-translated-name-insert
       :i "C-x C-y" #'company-english-helper-search
       :nv  "g." #'translate-sdcv-at-point
       :leader
       :desc "添加单词到 word.org" "yc" #'translate-save-word
+      :desc "添加单词链接" "yC" #'evilnc-sdcv-add-link-operator
       :desc "Google 翻译长句" "yy" #'evilnc-translate-operator
       :desc "中文英文互相转换" "yr" #'evilnc-translate-and-replace-operator
       :desc "SDCV 翻译短语" "yd" #'evilnc-sdcv-translate-operator)
