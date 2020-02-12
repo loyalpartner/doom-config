@@ -20,6 +20,7 @@
   sdcv-search-input
   sdcv-search-input+
   sdcv-translate-result
+  sdcv-pick-word
   :config
   (setq sdcv-dictionary-data-dir (expand-file-name "~/.stardict/dic")
         sdcv-say-word-p t
@@ -118,7 +119,7 @@
                     (buffer-substring-no-properties (region-beginning)
                                                     (region-end))
                   (thing-at-point 'word))))
-      (kill-new text)
+      (kill-new (sdcv-pick-word text))
       (org-capture 'nil "w")
       (yank-pop)))
 
