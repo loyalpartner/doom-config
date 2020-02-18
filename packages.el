@@ -44,8 +44,3 @@
 
 ;; (package! google-translate)
 
-(package! posframe)
-
-(package! atomic-chrome)
-
-(package! grip-mode)

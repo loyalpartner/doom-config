@@ -75,9 +75,6 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
-(use-package! atomic-chrome :defer 10 :config (atomic-chrome-start-server))
-(use-package! grip-mode :commands (grip-mode))
-(use-package! posframe)
 
 (after! evil-embrace
   (setq evil-embrace-show-help-p t))
@@ -125,11 +122,3 @@
         "9" 'winum-select-window-9))
 
 ;; (setq org-use-sub-superscripts t)
-
-;; exit insert mode save buffer
-(add-hook 'evil-insert-state-exit-hook
-          (lambda () (when (and
-                            (buffer-file-name)
-                            (buffer-modified-p))
-                       (basic-save-buffer))))
-
