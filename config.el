@@ -82,6 +82,11 @@
 (after! evil-embrace
   (setq evil-embrace-show-help-p t))
 
+;;; vterm mode 无法使用 jk or hh 进入 normal 模式
+;;; ~evil-escape-excluded-major-modes~ 移除 vterm-mode 即可。
+(after! evil-escape
+  (setq evil-escape-excluded-major-modes
+        (delq 'vterm-mode evil-escape-excluded-major-modes)))
 
 (map! :i "C-b" 'backward-char
       :i "C-f" 'forward-char
