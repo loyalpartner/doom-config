@@ -29,10 +29,10 @@
 (setq doom-theme 'doom-one)
 
 ;; If you intend to use org, it is recommended you change this!
-(setq org-directory "~/org/"
-      elfeed-db-directory "~/org/elfeeddb")
+(setq org-directory "~/org/")
 
 (after! org
+  (setq elfeed-db-directory "~/org/elfeeddb")
   (add-to-list 'org-capture-templates
                '("l" "links" item
                  (file+olp "~/org/inbox.org" "Links" )

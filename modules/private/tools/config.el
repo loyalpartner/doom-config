@@ -7,7 +7,7 @@
 
 (use-package! auto-save
   :config
-  (auto-save-mode))
+  (auto-save-enable))
 
 ;; exit insert mode save buffer
 (add-hook 'evil-insert-state-exit-hook
