@@ -7,6 +7,7 @@
 
 (use-package! auto-save
   :config
+  (setq auto-save-silent t)
   (auto-save-enable))
 
 ;; exit insert mode save buffer
