@@ -14,6 +14,8 @@
   (pyim-isearch-mode 1)
   (pyim-basedict-enable))
 
+(use-package! emacs-request :commands request)
+
 (defun private/pyim-english-prober ()
   (cond ((and (boundp 'insert-translated-name-active-overlay)
               insert-translated-name-active-overlay)
@@ -33,10 +35,30 @@
     (ddg
      "https://duckduckgo.com/ac/"
      "https://duckduckgo.com/html/?q="
-     counsel--search-request-data-ddg)))
+     counsel--search-request-data-ddg)
+    (zhihu
+     "https://www.zhihu.com/api/v4/search/suggest"
+     "https://www.zhihu.com/search?type=content&q="
+     counsel--search-request-data-zhihu)))
 
-(add-to-list '+lookup-provider-url-alist '("Baidu" "http://www.baidu.com?wd=%s"))
-(add-to-list '+lookup-provider-url-alist '("Emacs China" "https://emacs-china.org/search?q=%s"))
+(mapc (lambda (engine) (add-to-list '+lookup-provider-url-alist engine))
+      '(("Baidu" "http://www.baidu.com?wd=%s")
+        ("Emacs China" "https://emacs-china.org/search?q=%s")
+        ("zhihu" +lookup--online-backend-zhihu "https://www.zhihu.com/search?type=content&q=%s")))
+
+(defun counsel--search-request-data-zhihu (data)
+  (mapcar (lambda (elt)
+            (alist-get 'query elt))
+          (alist-get 'suggest data)))
+
+;;;###autoload
+(defun +lookup--online-backend-zhihu (query)
+  "Search google, starting with QUERY, with live autocompletion."
+  (cond ((fboundp 'counsel-search)
+         (let ((ivy-initial-inputs-alist `((t . ,query)))
+               (counsel-search-engine 'zhihu))
+           (call-interactively #'counsel-search)
+           t))))
 
 (map! :after pyim
       :g "M-c" #'pyim-convert-code-at-point)
