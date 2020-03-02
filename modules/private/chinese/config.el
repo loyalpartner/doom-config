@@ -11,7 +11,9 @@
   (setq-default pyim-punctuation-half-width-functions
                 '(pyim-probe-punctuation-line-beginning
                   pyim-probe-punctuation-after-punctuation))
-  (pyim-isearch-mode 1)
+
+  ;; 使用 isearch-mode 的时候，
+  ;; 如果 major-mode 是 `pdf-view-mode' 关闭 pyim-isearch-mode
   (add-hook 'isearch-mode-hook
             (lambda ()
               (when (and (boundp 'pdf-isearch-minor-mode)
@@ -21,8 +23,6 @@
                   (pyim-isearch-mode 1)))))
   (pyim-basedict-enable))
 
-(use-package! emacs-request :commands request)
-
 (defun private/pyim-english-prober ()
   (cond ((and (boundp 'insert-translated-name-active-overlay)
               insert-translated-name-active-overlay)
@@ -30,23 +30,29 @@
         (t '(pyim-probe-dynamic-english
              pyim-probe-isearch-mode
              pyim-probe-program-mode
-             pyim-probe-org-structure-template))))
+             pyim-probe-org-structu re-template))))
+
+(map! :after pyim
+    :g "M-c" #'pyim-convert-code-at-point)
+
+(use-package! emacs-request
+  :commands request)
 
 ;; https://support.google.com/websearch/forum/AAAAgtjJeM4P4qBTZlImoA/?hl=en&gpf=%23!topic%2Fwebsearch%2FP4qBTZlImoA
 ;; 替换默认的 google engine 建议，使其在国内也能用
 (setq counsel-search-engines-alist
-  '((google
-     "https://suggestqueries.google.cn/complete/search?oe=utf-8"
-     "https://www.google.com/search?q="
-     counsel--search-request-data-google)
-    (ddg
-     "https://duckduckgo.com/ac/"
-     "https://duckduckgo.com/html/?q="
-     counsel--search-request-data-ddg)
-    (zhihu
-     "https://www.zhihu.com/api/v4/search/suggest"
-     "https://www.zhihu.com/search?type=content&q="
-     counsel--search-request-data-zhihu)))
+      '((google
+         "https://suggestqueries.google.cn/complete/search?oe=utf-8"
+         "https://www.google.com/search?q="
+         counsel--search-request-data-google)
+        (ddg
+         "https://duckduckgo.com/ac/"
+         "https://duckduckgo.com/html/?q="
+         counsel--search-request-data-ddg)
+        (zhihu
+         "https://www.zhihu.com/api/v4/search/suggest"
+         "https://www.zhihu.com/search?type=content&q="
+         counsel--search-request-data-zhihu)))
 
 (mapc (lambda (engine) (add-to-list '+lookup-provider-url-alist engine))
       '(("Baidu" "http://www.baidu.com?wd=%s")
@@ -66,6 +72,3 @@
                (counsel-search-engine 'zhihu))
            (call-interactively #'counsel-search)
            t))))
-
-(map! :after pyim
-      :g "M-c" #'pyim-convert-code-at-point)
