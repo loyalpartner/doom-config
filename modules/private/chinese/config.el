@@ -12,6 +12,13 @@
                 '(pyim-probe-punctuation-line-beginning
                   pyim-probe-punctuation-after-punctuation))
   (pyim-isearch-mode 1)
+  (add-hook 'isearch-mode-hook
+            (lambda ()
+              (when (and (boundp 'pdf-isearch-minor-mode)
+                         (boundp 'pyim-isearch-mode))
+                (if (equal major-mode 'pdf-view-mode)
+                    (pyim-isearch-mode -1)
+                  (pyim-isearch-mode 1)))))
   (pyim-basedict-enable))
 
 (use-package! emacs-request :commands request)
