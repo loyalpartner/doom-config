@@ -7,4 +7,4 @@
 
 (package! grip-mode)
 
-(package! auto-save :recipe (:host github :repo "manateelazycat/auto-save"))
+(package! auto-save :recipe (:host github :repo "loyalpartner/auto-save"))

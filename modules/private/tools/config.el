@@ -8,11 +8,14 @@
 (use-package! auto-save
   :config
   (setq auto-save-silent t)
-  (auto-save-enable))
+  (setq auto-save-disable-predicates
+        '((lambda ()
+            (string-suffix-p "gpg"
+                             (file-name-extension (buffer-name)) t)))))
 
 ;; exit insert mode save buffer
-(add-hook 'evil-insert-state-exit-hook
-          (lambda () (when (and
-                            (buffer-file-name)
-                            (buffer-modified-p))
-                       (basic-save-buffer))))
+;; (add-hook 'evil-insert-state-exit-hook
+;;           (lambda () (when (and
+;;                             (buffer-file-name)
+;;                             (buffer-modified-p))
+;;                        (basic-save-buffer))))

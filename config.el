@@ -28,6 +28,8 @@
 ;; `load-theme' function. These are the defaults.
 (setq doom-theme 'doom-one)
 
+(setq doom-scratch-buffer-major-mode 'lisp-interaction-mode)
+
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
 
@@ -58,7 +60,9 @@
 (setq mac-option-modifier 'super
       mac-command-modifier 'meta)
 
-(setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s))
+(setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)
+      avy-style 'pre)
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
@@ -87,6 +91,10 @@
 
 (map! :i "C-b" 'backward-char
       :i "C-f" 'forward-char
+
+      ;; info-mode 使用 gss gs-SPC 定位
+      :n "gss" #'evil-avy-goto-char-2
+      :n "gs SPC" (λ!! #'evil-avy-goto-char-timer t)
 
       (:when (featurep! :term vterm)
         :map vterm-mode-map  "C-`" #'+vterm/toggle

@@ -15,11 +15,7 @@
 ;; sdcv翻译当前单词
 (use-package! sdcv
   :commands
-  sdcv-search-pointer+
-  sdcv-search-pointer
-  sdcv-search-input
-  sdcv-search-input+
-  sdcv-translate-result
+  sdcv-search-pointer+ sdcv-search-pointer sdcv-search-input sdcv-search-input+ sdcv-translate-result
   sdcv-pick-word
   :config
   (setq sdcv-dictionary-data-dir (expand-file-name "~/.stardict/dic")
