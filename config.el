@@ -118,15 +118,22 @@
 
       (:when (featurep! :ui window-select +numbers)
         :leader
-        "0" 'winum-select-window-0-or-10
-        "1" 'winum-select-window-1
-        "2" 'winum-select-window-2
-        "3" 'winum-select-window-3
-        "4" 'winum-select-window-4
-        "5" 'winum-select-window-5
-        "6" 'winum-select-window-6
-        "7" 'winum-select-window-7
-        "8" 'winum-select-window-8
-        "9" 'winum-select-window-9))
+        :desc "[0]" "0" 'winum-select-window-0-or-10
+        :desc "[1]" "1" 'winum-select-window-1
+        :desc "[2]" "2" 'winum-select-window-2
+        :desc "[3]" "3" 'winum-select-window-3
+        :desc "[4]" "4" 'winum-select-window-4
+        :desc "[5]" "5" 'winum-select-window-5
+        :desc "[6]" "6" 'winum-select-window-6
+        :desc "[7]" "7" 'winum-select-window-7
+        :desc "[8]" "8" 'winum-select-window-8
+        :desc "[9]" "9" 'winum-select-window-9))
+
+;; (mapc (lambda (n)
+;;         (let* ((key (number-to-string n))
+;;                 (func (intern (format "winum-select-window-%d" n))))
+;;           (map! :leader
+;;             :desc (format "win%s" n) key func)))
+;;       (number-sequence 1 9))
 
 ;; (setq org-use-sub-superscripts t)
