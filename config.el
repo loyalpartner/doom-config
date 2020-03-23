@@ -28,7 +28,7 @@
 ;; `load-theme' function. These are the defaults.
 (setq doom-theme 'doom-one)
 
-(setq doom-scratch-buffer-major-mode 'lisp-interaction-mode)
+;; (setq doom-scratch-buffer-major-mode 'lisp-interaction-mode)
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
@@ -65,7 +65,7 @@
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
-;; - `load!' for loading external *.el files relative to this one
+;; - `load!' for loading external *.el files relative to this one 
 ;; - `use-package' for configuring packages
 ;; - `after!' for running code after a package has loaded
 ;; - `add-load-path!' for adding directories to the `load-path', where Emacs
@@ -91,10 +91,11 @@
 
 (map! :i "C-b" 'backward-char
       :i "C-f" 'forward-char
+      :v "v" #'er/expand-region
 
       ;; info-mode 使用 gss gs-SPC 定位
       :n "gss" #'evil-avy-goto-char-2
-      :n "gs SPC" (λ!! #'evil-avy-goto-char-timer t)
+      :n "gs SPC" (λ!! #'evil-avy-goto-char-timer t)      
 
       (:when (featurep! :term vterm)
         :map vterm-mode-map  "C-`" #'+vterm/toggle
@@ -111,7 +112,18 @@
         :n "'" #'dap-hydra)
 
       :map Info-mode-map
-      :v "w" #'evil-forward-word-end
+      :nv "w" #'evil-forward-word-begin
+      :nv "W" #'evil-forward-WORD-begin
+      :nv "e" #'evil-forward-word-end
+      :nv "E" #'evil-forward-WORD-end
+      :nv "b" #'evil-backward-word-begin
+      :nv "B" #'evil-backward-WORD-begin
+      :nv "h" #'evil-backward-char
+      :nv "j" #'evil-next-line
+      :nv "k" #'evil-previous-line
+      :nv "l" #'evil-forward-char
+      :nv "gv" #'evil-visual-restore
+
 
       :leader
       "/" 'google-this
