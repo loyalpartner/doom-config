@@ -56,17 +56,19 @@
 
 ;; https://support.google.com/websearch/forum/AAAAgtjJeM4P4qBTZlImoA/?hl=en&gpf=%23!topic%2Fwebsearch%2FP4qBTZlImoA
 ;; 替换默认的 google engine 建议，使其在国内也能用
-(setcar (cdr (assoc 'google counsel-search-engines-alist)) "https://suggestqueries.google.cn/complete/search?oe=utf-8")
-(setcar (cdr (assoc 'ddg counsel-search-engines-alist)) "https://duckduckgo.com/ac/")
-(add-to-list counsel-search-engines-alist
-             (zhihu "https://www.zhihu.com/api/v4/search/suggest"
-                    "https://www.zhihu.com/search?type=content&q="
-                    counsel--search-request-data-zhihu))
+(after! ivy
+  (setcar (cdr (assoc 'google counsel-search-engines-alist)) "https://suggestqueries.google.cn/complete/search?oe=utf-8")
+  (setcar (cdr (assoc 'ddg counsel-search-engines-alist)) "https://duckduckgo.com/ac/")
+  (add-to-list 'counsel-search-engines-alist
+               '(zhihu "https://www.zhihu.com/api/v4/search/suggest"
+                      "https://www.zhihu.com/search?type=content&q="
+                      counsel--search-request-data-zhihu))
 
-(mapc (lambda (engine) (add-to-list '+lookup-provider-url-alist engine))
-      '(("Baidu" "http://www.baidu.com?wd=%s")
-        ("Emacs China" "https://emacs-china.org/search?q=%s")
-        ("zhihu" +lookup--online-backend-zhihu "https://www.zhihu.com/search?type=content&q=%s")))
+  (mapc (lambda (engine) (add-to-list '+lookup-provider-url-alist engine))
+        '(("Baidu" "http://www.baidu.com?wd=%s")
+          ("Emacs China" "https://emacs-china.org/search?q=%s")
+          ("Arch Linux cn" "https://emacs-china.org/search?q=%s")
+          ("zhihu" +lookup--online-backend-zhihu "https://www.zhihu.com/search?type=content&q=%s"))))
 
 (defun counsel--search-request-data-zhihu (data)
   (mapcar (lambda (elt)
