@@ -131,7 +131,7 @@
 ;; (s-replace "abc" "" "abcd")
 (map! :g "C-c ." #'insert-translated-name-insert
       :i "C-x C-y" #'company-english-helper-search
-      :nv  "g." #'translate-sdcv-at-point
+      :nv  "g." #'sdcv-search-pointer+
       :leader
       :desc "添加单词到 word.org" "yc" #'translate-save-word
       :desc "添加单词链接" "yC" #'evilnc-sdcv-add-link-operator

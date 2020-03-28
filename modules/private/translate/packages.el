@@ -8,7 +8,7 @@
   :recipe (:host github :repo "manateelazycat/insert-translated-name"))
 
 (package! sdcv
-  :recipe (:host github :repo "manateelazycat/sdcv"))
+  :recipe (:host github :repo "loyalpartner/sdcv"))
 
 (package! company-english-helper
   :recipe (:host github :repo "manateelazycat/company-english-helper"))
