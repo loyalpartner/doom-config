@@ -89,8 +89,8 @@
       :v "v" #'er/expand-region
 
       ;; info-mode 使用 gss gs-SPC 定位
-      :n "gss" #'evil-avy-goto-char-2
-      :n "gs SPC" (λ!! #'evil-avy-goto-char-timer t)      
+      ;; :n "gss" #'evil-avy-goto-char-2
+      ;; :n "gs SPC" (λ!! #'evil-avy-goto-char-timer t)
 
       (:when (featurep! :term vterm)
         :map vterm-mode-map  "C-`" #'+vterm/toggle

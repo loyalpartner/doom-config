@@ -34,6 +34,7 @@
                pyim-probe-program-mode
                pyim-probe-org-structu re-template)))))
 
+;; TODO: maybe delete it
 (use-package! emacs-request
   :commands request)
 
