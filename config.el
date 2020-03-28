@@ -118,6 +118,9 @@
       :nv "k" #'evil-previous-line
       :nv "l" #'evil-forward-char
       :nv "gv" #'evil-visual-restore
+      :nv "gf" #'Info-follow-reference
+      :nv "gn" #'Info-goto-node
+      :nv "C-i" #'Info-history-forward
 
 
       :leader
