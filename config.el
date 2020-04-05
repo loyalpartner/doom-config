@@ -18,11 +18,12 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-;; test
-(setq doom-font (font-spec :family "SauceCodePro NF" :size 11)
-      ;; doom-variable-pitch-font (font-spec :family "SauceCodePro NF")
+(defvar my-font (cond (IS-MAC "SauceCodePro NF")
+                      (IS-LINUX "SauceCodePro Nerd Font")
+                      (t "SauceCodePro NF")))
+(setq doom-font (font-spec :family my-font :size 18)
+      ;; doom-variable-pitch-font (font-spec :family "SauceCodePro Nerd Font Mono")
       )
-
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
@@ -87,19 +88,13 @@
 (after! evil-embrace
   (setq evil-embrace-show-help-p t))
 
-;;; vterm mode 无法使用 jk or hh 进入 normal 模式
-;;; ~evil-escape-excluded-major-modes~ 移除 vterm-mode 即可。
-(after! evil-escape
-  (setq evil-escape-excluded-major-modes
-        (delq 'vterm-mode evil-escape-excluded-major-modes)))
-
 (map! :i "C-b" 'backward-char
       :i "C-f" 'forward-char
       :v "v" #'er/expand-region
 
       ;; info-mode 使用 gss gs-SPC 定位
-      :n "gss" #'evil-avy-goto-char-2
-      :n "gs SPC" (λ!! #'evil-avy-goto-char-timer t)      
+      ;; :n "gss" #'evil-avy-goto-char-2
+      ;; :n "gs SPC" (λ!! #'evil-avy-goto-char-timer t)
 
       (:when (featurep! :term vterm)
         :map vterm-mode-map  "C-`" #'+vterm/toggle
@@ -127,6 +122,9 @@
       :nv "k" #'evil-previous-line
       :nv "l" #'evil-forward-char
       :nv "gv" #'evil-visual-restore
+      :nv "gf" #'Info-follow-reference
+      :nv "gn" #'Info-goto-node
+      :nv "C-i" #'Info-history-forward
 
 
       :leader

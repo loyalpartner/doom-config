@@ -15,7 +15,7 @@
 ;;      directory (for easy access to its source code).
 
 (doom! :input
-       chinese
+       ;; chinese
        ;;japanese
 
        :completion
@@ -49,8 +49,8 @@
        vc-gutter                ; vcs diff in the fringe
        vi-tilde-fringe          ; fringe tildes to mark beyond EOB
        (window-select +numbers) ; visually switch windows
-       workspaces       ; tab emulation, persistence & separate workspaces
-       zen               ; distraction-free coding or writing
+       workspaces             ; tab emulation, persistence & separate workspaces
+       zen                    ; distraction-free coding or writing
 
        :editor
        (evil +everywhere)               ; come to the dark side, we have cookies
@@ -95,7 +95,7 @@
        magit                    ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
-       pdf               ; pdf enhancements
+       pdf                              ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings
        ;;terraform         ; infrastructure as code
@@ -139,7 +139,7 @@
        (org                             ; organize your plain life in plain text
         +brain
         +dragndrop   ; drag & drop files/images into org buffers
-        ;+hugo            ; use Emacs for hugo blogging
+                                        ;+hugo            ; use Emacs for hugo blogging
         ;;+jupyter        ; ipython/jupyter support for babel
         ;;+pandoc          ; export-with-pandoc support
         +pomodoro    ; be fruitful with the tomato technique
@@ -152,13 +152,13 @@
         +lsp
         )                  ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
-       racket            ; a DSL for DSLs
+       racket                       ; a DSL for DSLs
        ;;rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
        ;;ruby              ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
-       scheme            ; a fully conniving family of lisps
+       scheme ; a fully conniving family of lisps
        sh     ; she sells {ba,z,fi}sh shells on the C xor
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
@@ -187,9 +187,11 @@
        ;;literate
        (default +bindings +smartparens)
        :private
-       chinese
+       (chinese +rime)                  ; pyim or rime
        translate
        rss
        irc
        mu4e
-       tools)
+       tools
+       (:when IS-LINUX
+         eaf))
