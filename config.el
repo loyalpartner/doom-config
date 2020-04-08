@@ -21,9 +21,13 @@
 (defvar my-font (cond (IS-MAC "SauceCodePro NF")
                       (IS-LINUX "SauceCodePro Nerd Font")
                       (t "SauceCodePro NF")))
-(setq doom-font (font-spec :family my-font :size 18)
+(setq doom-font (font-spec :family my-font :size 13)
       ;; doom-variable-pitch-font (font-spec :family "SauceCodePro Nerd Font Mono")
       )
+
+(after! company-mode
+  (setq company-idle-delay 0))
+
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.

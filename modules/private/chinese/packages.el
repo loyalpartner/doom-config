@@ -9,4 +9,4 @@
 
 (package! emacs-rime
   :recipe (:host github :repo "DogLooksGood/emacs-rime"
-                 :files ("rime.el" "Makefile" "lib.c")))
+                 :files ("*.el" "Makefile" "lib.c")))

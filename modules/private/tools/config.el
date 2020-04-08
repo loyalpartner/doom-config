@@ -7,8 +7,9 @@
 
 (use-package! auto-save
   :config
-  (setq auto-save-silent t)
-  (setq auto-save-disable-predicates
+  (setq auto-save-silent t
+        auto-save-delete-trailing-whitespace nil
+        auto-save-disable-predicates
         '((lambda ()
             (string-suffix-p "gpg" (buffer-name) t))
           (lambda ()
