@@ -193,5 +193,4 @@
        irc
        mu4e
        tools
-       (:when IS-LINUX
-         eaf))
+       eaf)
