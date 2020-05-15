@@ -179,7 +179,7 @@
 
        
        :checkers
-       syntax
+       (syntax +childframe)
        ;; grammar
 
        
