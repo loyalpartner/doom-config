@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: dollar
+# uuid: dollar
+# key: $
+# condition: t
+# --
+${$0}

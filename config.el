@@ -54,9 +54,9 @@
         '(ol-info ol-irc)))
   ;; (dolist (module '(ol-info ol-irc)) (add-to-list 'org-modules module)))
 
-(after! ivy
-  (when IS-MAC
-    (setq counsel-locate-cmd #'counsel-locate-cmd-noregex)))
+;; (after! ivy
+;;   (when IS-MAC
+;;     (setq counsel-locate-cmd #'counsel-locate-cmd-noregex)))
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
