@@ -21,7 +21,23 @@
   ;;ivy 添加 action, 用 eaf-open 打开
   (ivy-set-actions t '(("p" eaf-open "eaf open")))
 
-  (eaf-enable-evil-intergration)
+  (require 'evil-eaf)
+  ;; (eaf-enable-evil-intergration)
+  ;; (add-hook 'eaf-browser-hook
+  ;;           (lambda ()
+  ;;             ;; browser toggle insert/normal state except in devtool
+  ;;             ;; devtool buffer will first open about:blank page and then redirect to devltools:// path
+  ;;             (unless (string-prefix-p "about:blank" eaf--buffer-url)
+  ;;               (evil-local-set-key 'insert (kbd "<escape>") 'eaf-proxy-clear_focus)
+  ;;               (add-hook 'post-command-hook 'eaf-is-focus-toggle nil t))))
+
+  ;; (defun eaf-is-focus-toggle ()
+  ;;   "Toggle is-focus behavior in eaf-mode buffers."
+  ;;   (if (eaf-call "call_function" eaf--buffer-id "is_focus")
+  ;;       (unless (evil-insert-state-p)
+  ;;         (evil-insert-state))
+  ;;     (when (evil-insert-state-p)
+  ;;       (evil-normal-state))))
 
   (defun sdcv-search-from-eaf ()
     (interactive)
@@ -35,7 +51,7 @@
   )
 
 
-
+(use-package! fuz)
 (use-package! snails
   :bind (("s-y" . snails)
          ("s-Y" . snails-search-point))
