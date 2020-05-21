@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: package!
+# uuid: package!
+# key: p
+# condition: t
+# --
+
+(package! ${1:$(nth 1 (split-string yas-text "/"))} :recipe (:host github :repo "$1"))
