@@ -13,4 +13,6 @@
 
 (package! awesome-tab :recipe (:host github :repo "manateelazycat/awesome-tray"))
 
-(package! flycheck)
+(package! mybigword
+  :recipe (:host github :repo "redguardtoo/mybigword"
+           :files ("*.el" "*.py" "*.zipf")))

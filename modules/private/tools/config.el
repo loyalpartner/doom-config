@@ -15,6 +15,13 @@
             (string-suffix-p "lua" (buffer-name) t))))
   (auto-save-enable))
 
+(use-package! mybigword
+  :commands (mybigword-show-big-words-from-file)
+  :config
+  (set-popup-rules!
+    '(("^\\*BigWords"
+       :size 0.35 :select t :modeline t :quit t :ttl t))))
+
 ;; (use-package! awesome-tab
 ;;   ;; :after-call find-file-hook
 ;;   :init
