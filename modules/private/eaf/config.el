@@ -10,7 +10,7 @@
         :desc "eaf open rss" "er" 'eaf-open-rss-reader)
 
   (map! :map eaf-pdf-outline-mode-map
-        :n "." 'eaf-pdf-outline-jump
+        :n "RET" 'eaf-pdf-outline-jump
         :n "q" '+popup/close)
 
   :config
@@ -24,6 +24,9 @@
 
   ;;ivy 添加 action, 用 eaf-open 打开
   (ivy-set-actions t '(("p" eaf-open "eaf open")))
+
+  (eaf-bind-key #'(lambda () (interactive)
+                  (snails '(snails-backend-eaf-pdf-table))) "o" eaf-pdf-viewer-keybinding)
 
   (require 'evil-eaf)
 
@@ -39,6 +42,7 @@
 
 (use-package! fuz)
 (use-package! snails
+  :commands (snails)
   :bind (("s-y" . snails)
          ("s-y" . snails-search-point))
   :config
