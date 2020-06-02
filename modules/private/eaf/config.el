@@ -1,7 +1,7 @@
 ;;; private/eaf/config.el -*- lexical-binding: t; -*-
 
 (use-package! eaf
-  :when is-linux
+  :when IS-LINUX
   :commands (eaf-open-browser)
   :init
   (map! :leader
@@ -24,9 +24,6 @@
 
   ;;ivy 添加 action, 用 eaf-open 打开
   (ivy-set-actions t '(("p" eaf-open "eaf open")))
-
-  (eaf-bind-key #'(lambda () (interactive)
-                  (snails '(snails-backend-eaf-pdf-table))) "o" eaf-pdf-viewer-keybinding)
 
   (require 'evil-eaf)
 
