@@ -69,6 +69,8 @@
 (setq mac-option-modifier 'super
       mac-command-modifier 'meta)
 
+(setq x-hyper-keysym 'super)
+
 (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)
       avy-style 'pre)
 

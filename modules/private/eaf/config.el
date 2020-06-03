@@ -25,7 +25,7 @@
   ;;ivy 添加 action, 用 eaf-open 打开
   (ivy-set-actions t '(("p" eaf-open "eaf open")))
 
-  (require 'evil-eaf)
+  (require 'eaf-evil)
 
   (defun sdcv-search-from-eaf ()
     (interactive)
@@ -41,7 +41,7 @@
 (use-package! snails
   :commands (snails)
   :bind (("s-y" . snails)
-         ("s-y" . snails-search-point))
+         ("s-Y" . snails-search-point))
   :config
   ;; (use-package! fuz)
   (add-to-list 'evil-emacs-state-modes 'snails-mode))

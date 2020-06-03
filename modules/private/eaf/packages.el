@@ -2,7 +2,7 @@
 
 (package! eaf :recipe (:host github
                        :repo "manateelazycat/emacs-application-framework"
-                       :files ("*.el" "*.py" "app/**/*.el" "app/core/**/*")
+                       :files ("*.el" "*.py" "app" "core")
                        :no-byte-compile t))
 
 (package! fuz)
