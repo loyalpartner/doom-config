@@ -194,4 +194,5 @@
        mu4e
        tools
        eaf
+       ctags
        )

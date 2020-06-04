@@ -8,10 +8,10 @@
   :config
   (setq auto-save-silent t
         auto-save-delete-trailing-whitespace nil
-        auto-save-idle 20
         auto-save-disable-predicates
         '((lambda () (string-suffix-p "gpg" (buffer-name) t))
           (lambda () (string-suffix-p "lua" (buffer-name) t))))
+  (remove-hook 'doom-first-buffer-hook #'ws-butler-global-mode)
   (auto-save-enable))
 
 (use-package! mybigword
@@ -39,8 +39,8 @@
 ;;   :config
 ;;   (global-flycheck-mode))
 
-(add-hook 'evil-insert-state-exit-hook
-          (lambda () (when (and
-                            (buffer-file-name)
-                            (buffer-modified-p))
-                       (basic-save-buffer))))
+;; (add-hook 'evil-insert-state-exit-hook
+;;           (lambda () (when (and
+;;                             (buffer-file-name)
+;;                             (buffer-modified-p))
+;;                        (basic-save-buffer))))

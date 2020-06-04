@@ -23,7 +23,7 @@
   (defalias 'browse-web #'eaf-open-brower)
 
   ;;ivy 添加 action, 用 eaf-open 打开
-  (ivy-set-actions t '(("p" eaf-open "eaf open")))
+  (ivy-set-actions 'counsel-find-file '(("p" eaf-open "eaf open")))
 
   (require 'eaf-evil)
 
