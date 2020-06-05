@@ -20,27 +20,3 @@
   (set-popup-rules!
     '(("^\\*BigWords"
        :size 0.35 :select t :modeline t :quit t :ttl t))))
-
-;; (use-package! awesome-tab
-;;   ;; :after-call find-file-hook
-;;   :init
-;;   (awesome-tab-mode)
-;;   :config
-;;   ;; (setq awesome-tab-show-tab-index t)
-;;   (map! "s-j" 'awesome-tab-forward-group
-;;         "s-k" 'awesome-tab-backward-group
-;;         "s-," 'awesome-tab-backward-tab
-;;         "s-." 'awesome-tab-forward-tab))
-
-;; (use-package! awesome-tray)
-
-;; (use-package!)
-;; (use-package! flycheck
-;;   :config
-;;   (global-flycheck-mode))
-
-;; (add-hook 'evil-insert-state-exit-hook
-;;           (lambda () (when (and
-;;                             (buffer-file-name)
-;;                             (buffer-modified-p))
-;;                        (basic-save-buffer))))
