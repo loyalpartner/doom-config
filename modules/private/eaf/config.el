@@ -25,6 +25,13 @@
   ;;ivy 添加 action, 用 eaf-open 打开
   (ivy-set-actions 'counsel-find-file '(("p" eaf-open "eaf open")))
 
+  (defun eaf-org-open-file (file &optional link)
+    "An wrapper function on `eaf-open'."
+    (eaf-open file))
+
+  ;; use `emacs-application-framework' to open PDF file: link
+  (add-to-list 'org-file-apps '("\\.pdf\\'" . eaf-org-open-file))
+
   (require 'eaf-evil)
 
   (defun sdcv-search-from-eaf ()
