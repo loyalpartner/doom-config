@@ -63,7 +63,7 @@
 
 (defun baidu-translator-translate (from to text)
   (require 'request)
-  (setq text (replace-regexp-in-string "\n\s+" " " text))
+  (setq text (replace-regexp-in-string "\n\s*" " " text))
   (setq text (replace-regexp-in-string "\\.\s" ".\n" text))
   (setq text (replace-regexp-in-string ";" ";\n" text))
   (let ((salt (number-to-string (random))))
