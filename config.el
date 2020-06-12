@@ -143,6 +143,7 @@
 
       :leader
       "/" 'google-this
+      "fo" #'eaf-open
 
       (:when (featurep! :ui window-select +numbers)
        :leader

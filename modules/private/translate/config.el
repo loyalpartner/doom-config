@@ -50,16 +50,26 @@
 (defun translate-chinese-word-p (word)
     (if (and word (string-match "\\cc" word)) t nil))
 
-(defconst baidu-translate-api-host "https://api.fanyi.baidu.com/api/trans/vip/translate")
+(defconst baidu-translator-api-host "https://api.fanyi.baidu.com/api/trans/vip/translate")
 
-(defcustom baidu-translate-appid "20200607000488675"
+(defcustom baidu-translator-appid "20200607000488675"
   ""
   :type 'string)
 
-(defcustom baidu-translate-secret-key "Nb_cT61hFraVEUpkvp33"
+(defcustom baidu-translator-secret-key "Nb_cT61hFraVEUpkvp33"
   ""
   :type 'string)
 
+(define-derived-mode baidu-translator-mode nil "baidu-translator")
+
+(defvar baidu-translator-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map "q" 'baidu-translator-quit)
+    map))
+
+(defun baidu-translator-quit ()
+  (interactive)
+  (bury-buffer))
 
 (defun baidu-translator-translate (from to text)
   (require 'request)
@@ -67,13 +77,13 @@
   (setq text (replace-regexp-in-string "\\.\s" ".\n" text))
   (setq text (replace-regexp-in-string ";" ";\n" text))
   (let ((salt (number-to-string (random))))
-    (request baidu-translate-api-host
+    (request baidu-translator-api-host
       :type "POST"
       :data (format "q=%s&salt=%s&appid=%s&sign=%s&from=%s&to=%s"
                     (url-encode-url text)
                     salt
-                    baidu-translate-appid
-                    (md5 (concat baidu-translate-appid text  salt baidu-translate-secret-key) nil nil (coding-system-from-name "utf-8"))
+                    baidu-translator-appid
+                    (md5 (concat baidu-translator-appid text  salt baidu-translator-secret-key) nil nil (coding-system-from-name "utf-8"))
                     from to)
       :parser 'json-read
       :success (cl-function
@@ -82,7 +92,9 @@
                   (when data
                     (with-current-buffer (get-buffer-create "*baidu translator*")
                       (setq buffer-read-only nil)
+                      (baidu-translator-mode)
                       (erase-buffer)
+                      (use-local-map baidu-translator-map)
                       (seq-each (lambda (t)
                                   (insert (concat (assoc-default 'src t) "\n"
                                                   (assoc-default 'dst t) "\n")))
@@ -183,6 +195,7 @@
 (map! :g "C-c ." #'insert-translated-name-insert
       :i "C-x C-y" #'company-english-helper-search
       :nv  "g." #'sdcv-search-pointer+
+      :map baidu-translator-map :n "q" 'baidu-translator-quit
       :leader
       :desc "添加单词到 word.org" "yc" #'translate-save-word
       :desc "添加单词链接" "yC" #'evilnc-sdcv-add-link-operator
