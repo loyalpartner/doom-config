@@ -19,7 +19,7 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 (defvar my-font (cond (IS-MAC "SauceCodePro NF")
-                      (IS-LINUX "SauceCodePro Nerd Font")
+                      (IS-LINUX "monospace")
                       (t "SauceCodePro NF")))
 (setq doom-font (font-spec :family my-font :size 13)
       ;; doom-variable-pitch-font (font-spec :family "SauceCodePro Nerd Font Mono")
@@ -69,8 +69,12 @@
 (setq mac-option-modifier 'super
       mac-command-modifier 'meta)
 
+(setq x-hyper-keysym 'super)
+
 (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)
       avy-style 'pre)
+
+(setq which-key-idle-delay 1)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -96,23 +100,29 @@
       :i "C-f" 'forward-char
       :v "v" #'er/expand-region
 
+      (:when t :map override-global-map :n
+       "C-l" #'evil-window-right
+       "C-h" #'evil-window-left
+       "C-k" #'evil-window-up
+       "C-j" #'evil-window-down)
+
       ;; info-mode 使用 gss gs-SPC 定位
       ;; :n "gss" #'evil-avy-goto-char-2
       ;; :n "gs SPC" (λ!! #'evil-avy-goto-char-timer t)
 
       (:when (featurep! :term vterm)
-        :map vterm-mode-map  "C-`" #'+vterm/toggle
-        :n "C-p" #'vterm--self-insert)
+       :map vterm-mode-map  "C-`" #'+vterm/toggle
+       :n "C-p" #'vterm--self-insert)
       (:when (featurep! :editor lispy)
-        :map lispy-mode-map
-        :i "C-e" #'lispy-move-end-of-line
-        :i "C-d" #'lispy-delete
-        :i "C-k" #'lispy-kill
-        :i "C-y" #'lispy-yank)
+       :map lispy-mode-map
+       :i "C-e" #'lispy-move-end-of-line
+       :i "C-d" #'lispy-delete
+       :i "C-k" #'lispy-kill
+       :i "C-y" #'lispy-yank)
 
       (:when (and (featurep! :tools lsp) (featurep! :tools debugger))
-        :map dap-mode-map
-        :n "'" #'dap-hydra)
+       :map dap-mode-map
+       :n "'" #'dap-hydra)
 
       :map Info-mode-map
       :nv "w" #'evil-forward-word-begin
@@ -133,19 +143,20 @@
 
       :leader
       "/" 'google-this
+      "fo" #'eaf-open
 
       (:when (featurep! :ui window-select +numbers)
-        :leader
-        :desc "[0]" "0" 'winum-select-window-0-or-10
-        :desc "[1]" "1" 'winum-select-window-1
-        :desc "[2]" "2" 'winum-select-window-2
-        :desc "[3]" "3" 'winum-select-window-3
-        :desc "[4]" "4" 'winum-select-window-4
-        :desc "[5]" "5" 'winum-select-window-5
-        :desc "[6]" "6" 'winum-select-window-6
-        :desc "[7]" "7" 'winum-select-window-7
-        :desc "[8]" "8" 'winum-select-window-8
-        :desc "[9]" "9" 'winum-select-window-9))
+       :leader
+       :desc "[0]" "0" 'winum-select-window-0-or-10
+       :desc "[1]" "1" 'winum-select-window-1
+       :desc "[2]" "2" 'winum-select-window-2
+       :desc "[3]" "3" 'winum-select-window-3
+       :desc "[4]" "4" 'winum-select-window-4
+       :desc "[5]" "5" 'winum-select-window-5
+       :desc "[6]" "6" 'winum-select-window-6
+       :desc "[7]" "7" 'winum-select-window-7
+       :desc "[8]" "8" 'winum-select-window-8
+       :desc "[9]" "9" 'winum-select-window-9))
 
 ;; (mapc (lambda (n)
 ;;         (let* ((key (number-to-string n))
@@ -155,3 +166,54 @@
 ;;       (number-sequence 1 9))
 
 ;; (setq org-use-sub-superscripts t)
+
+(map! (:when (featurep! :ui tabs)
+       "s-j" #'centaur-tabs-forward-group
+       "s-k" #'centaur-tabs-backward-group
+       "s-," #'centaur-tabs-backward-tab
+       "s-." #'centaur-tabs-forward-tab
+       "C-c h" #'centaur-tabs-move-current-tab-to-left
+       "C-c l" #'centaur-tabs-move-current-tab-to-right))
+
+;; (setq centaur-tabs--buffer-show-groups t)
+(setq centaur-tabs-adjust-buffer-order t)
+(defun centaur-tabs-buffer-groups ()
+  "`centaur-tabs-buffer-groups' control buffers' group rules.
+
+    Group centaur-tabs with mode if buffer is derived from `eshell-mode' `emacs-lisp-mode' `dired-mode' `org-mode' `magit-mode'.
+    All buffer name start with * will group to \"Emacs\".
+    Other buffer group by `centaur-tabs-get-group-name' with project name."
+  (list
+   (cond
+    ((or (string-equal "*" (substring (buffer-name) 0 1))
+         (memq major-mode '(magit-process-mode
+                            magit-status-mode
+                            magit-diff-mode
+                            magit-log-mode
+                            magit-file-mode
+                            magit-blob-mode
+                            magit-blame-mode
+                            )))
+     "Emacs")
+    ((derived-mode-p 'eaf-mode)
+     "EAF")
+    ((derived-mode-p 'prog-mode)
+     "Editing")
+    ((derived-mode-p 'dired-mode)
+     "Dired")
+    ((memq major-mode '(helpful-mode
+                        help-mode))
+     "Help")
+    ((memq major-mode '(org-mode
+                        org-agenda-clockreport-mode
+                        org-src-mode
+                        org-agenda-mode
+                        org-beamer-mode
+                        org-indent-mode
+                        org-bullets-mode
+                        org-cdlatex-mode
+                        org-agenda-log-mode
+                        diary-mode))
+     "OrgMode")
+    (t
+     (centaur-tabs-get-group-name (current-buffer))))))

@@ -50,6 +50,59 @@
 (defun translate-chinese-word-p (word)
     (if (and word (string-match "\\cc" word)) t nil))
 
+(defconst baidu-translator-api-host "https://api.fanyi.baidu.com/api/trans/vip/translate")
+
+(defcustom baidu-translator-appid "20200607000488675"
+  ""
+  :type 'string)
+
+(defcustom baidu-translator-secret-key "Nb_cT61hFraVEUpkvp33"
+  ""
+  :type 'string)
+
+(define-derived-mode baidu-translator-mode nil "baidu-translator")
+
+(defvar baidu-translator-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map "q" 'baidu-translator-quit)
+    map))
+
+(defun baidu-translator-quit ()
+  (interactive)
+  (bury-buffer))
+
+(defun baidu-translator-translate (from to text)
+  (require 'request)
+  (setq text (replace-regexp-in-string "\n\s*" " " text))
+  (setq text (replace-regexp-in-string "\\.\s" ".\n" text))
+  (setq text (replace-regexp-in-string ";" ";\n" text))
+  (let ((salt (number-to-string (random))))
+    (request baidu-translator-api-host
+      :type "POST"
+      :data (format "q=%s&salt=%s&appid=%s&sign=%s&from=%s&to=%s"
+                    (url-encode-url text)
+                    salt
+                    baidu-translator-appid
+                    (md5 (concat baidu-translator-appid text  salt baidu-translator-secret-key) nil nil (coding-system-from-name "utf-8"))
+                    from to)
+      :parser 'json-read
+      :success (cl-function
+                (lambda (&key data &allow-other-keys)
+                  ;; (message "I sent: %S" (assoc-default 'trans_result data))
+                  (when data
+                    (with-current-buffer (get-buffer-create "*baidu translator*")
+                      (setq buffer-read-only nil)
+                      (baidu-translator-mode)
+                      (erase-buffer)
+                      (use-local-map baidu-translator-map)
+                      (seq-each (lambda (t)
+                                  (insert (concat (assoc-default 'src t) "\n"
+                                                  (assoc-default 'dst t) "\n")))
+                                (assoc-default 'trans_result data))
+                      (setq buffer-read-only t)
+                      (goto-char (point-min))
+                      (pop-to-buffer (current-buffer)))))))))
+
 ;;;autoload
 (evil-define-operator evilnc-translate-operator (beg end type)
   "中英文互相翻译."
@@ -59,6 +112,16 @@
          (source (if (translate-chinese-word-p word) "zh-CN" "en"))
          (target (if (translate-chinese-word-p word) "en" "zh-CN")))
     (google-translate-translate source target text)))
+
+;;;autoload
+(evil-define-operator evilnc-baidu-translate-operator (beg end type)
+  "中英文互相翻译."
+  (interactive "<R>")
+  (let* ((text (buffer-substring-no-properties beg end))
+         (word (thing-at-point 'word))
+         (source (if (translate-chinese-word-p word) "zh" "en"))
+         (target (if (translate-chinese-word-p word) "en" "zh")))
+    (baidu-translator-translate source target text)))
 
 ;;;autoload
 (evil-define-operator evilnc-translate-and-replace-operator (beg end type)
@@ -132,9 +195,10 @@
 (map! :g "C-c ." #'insert-translated-name-insert
       :i "C-x C-y" #'company-english-helper-search
       :nv  "g." #'sdcv-search-pointer+
+      :map baidu-translator-map :n "q" 'baidu-translator-quit
       :leader
       :desc "添加单词到 word.org" "yc" #'translate-save-word
       :desc "添加单词链接" "yC" #'evilnc-sdcv-add-link-operator
-      :desc "Google 翻译长句" "yy" #'evilnc-translate-operator
+      :desc "Google 翻译长句" "yy" #'evilnc-baidu-translate-operator
       :desc "中文英文互相转换" "yr" #'evilnc-translate-and-replace-operator
       :desc "SDCV 翻译短语" "yd" #'evilnc-sdcv-translate-operator)
