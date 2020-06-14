@@ -101,28 +101,28 @@
       :v "v" #'er/expand-region
 
       (:when t :map override-global-map :n
-       "C-l" #'evil-window-right
-       "C-h" #'evil-window-left
-       "C-k" #'evil-window-up
-       "C-j" #'evil-window-down)
+        "C-l" #'evil-window-right
+        "C-h" #'evil-window-left
+        "C-k" #'evil-window-up
+        "C-j" #'evil-window-down)
 
       ;; info-mode 使用 gss gs-SPC 定位
       ;; :n "gss" #'evil-avy-goto-char-2
       ;; :n "gs SPC" (λ!! #'evil-avy-goto-char-timer t)
 
       (:when (featurep! :term vterm)
-       :map vterm-mode-map  "C-`" #'+vterm/toggle
-       :n "C-p" #'vterm--self-insert)
+        :map vterm-mode-map  "C-`" #'+vterm/toggle
+        :n "C-p" #'vterm--self-insert)
       (:when (featurep! :editor lispy)
-       :map lispy-mode-map
-       :i "C-e" #'lispy-move-end-of-line
-       :i "C-d" #'lispy-delete
-       :i "C-k" #'lispy-kill
-       :i "C-y" #'lispy-yank)
+        :map lispy-mode-map
+        :i "C-e" #'lispy-move-end-of-line
+        :i "C-d" #'lispy-delete
+        :i "C-k" #'lispy-kill
+        :i "C-y" #'lispy-yank)
 
       (:when (and (featurep! :tools lsp) (featurep! :tools debugger))
-       :map dap-mode-map
-       :n "'" #'dap-hydra)
+        :map dap-mode-map
+        :n "'" #'dap-hydra)
 
       :map Info-mode-map
       :nv "w" #'evil-forward-word-begin
@@ -146,17 +146,17 @@
       "fo" #'eaf-open
 
       (:when (featurep! :ui window-select +numbers)
-       :leader
-       :desc "[0]" "0" 'winum-select-window-0-or-10
-       :desc "[1]" "1" 'winum-select-window-1
-       :desc "[2]" "2" 'winum-select-window-2
-       :desc "[3]" "3" 'winum-select-window-3
-       :desc "[4]" "4" 'winum-select-window-4
-       :desc "[5]" "5" 'winum-select-window-5
-       :desc "[6]" "6" 'winum-select-window-6
-       :desc "[7]" "7" 'winum-select-window-7
-       :desc "[8]" "8" 'winum-select-window-8
-       :desc "[9]" "9" 'winum-select-window-9))
+        :leader
+        :desc "[0]" "0" 'winum-select-window-0-or-10
+        :desc "[1]" "1" 'winum-select-window-1
+        :desc "[2]" "2" 'winum-select-window-2
+        :desc "[3]" "3" 'winum-select-window-3
+        :desc "[4]" "4" 'winum-select-window-4
+        :desc "[5]" "5" 'winum-select-window-5
+        :desc "[6]" "6" 'winum-select-window-6
+        :desc "[7]" "7" 'winum-select-window-7
+        :desc "[8]" "8" 'winum-select-window-8
+        :desc "[9]" "9" 'winum-select-window-9))
 
 ;; (mapc (lambda (n)
 ;;         (let* ((key (number-to-string n))

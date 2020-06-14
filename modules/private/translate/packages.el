@@ -13,3 +13,5 @@
 (package! company-english-helper
   :recipe (:host github :repo "manateelazycat/company-english-helper"))
 
+(package! baidu-translator
+  :recipe (:host github :repo "loyalpartner/baidu-translator.el"))
