@@ -51,7 +51,11 @@
   :commands (baidu-translator-at-point evil-baidu-translate-operator)
   :init
   (setq baidu-translator-appid "20200607000488675"
-        baidu-translator-secret-key "Nb_cT61hFraVEUpkvp33"))
+        baidu-translator-secret-key "Nb_cT61hFraVEUpkvp33")
+  :config
+  (set-popup-rules!
+    '(("^\\*baidu translator"
+       :size 0.45 :select t :modeline t :quit t :ttl t))))
 
 (defun translate-chinese-word-p (word)
     (if (and word (string-match "\\cc" word)) t nil))
@@ -131,9 +135,14 @@
       :i "C-x C-y" #'company-english-helper-search
       :nv  "g." #'sdcv-search-pointer+
       :map baidu-translator-map :n "q" 'baidu-translator-quit
+      :map Info-mode-map :n "gs" #'evil-baidu-translate-operator
       :leader
       :desc "添加单词到 word.org" "yc" #'translate-save-word
       :desc "添加单词链接" "yC" #'evil-sdcv-add-link-operator
-      :desc "Google 翻译长句" "yy" #'evil-baidu-translate-operator
+      :desc "翻译长句" "yy" #'baidu-translator-at-point
+      :desc "翻译长句" "yY" #'evil-baidu-translate-operator
       :desc "中文英文互相转换" "yr" #'evil-translate-and-replace-operator
-      :desc "SDCV 翻译短语" "yd" #'evil-sdcv-translate-operator)
+      :desc "SDCV 翻译短语" "yd" #'evil-sdcv-translate-operator
+      )
+
+;; (evil-define-key '(normal visual) Info-mode-map "gs" #'evil-baidu-translate-operator)
