@@ -135,7 +135,8 @@
       :i "C-x C-y" #'company-english-helper-search
       :nv  "g." #'sdcv-search-pointer+
       :map baidu-translator-map :n "q" 'baidu-translator-quit
-      :map Info-mode-map :n "gs" #'evil-baidu-translate-operator
+      :map Info-mode-map
+      :nv "gs" #'evil-baidu-translate-operator
       :leader
       :desc "添加单词到 word.org" "yc" #'translate-save-word
       :desc "添加单词链接" "yC" #'evil-sdcv-add-link-operator
