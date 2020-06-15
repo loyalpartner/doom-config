@@ -2,7 +2,7 @@
 
 (use-package! eaf
   :when IS-LINUX
-  :commands (eaf-open-browser)
+  :commands (eaf-open-browser eaf-open)
   :init
   (map! :leader
         :desc "eaf open history" "eh" 'eaf-open-browser-with-history
@@ -13,6 +13,12 @@
         :n "RET" 'eaf-pdf-outline-jump
         :n "q" '+popup/close)
 
+  ;;ivy 添加 action, 用 eaf-open 打开
+  (after! counsel
+    (ivy-set-actions
+     't
+     (append '(("e" eaf-open "eaf open"))
+             (plist-get ivy--actions-list 't))))
   :config
   (setq eaf-proxy-type "socks5"
         eaf-proxy-host "127.0.0.1"
@@ -21,9 +27,6 @@
   ;; 用 eaf 打开链接
   (setq browse-url-browser-function 'eaf-open-browser)
   (defalias 'browse-web #'eaf-open-brower)
-
-  ;;ivy 添加 action, 用 eaf-open 打开
-  (ivy-set-actions 'counsel-find-file '(("p" eaf-open "eaf open")))
 
   (defun eaf-org-open-file (file &optional link)
     "An wrapper function on `eaf-open'."
