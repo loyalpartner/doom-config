@@ -1,8 +1,9 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; private/chinese/packages.el
-(package! pyim)
 
-(package! pyim-basedict)
+(when (featurep! +pyim)
+  (package! pyim)
+  (package! pyim-basedict))
 
 (package! emacs-request
   :recipe (:host github :repo "tkf/emacs-request"))

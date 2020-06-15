@@ -1,40 +1,41 @@
 ;;; private/chinese/config.el -*- lexical-binding: t; -*-
 ;; TODO: add pyim package
 (when (featurep! +pyim)
-  (defun private/pyim-english-prober ()
-    (cond ((and (boundp 'insert-translated-name-active-overlay)
-                insert-translated-name-active-overlay)
-           nil)
-          ((eq major-mode 'eaf-mode) nil)
-          (t '(pyim-probe-dynamic-english
-               pyim-probe-isearch-mode
-               pyim-probe-program-mode
-               pyim-probe-org-structure-template))))
+  (progn
+    (defun private/pyim-english-prober ()
+      (cond ((and (boundp 'insert-translated-name-active-overlay)
+                  insert-translated-name-active-overlay)
+             nil)
+            ((eq major-mode 'eaf-mode) nil)
+            (t '(pyim-probe-dynamic-english
+                 pyim-probe-isearch-mode
+                 pyim-probe-program-mode
+                 pyim-probe-org-structure-template))))
 
-  (use-package! pyim)
-  (use-package! pyim-basedict
-    :after pyim
-    :config
-    (setq default-input-method "pyim"
-          pyim-default-scheme 'xiaohe-shuangpin
-          pyim-page-tooltip 'posframe
-          pyim-page-length 5)
-    (setq-default pyim-english-input-switch-functions (private/pyim-english-prober))
-    (setq-default pyim-punctuation-half-width-functions
-                  '(pyim-probe-punctuation-line-beginning
-                    pyim-probe-punctuation-after-punctuation))
+    (use-package! pyim)
+    (use-package! pyim-basedict
+      :after pyim
+      :config
+      (setq default-input-method "pyim"
+            pyim-default-scheme 'xiaohe-shuangpin
+            pyim-page-tooltip 'posframe
+            pyim-page-length 5)
+      (setq-default pyim-english-input-switch-functions (private/pyim-english-prober))
+      (setq-default pyim-punctuation-half-width-functions
+                    '(pyim-probe-punctuation-line-beginning
+                      pyim-probe-punctuation-after-punctuation))
 
-    (map! "M-c" #'pyim-convert-code-at-point)
-    ;; 使用 isearch-mode 的时候，
-    ;; 如果 major-mode 是 `pdf-view-mode' 关闭 pyim-isearch-mode
-    (add-hook 'isearch-mode-hook
-              (lambda ()
-                (when (and (boundp 'pdf-isearch-minor-mode)
-                           (boundp 'pyim-isearch-mode))
-                  (if (equal major-mode 'pdf-view-mode)
-                      (pyim-isearch-mode -1)
-                    (pyim-isearch-mode 1)))))
-    (pyim-basedict-enable)))
+      (map! "M-c" #'pyim-convert-code-at-point)
+      ;; 使用 isearch-mode 的时候，
+      ;; 如果 major-mode 是 `pdf-view-mode' 关闭 pyim-isearch-mode
+      (add-hook 'isearch-mode-hook
+                (lambda ()
+                  (when (and (boundp 'pdf-isearch-minor-mode)
+                             (boundp 'pyim-isearch-mode))
+                    (if (equal major-mode 'pdf-view-mode)
+                        (pyim-isearch-mode -1)
+                      (pyim-isearch-mode 1)))))
+      (pyim-basedict-enable))))
 
 ;; TODO: maybe delete it
 (use-package! emacs-request
