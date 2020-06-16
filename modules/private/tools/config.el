@@ -2,7 +2,7 @@
 
 ;; (use-package! atomic-chrome :defer 10 :config (atomic-chrome-start-server))
 ;; (use-package! grip-mode :commands (grip-mode))
-(use-package! posframe)
+;; (use-package! posframe)
 
 (use-package! auto-save
   :config
@@ -20,3 +20,18 @@
   (set-popup-rules!
     '(("^\\*BigWords"
        :size 0.35 :select t :modeline t :quit t :ttl t))))
+
+(defun keyfreq-load-excluded-commands ()
+  (let ((path (concat
+               (file-name-directory (or load-file-name buffer-file-name))
+               "exclude-commands"))) 
+    (with-temp-buffer
+      (insert-file-contents path)
+      (mapcar #'intern (split-string (buffer-string) "\n" t)))))
+
+(use-package! keyfreq
+  :init
+  (setq keyfreq-excluded-commands (keyfreq-load-excluded-commands))
+  :config
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1))
