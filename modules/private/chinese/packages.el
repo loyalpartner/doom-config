@@ -8,6 +8,7 @@
 (package! emacs-request
   :recipe (:host github :repo "tkf/emacs-request"))
 
-(package! emacs-rime
-  :recipe (:host github :repo "DogLooksGood/emacs-rime"
-                 :files ("*.el" "Makefile" "lib.c")))
+(when (featurep! +rime)
+  (package! emacs-rime
+    :recipe (:host github :repo "DogLooksGood/emacs-rime"
+             :files ("*.el" "Makefile" "lib.c"))))
