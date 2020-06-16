@@ -81,10 +81,9 @@
           ("zhihu" +lookup--online-backend-zhihu "https://www.zhihu.com/search?type=content&q=%s")))
 
   (defun re-builder-extended-pattern (str)
-    (let* ((len (length str)))
-      (when (> len 0)
-        (setq str (pinyinlib-build-regexp-string (substring str 1 len) t)))
-      (ivy--regex-plus str)))
+    (cond ((<= (length str) 0))
+          ((string-prefix-p ":" str) (setq str (pinyinlib-build-regexp-string (substring str 1) t))))
+    (ivy--regex-plus str))
   
   (setq ivy-re-builders-alist '((t . re-builder-extended-pattern))))
 
