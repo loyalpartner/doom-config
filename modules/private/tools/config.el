@@ -35,3 +35,4 @@
 (set-popup-rules!
   '(("^\\*BigWords" :size 0.35 :select t :modeline t :quit t :ttl t)
     ("^\\*frequencies" :size 0.35 :select t :modeline nil :quit t :ttl t)))
+
