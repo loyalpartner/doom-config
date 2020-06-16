@@ -15,11 +15,7 @@
   (auto-save-enable))
 
 (use-package! mybigword
-  :commands (mybigword-show-big-words-from-file)
-  :config
-  (set-popup-rules!
-    '(("^\\*BigWords"
-       :size 0.35 :select t :modeline t :quit t :ttl t))))
+  :commands (mybigword-show-big-words-from-file))
 
 (defun keyfreq-load-excluded-commands ()
   (let ((path (concat
@@ -35,3 +31,7 @@
   :config
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))
+
+(set-popup-rules!
+  '(("^\\*BigWords" :size 0.35 :select t :modeline t :quit t :ttl t)
+    ("^\\*frequencies" :size 0.35 :select t :modeline nil :quit t :ttl t)))
