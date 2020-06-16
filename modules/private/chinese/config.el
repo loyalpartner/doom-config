@@ -58,14 +58,15 @@
   (define-key rime-active-mode-map (kbd "M-c") 'rime-inline-ascii)
   (define-key rime-mode-map (kbd "M-c") 'rime-force-enable))
 
-(use-package! ace-pinyin
-  :after avy
-  :init (setq ace-pinyin-use-avy t)
-  :config (ace-pinyin-global-mode t))
 
 ;; https://support.google.com/websearch/forum/AAAAgtjJeM4P4qBTZlImoA/?hl=en&gpf=%23!topic%2Fwebsearch%2FP4qBTZlImoA
 ;; 替换默认的 google engine 建议，使其在国内也能用
 (after! ivy
+  (use-package! ace-pinyin
+    :init (setq ace-pinyin-use-avy t)
+    :config (ace-pinyin-global-mode t))
+
+  (require 'pinyinlib)
   (setcar (cdr (assoc 'google counsel-search-engines-alist)) "https://suggestqueries.google.cn/complete/search?oe=utf-8")
   (setcar (cdr (assoc 'ddg counsel-search-engines-alist)) "https://duckduckgo.com/ac/")
   (add-to-list 'counsel-search-engines-alist
