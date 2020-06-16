@@ -58,6 +58,11 @@
   (define-key rime-active-mode-map (kbd "M-c") 'rime-inline-ascii)
   (define-key rime-mode-map (kbd "M-c") 'rime-force-enable))
 
+(use-package! ace-pinyin
+  :after avy
+  :init (setq ace-pinyin-use-avy t)
+  :config (ace-pinyin-global-mode t))
+
 ;; https://support.google.com/websearch/forum/AAAAgtjJeM4P4qBTZlImoA/?hl=en&gpf=%23!topic%2Fwebsearch%2FP4qBTZlImoA
 ;; 替换默认的 google engine 建议，使其在国内也能用
 (after! ivy
@@ -72,7 +77,15 @@
         '(("Baidu" "http://www.baidu.com?wd=%s")
           ("Emacs China" "https://emacs-china.org/search?q=%s")
           ("Arch Linux cn" "https://emacs-china.org/search?q=%s")
-          ("zhihu" +lookup--online-backend-zhihu "https://www.zhihu.com/search?type=content&q=%s"))))
+          ("zhihu" +lookup--online-backend-zhihu "https://www.zhihu.com/search?type=content&q=%s")))
+
+  (defun re-builder-extended-pattern (str)
+    (let* ((len (length str)))
+      (when (> len 0)
+        (setq str (pinyinlib-build-regexp-string (substring str 1 len) t)))
+      (ivy--regex-plus str)))
+  
+  (setq ivy-re-builders-alist '((t . re-builder-extended-pattern))))
 
 (defun counsel--search-request-data-zhihu (data)
   (mapcar (lambda (elt)
