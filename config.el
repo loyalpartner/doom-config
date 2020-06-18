@@ -76,6 +76,16 @@
 
 (setq which-key-idle-delay 1)
 
+(defun choose-theme-by-time ()
+  (let ((hour (nth 2 (decode-time))))
+    (if (and (>= hour 10)
+             (<= hour 20))
+        'doom-one-light
+      'doom-one)))
+
+(run-with-idle-timer 600 t
+                     (load-theme (choose-theme-by-time) t))
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one 
