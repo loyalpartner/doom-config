@@ -82,10 +82,11 @@
 
   (defun re-builder-extended-pattern (str)
     (cond ((<= (length str) 0))
-          ((string-prefix-p ":" str) (setq str (pinyinlib-build-regexp-string (substring str 1) t))))
+          ((string-prefix-p ";" str) (setq str (pinyinlib-build-regexp-string (substring str 1) t))))
     (ivy--regex-plus str))
   
-  (setq ivy-re-builders-alist '((t . re-builder-extended-pattern))))
+  (setq ivy-re-builders-alist '((t . re-builder-extended-pattern)
+                                (counsel-M-x . ivy--regex-fuzzy))))
 
 (defun counsel--search-request-data-zhihu (data)
   (mapcar (lambda (elt)
