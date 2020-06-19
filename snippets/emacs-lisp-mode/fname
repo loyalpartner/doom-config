@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: fname
+# uuid: fname
+# key: fname
+# condition: t
+# --
+
+`(file-name-base (buffer-name))`
