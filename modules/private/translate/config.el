@@ -48,12 +48,14 @@
           )))
 
 (use-package! baidu-translator
-  :commands (baidu-translator-translate-thing-at-point baidu-translator-translate-mode evil-baidu-translate-operator)
+  :commands (baidu-translator-translate-thing-at-point
+             baidu-translator-translate-mode
+             evil-baidu-translator-translate-operator)
   :init
   (setq baidu-translator-appid "20200607000488675"
         baidu-translator-secret-key "Nb_cT61hFraVEUpkvp33")
   (add-hook 'Info-mode-hook #'baidu-translator-translate-mode)
-  (add-hook 'helpful-mode #'baidu-translator-translate-mode)
+  ;; (add-hook 'helpful-mode #'baidu-translator-translate-mode)
   :config
   (set-popup-rules!
     '(("^\\*baidu translator"
@@ -138,12 +140,12 @@
       :nv  "g." #'sdcv-search-pointer+
       :map baidu-translator-map :n "q" 'baidu-translator-quit
       :map Info-mode-map
-      :nv "gs" #'evil-baidu-translate-operator
+      :nv "gs" #'evil-baidu-translator-translate-operator
       :leader
       :desc "添加单词到 word.org" "yc" #'translate-save-word
       :desc "添加单词链接" "yC" #'evil-sdcv-add-link-operator
-      :desc "翻译长句" "yy" #'evil-baidu-translate-operator
-      :desc "翻译长句" "yY" #'evil-baidu-translate-operator
+      :desc "翻译长句" "yy" #'evil-baidu-translator-translate-operator
+      :desc "翻译长句" "yY" #'evil-baidu-translator-translate-operator
       :desc "中文英文互相转换" "yr" #'evil-translate-and-replace-operator
       :desc "SDCV 翻译短语" "yd" #'evil-sdcv-translate-operator
       )

@@ -14,4 +14,4 @@
   :recipe (:host github :repo "manateelazycat/company-english-helper"))
 
 (package! baidu-translator
-  :recipe (:host github :repo "loyalpartner/baidu-translator.el"))
+  :recipe (:host github :repo "loyalpartner/baidu-translator.el" :no-byte-compile t))
