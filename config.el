@@ -21,7 +21,7 @@
 (defvar my-font (cond (IS-MAC "SauceCodePro NF")
                       (IS-LINUX "monospace")
                       (t "SauceCodePro NF")))
-(setq doom-font (font-spec :family my-font :size 13)
+(setq doom-font (font-spec :family my-font :size 18)
       ;; doom-variable-pitch-font (font-spec :family "SauceCodePro Nerd Font Mono")
       )
 
@@ -121,6 +121,7 @@
       (:when (featurep! :term vterm)
        :map vterm-mode-map  "C-`" #'+vterm/toggle
        :n "C-p" #'vterm--self-insert)
+
       (:when (featurep! :editor lispy)
        :map lispy-mode-map
        :i "C-e" #'lispy-move-end-of-line
@@ -147,6 +148,7 @@
       :nv "gf" #'Info-follow-reference
       :nv "gn" #'Info-goto-node
       :nv "C-i" #'Info-history-forward
+      :n "gd" (lambda () (interactive) (elisp-index-search (thing-at-point 'word t)))
 
 
       :leader

@@ -57,9 +57,10 @@
   (add-hook 'Info-mode-hook #'baidu-translator-translate-mode)
   ;; (add-hook 'helpful-mode #'baidu-translator-translate-mode)
   :config
-  (set-popup-rules!
-    '(("^\\*baidu translator"
-       :size 0.2 :select nil :modeline nil :quit t :ttl t))))
+  ;; (set-popup-rules!
+  ;;   '(("^\\*baidu-translator"
+  ;;      :size 0.2 :select nil :modeline nil :quit t :ttl t)))
+  )
 
 (defun translate-chinese-word-p (word)
     (if (and word (string-match "\\cc" word)) t nil))

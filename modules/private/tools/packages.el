@@ -12,3 +12,5 @@
            :files ("*.el" "*.py" "*.zipf")))
 
 (package! keyfreq :recipe (:host github :repo "dacap/keyfreq"))
+
+(package! baidu-ocr :recipe (:host github :repo "loyalpartner/baidu-ocr" :no-byte-compile t))

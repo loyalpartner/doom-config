@@ -86,7 +86,8 @@
     (ivy--regex-plus str))
   
   (setq ivy-re-builders-alist '((t . re-builder-extended-pattern)
-                                (counsel-M-x . ivy--regex-fuzzy))))
+                                ;; (counsel-M-x . ivy--regex-fuzzy)
+                                )))
 
 (defun counsel--search-request-data-zhihu (data)
   (mapcar (lambda (elt)

@@ -15,7 +15,9 @@
   (auto-save-enable))
 
 (use-package! mybigword
-  :commands (mybigword-show-big-words-from-file))
+  :commands (mybigword-show-big-words-from-file)
+  :init
+  (setq mybigword-upper-limit 6))
 
 (defun keyfreq-load-excluded-commands ()
   (let ((path (concat
@@ -31,6 +33,11 @@
   :config
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))
+
+(use-package! baidu-ocr
+  :init
+  (setq baidu-ocr-client-id "GT2oXlZprvaxER2ZG0fiBxGD"
+        baidu-ocr-seceret-key "d13PpamkalDP7XdPKUQd3MHNffGGEZjN"))
 
 (set-popup-rules!
   '(("^\\*BigWords" :size 0.35 :select t :modeline t :quit t :ttl t)
