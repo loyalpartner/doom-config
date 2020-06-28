@@ -37,6 +37,15 @@
 
   (require 'eaf-evil)
 
+  ;; open pdf with eaf
+  (advice-add 'find-file :around #'open-with-eaf)
+  (defun open-with-eaf (orig-fun file &rest args)
+    (if (seq-some (lambda (suffix)
+                    (string-suffix-p suffix file))
+                  '(".pdf" ".epub")) 
+        (eaf-open file)
+      (apply orig-fun file args)))
+  
   (defun sdcv-search-from-eaf ()
     (interactive)
     (let (text)
