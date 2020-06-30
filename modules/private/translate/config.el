@@ -145,7 +145,7 @@
       :leader
       :desc "添加单词到 word.org" "yc" #'translate-save-word
       :desc "添加单词链接" "yC" #'evil-sdcv-add-link-operator
-      :desc "翻译长句" "yy" #'evil-baidu-translator-translate-operator
+      :desc "翻译长句" "yy" #'baidu-translator-translate-thing-at-point
       :desc "翻译长句" "yY" #'evil-baidu-translator-translate-operator
       :desc "中文英文互相转换" "yr" #'evil-translate-and-replace-operator
       :desc "SDCV 翻译短语" "yd" #'evil-sdcv-translate-operator

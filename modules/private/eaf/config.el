@@ -13,6 +13,15 @@
         :n "RET" 'eaf-pdf-outline-jump
         :n "q" '+popup/close)
 
+  ;; open pdf with eaf
+  (advice-add 'find-file :around #'open-with-eaf)
+  (defun open-with-eaf (orig-fun file &rest args)
+    (if (seq-some (lambda (suffix)
+                    (string-suffix-p suffix file))
+                  '(".pdf" ".epub")) 
+        (eaf-open file)
+      (apply orig-fun file args)))
+
   ;;ivy 添加 action, 用 eaf-open 打开
   (after! counsel
     (ivy-set-actions
@@ -25,26 +34,11 @@
         eaf-proxy-port "1080")
 
   ;; 用 eaf 打开链接
-  (setq browse-url-browser-function 'eaf-open-browser)
-  (defalias 'browse-web #'eaf-open-brower)
-
-  (defun eaf-org-open-file (file &optional link)
-    "An wrapper function on `eaf-open'."
-    (eaf-open file))
-
-  ;; use `emacs-application-framework' to open PDF file: link
-  (add-to-list 'org-file-apps '("\\.pdf\\'" . eaf-org-open-file))
+  ;; (setq browse-url-browser-function 'eaf-open-browser)
+  ;; (defalias 'browse-web #'eaf-open-brower)
 
   (require 'eaf-evil)
 
-  ;; open pdf with eaf
-  (advice-add 'find-file :around #'open-with-eaf)
-  (defun open-with-eaf (orig-fun file &rest args)
-    (if (seq-some (lambda (suffix)
-                    (string-suffix-p suffix file))
-                  '(".pdf" ".epub")) 
-        (eaf-open file)
-      (apply orig-fun file args)))
   
   (defun sdcv-search-from-eaf ()
     (interactive)
