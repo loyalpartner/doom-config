@@ -87,7 +87,7 @@
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)                  ; run code, run (also, repls)
        ;;flyspell          ; tasing you for misspelling mispelling
-       ;;gist              ; interacting with github gists
+       gist              ; interacting with github gists
        (lookup                  ; helps you navigate your code and documentation
         +docsets)               ; ...or in Dash docsets locally
        lsp
