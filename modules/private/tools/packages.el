@@ -9,7 +9,8 @@
 
 (package! mybigword
   :recipe (:host github :repo "redguardtoo/mybigword"
-           :files ("*.el" "*.py" "*.zipf")))
+           :files ("*.el" "*.py" "*.zipf")
+           :no-byte-compile t))
 
 (package! keyfreq :recipe (:host github :repo "dacap/keyfreq"))
 

@@ -89,8 +89,10 @@
        ;;flyspell          ; tasing you for misspelling mispelling
        gist              ; interacting with github gists
        (lookup                  ; helps you navigate your code and documentation
+        +dictionary
+        +offline
         +docsets)               ; ...or in Dash docsets locally
-       lsp
+       (lsp +peek)
        ;; macos             ; MacOS-specific commands
        (magit +forge)                    ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
@@ -151,7 +153,6 @@
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python
-        +lsp
         )                  ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        racket                       ; a DSL for DSLs

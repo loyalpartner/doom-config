@@ -74,7 +74,8 @@
 (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)
       avy-style 'pre)
 
-(setq which-key-idle-delay 1)
+(setq which-key-idle-delay 0.3
+      which-key-idle-secondary-delay 0.3)
 
 (defun toggle-theme ()
   (interactive)
@@ -133,6 +134,10 @@
        :map dap-mode-map
        :n "'" #'dap-hydra)
 
+      (:when (featurep! :tools gist)
+       :map gist-mode-map
+       :n "go" #'gist-fetch-current)
+
       :map Info-mode-map
       :nv "w" #'evil-forward-word-begin
       :nv "W" #'evil-forward-WORD-begin
@@ -152,7 +157,7 @@
 
 
       :leader
-      "/" 'google-this
+      ;; "/" 'google-this
       "fo" #'eaf-open
 
       (:when (featurep! :ui window-select +numbers)
@@ -167,3 +172,15 @@
        :desc "[7]" "7" 'winum-select-window-7
        :desc "[8]" "8" 'winum-select-window-8
        :desc "[9]" "9" 'winum-select-window-9))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(browse-url-browser-function (quote browse-url-chromium)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

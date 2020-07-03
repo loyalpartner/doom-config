@@ -15,9 +15,11 @@
   (auto-save-enable))
 
 (use-package! mybigword
-  :commands (mybigword-show-big-words-from-file)
+  :commands (mybigword-show-big-words-from-file mybigword-play-video-of-word-at-point)
   :init
-  (setq mybigword-upper-limit 6))
+  (setq mybigword-upper-limit 4)
+  (map! :leader "tp" #'mybigword-play-video-of-word-at-point)
+  (setq mybigword-default-format-function (lambda (word zipf) (format "%s \n" word))))
 
 (defun keyfreq-load-excluded-commands ()
   (let ((path (concat
