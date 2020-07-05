@@ -105,6 +105,14 @@
 (after! evil-embrace
   (setq evil-embrace-show-help-p t))
 
+;; use \ instead of c-x
+(define-key key-translation-map (kbd "\\")
+  (lambda (prompt)
+    (if (or (evil-normal-state-p)
+            (evil-visual-state-p)
+            (evil-motion-state-p))
+        (kbd "C-x") "\\")))
+
 (map! :i "C-b" 'backward-char
       :i "C-f" 'forward-char
       :v "v" #'er/expand-region
