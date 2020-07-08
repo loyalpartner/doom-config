@@ -36,10 +36,6 @@
                     (pyim-isearch-mode 1)))))
     (pyim-basedict-enable)))
 
-;; TODO: maybe delete it
-(use-package! emacs-request
-  :commands request)
-
 
 (when (featurep! +rime)
   (use-package! rime

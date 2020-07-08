@@ -76,8 +76,9 @@
 (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)
       avy-style 'pre)
 
-(setq which-key-idle-delay 0.3
-      which-key-idle-secondary-delay 0.3)
+(with-eval-after-load "which-key"
+  (setq which-key-idle-delay 0.3
+        which-key-idle-secondary-delay 0.3))
 
 (defun toggle-theme ()
   (interactive)

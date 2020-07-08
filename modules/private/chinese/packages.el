@@ -5,9 +5,6 @@
   (package! pyim)
   (package! pyim-basedict))
 
-(package! emacs-request
-  :recipe (:host github :repo "tkf/emacs-request"))
-
 (package! ace-pinyin)
 
 (when (featurep! +rime)
