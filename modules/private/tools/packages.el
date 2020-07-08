@@ -8,7 +8,7 @@
 (package! auto-save :recipe (:host github :repo "loyalpartner/auto-save"))
 
 (package! mybigword
-  :recipe (:host github :repo "redguardtoo/mybigword"
+  :recipe (:host github :repo "loyalpartner/mybigword"
            :files ("*.el" "*.py" "*.zipf")
            :no-byte-compile t))
 

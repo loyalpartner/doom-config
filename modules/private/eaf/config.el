@@ -16,11 +16,21 @@
   ;; open pdf with eaf
   (advice-add 'find-file :around #'open-with-eaf)
   (defun open-with-eaf (orig-fun file &rest args)
-    (if (seq-some (lambda (suffix)
-                    (string-suffix-p suffix file))
-                  '(".pdf" ".epub")) 
-        (eaf-open file)
-      (apply orig-fun file args)))
+    (pcase (file-name-extension file)
+      ("pdf"  (eaf-open file))
+      ("epub" (eaf-open file))
+      (_      (apply orig-fun file args))))
+
+  (defun buffer-mode-p (buffer mode)
+    (eq (buffer-local-value 'major-mode buffer) mode))
+
+  ;; eaf buffer look as workspace buffer
+  (advice-add '+ivy--is-workspace-other-buffer-p :around #'is-workspace-other-buffer-p-advice)
+  (defun is-workspace-other-buffer-p-advice (orig-fun  &rest args)
+    (let ((buffer (cdar args)))
+      (or (and (buffer-mode-p buffer 'eaf-mode)
+               (not (eq buffer (current-buffer))))
+          (apply orig-fun args))))
 
   ;;ivy 添加 action, 用 eaf-open 打开
   (after! counsel

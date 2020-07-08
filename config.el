@@ -64,7 +64,7 @@
 ;; `nil' to disable it:
 (setq display-line-numbers-type t)
 
-(setq evil-embrace-show-help-p t
+(setq evil-embrace-show-help-p nil
       evil-escape-key-sequence "hh"
       evil-escape-delay 0.3)
 
@@ -77,8 +77,7 @@
       avy-style 'pre)
 
 (with-eval-after-load "which-key"
-  (setq which-key-idle-delay 0.3
-        which-key-idle-secondary-delay 0.3))
+  (setq which-key-idle-delay 0.1))
 
 (defun toggle-theme ()
   (interactive)
