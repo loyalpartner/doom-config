@@ -62,39 +62,42 @@
     :init (setq ace-pinyin-use-avy t)
     :config (ace-pinyin-global-mode t))
 
-  (require 'pinyinlib)
-  (setcar (cdr (assoc 'google counsel-search-engines-alist)) "https://suggestqueries.google.cn/complete/search?oe=utf-8")
-  (setcar (cdr (assoc 'ddg counsel-search-engines-alist)) "https://duckduckgo.com/ac/")
-  (add-to-list 'counsel-search-engines-alist
-               '(zhihu "https://www.zhihu.com/api/v4/search/suggest"
-                       "https://www.zhihu.com/search?type=content&q="
-                       counsel--search-request-data-zhihu))
+  (setf (alist-get 'zhihu counsel-search-engines-alist)
+        '("https://www.zhihu.com/api/v4/search/suggest"
+          "https://www.zhihu.com/search?type=content&q="
+          counsel--search-request-data-zhihu))
+  (setf (alist-get 'google counsel-search-engines-alist)
+        '("https://suggestqueries.google.cn/complete/search?oe=utf-8&output=firefox"
+          "https://www.google.com/search?q="
+          counsel--search-request-data-google))
+  
+  (defun counsel--search-request-data-google (data)
+    (mapcar #'identity (aref data 1)))
 
   (mapc (lambda (engine) (add-to-list '+lookup-provider-url-alist engine))
         '(("Baidu" "http://www.baidu.com?wd=%s")
           ("Emacs China" "https://emacs-china.org/search?q=%s")
           ("Arch Linux cn" "https://emacs-china.org/search?q=%s")
-          ("zhihu" +lookup--online-backend-zhihu "https://www.zhihu.com/search?type=content&q=%s")))
+          ("zhihu" lookup-backend-zhihu "https://www.zhihu.com/search?type=content&q=%s")))
 
   (defun re-builder-extended-pattern (str)
-    (cond ((<= (length str) 0))
-          ((string-prefix-p ";" str) (setq str (pinyinlib-build-regexp-string (substring str 1) t))))
-    (ivy--regex-plus str))
+    (require 'pinyinlib)
+    (ivy--regex-plus
+     (cond ((<= (length str) 0) str)
+           ((string-prefix-p ";" str)
+            (pinyinlib-build-regexp-string (substring str 1) t))
+           (t str))))
   
-  (setq ivy-re-builders-alist '((t . re-builder-extended-pattern)
-                                ;; (counsel-M-x . ivy--regex-fuzzy)
-                                )))
+  (setq ivy-re-builders-alist '((t . re-builder-extended-pattern)))
 
-(defun counsel--search-request-data-zhihu (data)
-  (mapcar (lambda (elt)
-            (alist-get 'query elt))
-          (alist-get 'suggest data)))
+  (defun counsel--search-request-data-zhihu (data)
+    (mapcar (apply-partially 'alist-get 'query)
+            (alist-get 'suggest data)))
 
 ;;;###autoload
-(defun +lookup--online-backend-zhihu (query)
-  "Search google, starting with QUERY, with live autocompletion."
-  (cond ((fboundp 'counsel-search)
-         (let ((ivy-initial-inputs-alist `((t . ,query)))
-               (counsel-search-engine 'zhihu))
-           (call-interactively #'counsel-search)
-           t))))
+  (defun lookup-backend-zhihu (query)
+    (cond ((fboundp 'counsel-search)
+           (let ((ivy-initial-inputs-alist `((t . ,query)))
+                 (counsel-search-engine 'zhihu))
+             (call-interactively #'counsel-search)
+             t)))))
