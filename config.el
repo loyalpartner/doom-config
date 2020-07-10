@@ -37,6 +37,10 @@
 
 ;; (setq doom-scratch-buffer-major-mode 'lisp-interaction-mode)
 
+(with-eval-after-load "evil"
+  (add-to-list 'evil-emacs-state-modes 'debugger-mode)
+  (delete 'debugger-mode evil-normal-state-modes))
+
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
 

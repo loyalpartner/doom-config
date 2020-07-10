@@ -15,3 +15,5 @@
 (package! keyfreq :recipe (:host github :repo "dacap/keyfreq"))
 
 (package! baidu-ocr :recipe (:host github :repo "loyalpartner/baidu-ocr" :no-byte-compile t))
+
+(package! valign :recipe (:host github :repo "casouri/valign"))
