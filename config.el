@@ -83,11 +83,14 @@
 (with-eval-after-load "which-key"
   (setq which-key-idle-delay 0.1))
 
+(defun next-theme ()
+  (if (custom-theme-p 'doom-one)
+      'doom-one-theme
+    'doom-one))
+
 (defun toggle-theme ()
   (interactive)
-  (load-theme
-   (if (custom-theme-enabled-p 'doom-one) 'doom-one-light 'doom-one)
-   t))
+  (load-theme (next-theme) t))
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
