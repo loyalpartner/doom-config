@@ -41,8 +41,7 @@
   (setq baidu-ocr-client-id "GT2oXlZprvaxER2ZG0fiBxGD"
         baidu-ocr-seceret-key "d13PpamkalDP7XdPKUQd3MHNffGGEZjN"))
 
-(use-package! valign
-  :hook (org-mode . valign-mode))
+;; (use-package! valign :hook (org-mode . valign-mode))
 
 (set-popup-rules!
   '(("^\\*BigWords" :size 0.35 :select t :modeline t :quit t :ttl t)

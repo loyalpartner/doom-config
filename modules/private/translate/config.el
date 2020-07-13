@@ -54,10 +54,10 @@
   :init
   (setq baidu-translator-appid "20200607000488675"
         baidu-translator-secret-key "Nb_cT61hFraVEUpkvp33")
-  :hook ((Info-mode
-          elfeed-show-mode
-          Man-mode
-          Woman-Mode) . baidu-translator-translate-mode)
+  ;; :hook ((Info-mode
+  ;;         elfeed-show-mode
+  ;;         Man-mode
+  ;;         Woman-Mode) . baidu-translator-translate-mode)
   :config
   ;; (setq baidu-translator-default-show-function #'baidu-translator-show-result-at-bottom)
   (setq baidu-translator-default-show-function #'baidu-translator-show-result-with-posframe)
@@ -66,8 +66,14 @@
   ;;      :size 0.2 :select nil :modeline nil :quit t :ttl t)))
   )
 
+(use-package! google-translator
+  :hook ((Info-mode
+          elfeed-show-mode
+          Man-mode
+          Woman-Mode) . google-translator-follow-mode))
+
 (defun translate-chinese-word-p (word)
-    (if (and word (string-match "\\cc" word)) t nil))
+  (if (and word (string-match "\\cc" word)) t nil))
 
 ;;;autoload
 (evil-define-operator evilnc-translate-operator (beg end type)

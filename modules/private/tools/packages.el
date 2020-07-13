@@ -16,4 +16,4 @@
 
 (package! baidu-ocr :recipe (:host github :repo "loyalpartner/baidu-ocr" :no-byte-compile t))
 
-(package! valign :recipe (:host github :repo "casouri/valign"))
+;; (package! valign :recipe (:host github :repo "casouri/valign"))
