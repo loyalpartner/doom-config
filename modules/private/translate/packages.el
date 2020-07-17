@@ -16,5 +16,5 @@
 (package! baidu-translator
   :recipe (:host github :repo "loyalpartner/baidu-translator.el" :no-byte-compile t))
 
-(package! google-translator
-  :recipe (:host github :repo "loyalpartner/google-translator.el" :files ("*.el") :no-byte-compile t))
+(package! english-teacher
+  :recipe (:host github :repo "loyalpartner/english-teacher.el" :files ("*.el") :no-byte-compile t))

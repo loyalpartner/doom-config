@@ -66,11 +66,12 @@
   ;;      :size 0.2 :select nil :modeline nil :quit t :ttl t)))
   )
 
-(use-package! google-translator
+(use-package! english-teacher
   :hook ((Info-mode
           elfeed-show-mode
+          eww-mode
           Man-mode
-          Woman-Mode) . google-translator-follow-mode))
+          Woman-Mode) . english-teacher-follow-mode))
 
 (defun translate-chinese-word-p (word)
   (if (and word (string-match "\\cc" word)) t nil))
@@ -149,6 +150,7 @@
 (map! :g "C-c ." #'insert-translated-name-insert
       :i "C-x C-y" #'company-english-helper-search
       :nv  "g." #'sdcv-search-pointer+
+      :map english-teacher-follow-mode-map :n "." 'english-teacher-next-backend
       :map baidu-translator-map :n "q" 'baidu-translator-quit
       :map Info-mode-map
       :leader

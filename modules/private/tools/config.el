@@ -47,3 +47,8 @@
   '(("^\\*BigWords" :size 0.35 :select t :modeline t :quit t :ttl t)
     ("^\\*frequencies" :size 0.35 :select t :modeline nil :quit t :ttl t)))
 
+(use-package mingus
+  :init
+  (add-to-list 'evil-emacs-state-modes 'mingus-playlist-mode))
+
+(map! (:when (featurep 'mingus) :leader "oh" #'mingus))

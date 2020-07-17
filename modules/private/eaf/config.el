@@ -43,12 +43,16 @@
         eaf-proxy-host "127.0.0.1"
         eaf-proxy-port "1080")
 
-  ;; 用 eaf 打开链接
-  ;; (setq browse-url-browser-function 'eaf-open-browser)
-  ;; (defalias 'browse-web #'eaf-open-brower)
-
   (require 'eaf-evil)
-
+  ;; 用 eaf 打开链接
+  ;; http://www.baidu.com
+  ;; http://www.github.com
+  (defun adviser-browser-url (orig-fn url &rest args)
+    (let ((whitelist '("github" "wikipekia" "planet")))
+      (cond ((derived-mode-p 'elfeed-show-mode) (eww-browse-url url))
+            ((string-match-p (regexp-opt whitelist) url) (eaf-open-browser url))
+            (t (apply orig-fn url args)))))
+  (advice-add #'browse-url :around #'adviser-browser-url) 
   
   (defun sdcv-search-from-eaf ()
     (interactive)
