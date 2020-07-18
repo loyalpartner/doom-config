@@ -85,7 +85,7 @@
   (setq which-key-idle-delay 0.1))
 
 (defun next-theme ()
-  (if (custom-theme-p 'doom-one)
+  (if (custom-theme-enabled-p 'doom-one)
       'doom-one-light
     'doom-one))
 
