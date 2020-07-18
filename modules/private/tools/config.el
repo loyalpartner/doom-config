@@ -48,6 +48,7 @@
     ("^\\*frequencies" :size 0.35 :select t :modeline nil :quit t :ttl t)))
 
 (use-package mingus
+  :commands (mingus)
   :init
   (add-to-list 'evil-emacs-state-modes 'mingus-playlist-mode))
 
