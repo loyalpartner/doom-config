@@ -29,7 +29,8 @@
 (after! company-mode
   (setq company-idle-delay 0))
 
-(setq browse-url-browser-function 'browse-url-chrome)
+(when IS-LINUX
+  (setq browse-url-browser-function 'browse-url-chrome))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
