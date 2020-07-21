@@ -49,7 +49,9 @@
 
 (use-package mingus
   :commands (mingus)
-  :init
+  :init)
+
+(after! evil
   (add-to-list 'evil-emacs-state-modes 'mingus-playlist-mode))
 
-(map! (:when (featurep 'mingus) :leader "oh" #'mingus))
+(map! :leader "oh" #'mingus)

@@ -14,5 +14,6 @@
           (add-hook 'after-save-hook
             'counsel-etags-virtual-update-tags 'append 'local)))
   :config
-  (setq counsel-etags-update-interval 60)
+  (setq counsel-etags-update-interval 60
+        tags-revert-without-query t)
   (push "build" counsel-etags-ignore-directories))
