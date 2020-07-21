@@ -134,6 +134,11 @@
        :n "C-k" #'evil-window-up
        :n "C-j" #'evil-window-down)
 
+      (:when t :map eaf-mode-map*
+       "C-l" #'evil-window-right
+       "C-h" #'evil-window-left
+       "C-k" #'evil-window-up
+       "C-j" #'evil-window-down)
       ;; info-mode 使用 gss gs-SPC 定位
       ;; :n "gss" #'evil-avy-goto-char-2
       ;; :n "gs SPC" (λ!! #'evil-avy-goto-char-timer t)
