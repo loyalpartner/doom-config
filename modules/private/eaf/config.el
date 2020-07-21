@@ -1,8 +1,17 @@
 ;;; private/eaf/config.el -*- lexical-binding: t; -*-
 
+;; open pdf with eaf
+(defun adviser-find-file (orig-fn file &rest args)
+  (let ((fn (if (commandp 'eaf-open) 'eaf-open orig-fn)))
+    (pcase (file-name-extension file)
+      ("pdf"  (apply fn file nil))
+      ("epub" (apply fn file nil))
+      (_      (apply orig-fn file args)))))
+(advice-add #'find-file :around #'adviser-find-file)
+
 (use-package! eaf
   :when IS-LINUX
-  :commands (eaf-open-browser eaf-open)
+  :commands (eaf-open-browser eaf-open find-file)
   :init
   (map! :leader
         :desc "eaf open history" "eh" 'eaf-open-browser-with-history
