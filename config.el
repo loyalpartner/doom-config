@@ -23,8 +23,7 @@
                    (t '(:family "SauceCodePro NF" :size 18))))
 (setq doom-font (apply #'font-spec font)
       doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
-      doom-unicode-font (font-spec :family "Sarasa Fixed SC")
-      )
+      doom-unicode-font (font-spec :family "Sarasa Fixed SC"))
 
 (after! company-mode
   (setq company-idle-delay 0))
@@ -58,9 +57,9 @@
                  "** %:annotation \n\n"))
 
   (mapc (lambda (mode)
-            (add-to-list 'org-modules mode))
+          (add-to-list 'org-modules mode))
         '(ol-info ol-irc)))
-  ;; (dolist (module '(ol-info ol-irc)) (add-to-list 'org-modules module)))
+;; (dolist (module '(ol-info ol-irc)) (add-to-list 'org-modules module)))
 
 ;; (after! ivy
 ;;   (when IS-MAC
@@ -70,14 +69,12 @@
 ;; `nil' to disable it:
 (setq display-line-numbers-type t)
 
-(setq evil-embrace-show-help-p nil
-      evil-escape-key-sequence "hh"
+(setq evil-escape-key-sequence "hh"
       evil-escape-delay 0.3)
 
 (setq mac-option-modifier 'super
-      mac-command-modifier 'meta)
-
-(setq x-hyper-keysym 'super)
+      mac-command-modifier 'meta
+      x-hyper-keysym 'super)
 
 (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)
       avy-style 'pre)
@@ -111,36 +108,15 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
-(setq dired-isearch-filenames t)
 (setq lsp-enable-snippet nil)
-
-;; (advice-remove '+company--backends (lambda (orig-fn &rest args)
-;;                                      '((company-capf :with company-yasnippet))))
-
-(set-company-backend! 'emacs-lisp-mode '(company-capf :with company-yasnippet))
-
-(remove-hook 'lsp-mode-hook #'+lsp-init-company-h)
-(add-hook 'lsp-mode-hook
-          (lambda ()
-            (if (not (bound-and-true-p company-mode))
-                (add-hook 'company-mode-hook #'+lsp-init-company-h t t)
-              ;; Ensure `company-capf' is at the front of `company-backends'
-              (setq-local company-backends
-                          (cons '(company-capf :with company-yasnippet)
-                                (remq 'company-capf company-backends)))
-              (remove-hook 'company-mode-hook #'+lsp-init-company-h t))))
-
-
-
-
 
 ;; use \ instead of c-x
 (define-key key-translation-map (kbd "\\")
   (lambda (prompt)
     (if (or (evil-normal-state-p)
-            (evil-visual-state-p)
-            (evil-motion-state-p))
-        (kbd "C-x") "\\")))
+              (evil-visual-state-p)
+              (evil-motion-state-p))
+      (kbd "C-x") "\\")))
 
 (map! :i "C-b" 'backward-char
       :i "C-f" 'forward-char
@@ -197,11 +173,7 @@
       :nv "C-i" #'Info-history-forward
       :n "gd" (lambda () (interactive) (elisp-index-search (thing-at-point 'word t)))
 
-
       :leader
-      ;; "/" 'google-this
-      "fo" #'eaf-open
-
       (:when (featurep! :ui window-select +numbers)
        :leader
        :desc "[0]" "0" 'winum-select-window-0-or-10
@@ -213,4 +185,8 @@
        :desc "[6]" "6" 'winum-select-window-6
        :desc "[7]" "7" 'winum-select-window-7
        :desc "[8]" "8" 'winum-select-window-8
-       :desc "[9]" "9" 'winum-select-window-9))
+       :desc "[9]" "9" 'winum-select-window-9)
+      :desc "split window" "ws" (lambda () (interactive) (split-window-vertically) (select-window (next-window)))
+      :desc "vsplit window" "wv" (lambda () (interactive) (split-window-horizontally) (select-window (next-window)))
+      )
+(put 'downcase-region 'disabled nil)

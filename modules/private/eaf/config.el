@@ -1,13 +1,14 @@
 ;;; private/eaf/config.el -*- lexical-binding: t; -*-
 
 ;; open pdf with eaf
-(defun adviser-find-file (orig-fn file &rest args)
-  (let ((fn (if (commandp 'eaf-open) 'eaf-open orig-fn)))
-    (pcase (file-name-extension file)
-      ("pdf"  (apply fn file nil))
-      ("epub" (apply fn file nil))
-      (_      (apply orig-fn file args)))))
-(advice-add #'find-file :around #'adviser-find-file)
+(when IS-LINUX
+  (defun adviser-find-file (orig-fn file &rest args)
+    (let ((fn (if (commandp 'eaf-open) 'eaf-open orig-fn)))
+      (pcase (file-name-extension file)
+        ("pdf"  (apply fn file nil))
+        ("epub" (apply fn file nil))
+        (_      (apply orig-fn file args)))))
+  (advice-add #'find-file :around #'adviser-find-file))
 
 (use-package! eaf
   :when IS-LINUX
@@ -49,9 +50,10 @@
   (require 'eaf-evil)
   ;; 用 eaf 打开链接
   (defun adviser-browser-url (orig-fn url &rest args)
-    (let ((whitelist '("github" "wikipekia" "planet")))
-      (cond ((derived-mode-p 'elfeed-show-mode) (eww-browse-url url))
-            ((string-match-p (regexp-opt whitelist) url) (eaf-open-browser url))
+    (let ((whitelist '("github" "wikipekia" "planet" "youtube")))
+      (cond ((and (derived-mode-p 'elfeed-show-mode)
+                  (not (string-match-p "youtube" (downcase url)))) (eww-browse-url url))
+            ((string-match-p (regexp-opt whitelist) (downcase url)) (eaf-open-browser url))
             (t (apply orig-fn url args)))))
   (advice-add #'browse-url :around #'adviser-browser-url) 
   
@@ -65,11 +67,10 @@
   (map! :map eaf-mode-map* "c-." #'sdcv-search-from-eaf))
 
 
-(use-package! fuz)
 (use-package! snails
   :commands (snails)
   :bind (("s-y" . snails)
          ("s-Y" . snails-search-point))
   :config
-  ;; (use-package! fuz)
+  (use-package! fuz)
   (add-to-list 'evil-emacs-state-modes 'snails-mode))

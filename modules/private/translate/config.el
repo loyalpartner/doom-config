@@ -73,6 +73,11 @@
           Man-mode
           Woman-Mode) . english-teacher-follow-mode))
 
+(add-hook 'helpful-mode-hook
+          (lambda ()
+            (setq-local english-teacher-show-result-function 'english-teacher-eldoc-show-result-function)
+            (english-teacher-follow-mode)))
+
 (defun translate-chinese-word-p (word)
   (if (and word (string-match "\\cc" word)) t nil))
 

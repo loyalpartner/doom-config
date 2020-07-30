@@ -198,4 +198,6 @@
        tools
        eaf
        ctags
+       dired
+       company
        )
