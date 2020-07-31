@@ -48,8 +48,7 @@
     (setq rime-disable-predicates
           '(rime-predicate-evil-mode-p
             rime-predicate-after-alphabet-char-p
-            rime-predicate-prog-in-code-p
-            rime-predicate-auto-english-p)))
+            rime-predicate-prog-in-code-p)))
   
   (define-key rime-active-mode-map (kbd "M-c") 'rime-inline-ascii)
   (define-key rime-mode-map (kbd "M-c") 'rime-force-enable))

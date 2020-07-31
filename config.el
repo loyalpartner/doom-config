@@ -137,6 +137,12 @@
       ;; :n "gss" #'evil-avy-goto-char-2
       ;; :n "gs SPC" (λ!! #'evil-avy-goto-char-timer t)
 
+      (:when t
+       :desc "book" "s-u b" (lambda () (interactive) (dired "~/book"))
+       :desc "org" "s-u o" (lambda () (interactive) (dired "~/org"))
+       :desc "home" "s-u h" (lambda () (interactive) (dired "~/"))
+       :desc "emacs directory" "s-u e" (lambda () (interactive) (dired user-emacs-directory)))
+
       (:when (featurep! :term vterm)
        :map vterm-mode-map  "C-`" #'+vterm/toggle
        :n "C-p" #'vterm--self-insert)
@@ -189,4 +195,3 @@
       :desc "split window" "ws" (lambda () (interactive) (split-window-vertically) (select-window (next-window)))
       :desc "vsplit window" "wv" (lambda () (interactive) (split-window-horizontally) (select-window (next-window)))
       )
-(put 'downcase-region 'disabled nil)
