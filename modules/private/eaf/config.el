@@ -74,3 +74,4 @@
   :config
   (use-package! fuz)
   (add-to-list 'evil-emacs-state-modes 'snails-mode))
+
