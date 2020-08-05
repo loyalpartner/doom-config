@@ -122,6 +122,8 @@
       :i "C-f" 'forward-char
       :v "v" #'er/expand-region
 
+      (:when t :i "C-s" #'company-yasnippet)
+
       (:when t :map override-global-map
        :n "C-l" #'evil-window-right
        :n "C-h" #'evil-window-left

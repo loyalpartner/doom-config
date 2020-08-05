@@ -67,6 +67,7 @@
   )
 
 (use-package! english-teacher
+  :commands (english-teacher-smart-translate)
   :hook ((Info-mode
           elfeed-show-mode
           eww-mode
