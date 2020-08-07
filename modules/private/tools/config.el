@@ -9,8 +9,8 @@
   (setq auto-save-silent t
         auto-save-delete-trailing-whitespace nil
         auto-save-disable-predicates
-        '((lambda () (string-suffix-p "gpg" (buffer-name) t))
-          (lambda () (string-suffix-p "lua" (buffer-name) t))))
+        '((lambda () (string-suffix-p "gpg" (buffer-name)))
+          (lambda () (string-suffix-p "lua" (buffer-name)))))
   (remove-hook 'doom-first-buffer-hook #'ws-butler-global-mode)
   (auto-save-enable))
 

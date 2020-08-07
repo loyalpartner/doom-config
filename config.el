@@ -140,6 +140,7 @@
       ;; :n "gs SPC" (λ!! #'evil-avy-goto-char-timer t)
 
       (:when t
+       "s-u" nil
        :desc "book" "s-u b" (lambda () (interactive) (dired "~/book"))
        :desc "org" "s-u o" (lambda () (interactive) (dired "~/org"))
        :desc "home" "s-u h" (lambda () (interactive) (dired "~/"))
