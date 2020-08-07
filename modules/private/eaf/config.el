@@ -64,7 +64,7 @@
       (when text
         (sdcv-search-input+ text ))))
 
-  (map! :map eaf-mode-map* "c-." #'sdcv-search-from-eaf))
+  (map! :map eaf-mode-map* "C-." #'sdcv-search-from-eaf))
 
 
 (use-package! snails
