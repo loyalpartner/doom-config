@@ -19,10 +19,23 @@
         :desc "eaf open terminal" "et" 'eaf-open-terminal
         :desc "eaf open rss" "er" 'eaf-open-rss-reader)
 
-  (map!
-   (:when t :map eaf-pdf-outline-mode-map
-    :n "RET" 'eaf-pdf-outline-jump
-    :n "q" '+popup/close))
+  :config
+  (map! (:when t :map eaf-pdf-outline-mode-map
+         :n "RET" 'eaf-pdf-outline-jump
+         :n "q" '+popup/close)
+        ;; (:when t :map eaf-mode-map
+        ;;  "C-." #'awesome-tab-forward-tab
+        ;;  "C-," #'awesome-tab-backward-tab)
+        )
+  
+  (define-key key-translation-map (kbd "SPC")
+    (lambda (prompt)
+      (if (derived-mode-p 'eaf-mode)
+          (if (and (member eaf--buffer-app-name (list "browser" "pdf-viewer"))
+                   (not (eaf-call "call_function" eaf--buffer-id "is_focus")))
+              (kbd "C-SPC")
+            (kbd "SPC"))         
+        " ")))
 
 
   (defun buffer-mode-p (buffer mode)

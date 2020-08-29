@@ -12,9 +12,7 @@
         :n "C-." #'awesome-tab-forward-tab
         :n "C-," #'awesome-tab-backward-tab
 
-        (:when t :map eaf-mode-map
-              "C-." #'awesome-tab-forward-tab
-              "C-," #'awesome-tab-backward-tab)))
+        ))
 
 (defun awesome-tab-buffer-groups ()
   "`awesome-tab-buffer-groups' control buffers' group rules.
