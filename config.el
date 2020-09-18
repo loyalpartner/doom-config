@@ -118,16 +118,6 @@
               (evil-motion-state-p))
       (kbd "C-x") "\\")))
 
-(setq web-mode-content-types-alist
-      '(("vue" . "\\.vue\\'")))
-(setq-default web-mode-markup-indent-offset 2
-              web-mode-code-indent-offset 2
-              web-mode-css-indent-offset 2)
-(add-hook 'web-mode-hook
-          (lambda ()
-            (when (equal web-mode-content-type "vue")
-              (setq web-mode-style-padding 0
-                    web-mode-script-padding 0))))
 
 (map! :i "C-b" 'backward-char
       :i "C-f" 'forward-char

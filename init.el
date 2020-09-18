@@ -201,4 +201,5 @@
        dired
        company
        ui
+       web
        )
