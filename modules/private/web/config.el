@@ -14,6 +14,7 @@
               (setq web-mode-style-padding 0
                     web-mode-script-padding 0))))
 
+(setq js2-basic-offset 2)
 
 ;; (use-package! vue-mode)
 
