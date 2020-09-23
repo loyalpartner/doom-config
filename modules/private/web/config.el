@@ -16,6 +16,25 @@
 
 (setq js2-basic-offset 2)
 
+(defun vue-lookup-point-path ()
+  (interactive)
+  (require 'english-teacher-core)
+  (let ((path (english-teacher-string-at-point))
+        (dir (locate-dominating-file "." "package.json"))
+        result)
+    (setq result path)
+    (setq result (replace-regexp-in-string "\"" "" result))
+    (setq result (replace-regexp-in-string "^@" (concat dir "src") result))
+    ;; (setq result (concat result ".js"))
+    (cond
+     ((file-exists-p (concat result ".js")) (find-file (concat result ".js")))
+     ((file-exists-p (concat result ".vue")) (find-file (concat result ".vue"))))))
+
+(map! :map js2-mode-map
+      :n "gh"  #'vue-lookup-point-path)
+(map! :map web-mode-map
+      :n "gh"  #'vue-lookup-point-path)
+
 ;; (use-package! vue-mode)
 
 ;; (add-hook 'vue-mode-hook (lambda ()

@@ -110,13 +110,22 @@
 
 (setq lsp-enable-snippet nil)
 
+(defun copy-string (text)
+  (with-temp-buffer
+    (insert text)
+    (clipboard-kill-region (point-min) (point-max))))
+
+(defun copy-file-path ()
+  (interactive)
+  (copy-string (buffer-file-name)))
+
 ;; use \ instead of c-x
 (define-key key-translation-map (kbd "\\")
   (lambda (prompt)
     (if (or (evil-normal-state-p)
-              (evil-visual-state-p)
-              (evil-motion-state-p))
-      (kbd "C-x") "\\")))
+            (evil-visual-state-p)
+            (evil-motion-state-p))
+        (kbd "C-x") "\\")))
 
 
 (map! :i "C-b" 'backward-char
@@ -196,6 +205,7 @@
        :desc "[7]" "7" 'winum-select-window-7
        :desc "[8]" "8" 'winum-select-window-8
        :desc "[9]" "9" 'winum-select-window-9)
+      :desc "copy file path" "by" #'copy-file-path
       :desc "split window" "ws" (lambda () (interactive) (split-window-vertically) (select-window (next-window)))
       :desc "vsplit window" "wv" (lambda () (interactive) (split-window-horizontally) (select-window (next-window)))
       )
