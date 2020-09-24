@@ -1,6 +1,9 @@
 ;;; private/rss/config.el -*- lexical-binding: t; -*-
 
 (set-company-backend! 'emacs-lisp-mode '(company-capf :separate company-yasnippet))
+(set-company-backend! 'indium-repl-mode '(company-indium-repl))
+(set-company-backend! 'web-mode '(company-capf :separate company-etags :separate company-yasnippet))
+
 ;; (set-company-backend! 'web-mode '(company-capf :with company-yasnippet :with company-css :with company-web))
 ;; (remove-hook 'lsp-mode-hook #'+lsp-init-company-h)
 

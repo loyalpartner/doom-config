@@ -2,3 +2,6 @@
 ;;; private/web/packages.el
 
 ;; (package! vue-mode)
+
+(package!  protobuf-mode)
+(package! Indium :recipe (:host github :repo "NicolasPetton/Indium"))

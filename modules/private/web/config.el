@@ -1,5 +1,22 @@
 ;;; private/web/config.el -*- lexical-binding: t; -*-
 
+(use-package! protobuf-mode
+  :mode "\\.proto\\'")
+
+(use-package! indium)
+(add-hook 'js2-mode-hook #'indium-interaction-mode)
+
+(map! :map indium-debugger-mode-map
+      :n "h" #'indium-debugger-here
+      :n "l" #'indium-debugger-locals
+      :n "gs" #'indium-debugger-stack-frames)
+
+(after! indium-repl-mode
+  (set-company-backend! 'indium-repl-mode 'company-indium-repl))
+
+(set-popup-rules!
+  '(("^\\*JS REPL" :size 0.35 :select nil :modeline nil :quit t :ttl t)))
+
 (setq web-mode-content-types-alist
       '(("vue" . "\\.vue\\'")))
 
