@@ -37,6 +37,7 @@
   (keyfreq-autosave-mode 1))
 
 (use-package! baidu-ocr
+  :commands (baidu-ocr-ocr-page)
   :init
   (setq baidu-ocr-client-id "GT2oXlZprvaxER2ZG0fiBxGD"
         baidu-ocr-seceret-key "d13PpamkalDP7XdPKUQd3MHNffGGEZjN"))

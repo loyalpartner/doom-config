@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: mutation
+# uuid: mutation
+# key: mus
+# condition: t
+# --
+set${1:$(capitalize yas-text)}(state, $1){
+    state.$1 = $1;
+},

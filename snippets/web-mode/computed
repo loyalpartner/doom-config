@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: computed
+# uuid: computed
+# key: mu
+# condition: t
+# --
+
+$1:{
+    get(){ return this.$store.state["${2:kb/math}"].$1 },
+    set(value){ this.$store.commit("${2:kb/math}/set${1:$(capitalize yas-text)}", value)}
+},

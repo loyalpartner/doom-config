@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: de
+# uuid: debugger
+# key: de
+# condition: t
+# --
+debugger$0

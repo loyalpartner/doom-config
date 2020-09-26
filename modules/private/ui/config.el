@@ -1,18 +1,18 @@
 ;;; private/ui/config.el -*- lexical-binding: t; -*-
 
-(use-package awesome-tab
-  :init
-  (setq awesome-tab-height 150
-        awesome-tab-show-tab-index nil)
-  :config
-  (awesome-tab-mode)
-  (map! "s-," #'awesome-tab-backward-group
-        "s-." #'awesome-tab-forward-group
+;; (use-package awesome-tab
+;;   :init
+;;   (setq awesome-tab-height 150
+;;         awesome-tab-show-tab-index nil)
+;;   :config
+;;   (awesome-tab-mode)
+;;   (map! "s-," #'awesome-tab-backward-group
+;;         "s-." #'awesome-tab-forward-group
 
-        :n "C-." #'awesome-tab-forward-tab
-        :n "C-," #'awesome-tab-backward-tab
+;;         :n "C-." #'awesome-tab-forward-tab
+;;         :n "C-," #'awesome-tab-backward-tab
 
-        ))
+;;         ))
 
 (defun awesome-tab-buffer-groups ()
   "`awesome-tab-buffer-groups' control buffers' group rules.

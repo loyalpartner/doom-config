@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: log
+# uuid: log
+# key: log
+# condition: t
+# --
+console.log($0);
