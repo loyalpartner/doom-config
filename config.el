@@ -80,7 +80,7 @@
       avy-style 'pre)
 
 (with-eval-after-load "which-key"
-  (setq which-key-idle-delay 0.1))
+  (setq which-key-idle-delay 1))
 
 (defun next-theme ()
   (if (custom-theme-enabled-p 'doom-one)

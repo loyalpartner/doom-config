@@ -22,7 +22,7 @@
        company ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ivy                              ; a search engine for love and life
+       (ivy icons +prescient +childframe)                              ; a search engine for love and life
 
        :ui
        ;; deft              ; notational velocity for Emacs
@@ -102,7 +102,7 @@
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings
        ;;terraform         ; infrastructure as code
-       ;;tmux              ; an API for interacting with tmux
+       tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :lang
@@ -155,7 +155,7 @@
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python +lsp
-        )                  ; beautiful is better than ugly
+               )                  ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        racket                       ; a DSL for DSLs
        ;;rest              ; Emacs as a REST client
