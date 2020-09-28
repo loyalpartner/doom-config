@@ -19,7 +19,7 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 (defvar font (cond (IS-MAC '(:family "SauceCodePro NF" :size 11))
-                   (IS-LINUX '(:family "Sarasa Mono SC" :size 13))
+                   (IS-LINUX '(:family "Sarasa Mono SC" :size 11))
                    (t '(:family "SauceCodePro NF" :size 18))))
 (setq doom-font (apply #'font-spec font)
       doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")

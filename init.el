@@ -106,6 +106,7 @@
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :lang
+       json 
        ;;agda              ; types of types of types of types...
        ;;assembly          ; assembly for fun or debugging
        ;;cc                ; C/C++/Obj-C madness

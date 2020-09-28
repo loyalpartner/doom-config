@@ -10,7 +10,9 @@
         auto-save-delete-trailing-whitespace nil
         auto-save-disable-predicates
         '((lambda () (string-suffix-p "gpg" (buffer-name)))
-          (lambda () (string-suffix-p "lua" (buffer-name)))))
+          (lambda () (string-suffix-p "lua" (buffer-name)))
+          (lambda () (memq 'web-mode minor-mode-list))))
+
   (remove-hook 'doom-first-buffer-hook #'ws-butler-global-mode)
   (auto-save-enable))
 

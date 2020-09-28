@@ -7,8 +7,27 @@
   :hook ((js2-mode . indium-interaction-mode)
          (web-mode . indium-interaction-mode))
   :config
-  (add-hook 'web-mode-hook #'js2-minor-mode)
   (add-to-list 'evil-insert-state-modes 'indium-repl-mode))
+
+(add-hook 'web-mode-hook
+          (lambda ()
+            (lsp!)
+            (js2-refactor-mode 1)
+            (js2-minor-mode 1)
+            (when (equal web-mode-content-type "vue")
+              (setq-default web-mode-markup-indent-offset 2
+                            web-mode-code-indent-offset 2
+                            web-mode-css-indent-offset 2)
+              (setq web-mode-style-padding 0
+                    web-mode-script-padding 0))))
+
+(defun toggle-debugger ()
+  (interactive)
+  (let ((line-text (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
+    (if (string-match-p "^\s*debugger" line-text)
+        (kill-whole-line)
+      (save-excursion
+        (insert "debugger\n")))))
 
 (map! :map indium-debugger-mode-map
       :n "h" #'indium-debugger-here
@@ -18,7 +37,8 @@
       "C-c C-r" #'indium-reload
       "C-c q" #'indium-quit
       "C-c r" #'indium-launch
-      )
+      :map (web-mode-map js2-mode-map)
+      "C-c t" #'toggle-debugger)
 
 (after! indium-repl-mode
   (set-company-backend! 'indium-repl-mode 'company-indium-repl))
@@ -47,16 +67,7 @@
               js2-enter-indents-newline nil
               js2-bounce-indent-p t)
 
-(setq-default web-mode-markup-indent-offset 2
-              web-mode-code-indent-offset 2
-              web-mode-css-indent-offset 2)
 
-(add-hook 'web-mode-hook
-          (lambda ()
-            (lsp!)
-            (when (equal web-mode-content-type "vue")
-              (setq web-mode-style-padding 0
-                    web-mode-script-padding 0))))
 
 (defun vue-lookup-point-path ()
   (interactive)
