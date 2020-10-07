@@ -9,17 +9,19 @@
   :config
   (add-to-list 'evil-insert-state-modes 'indium-repl-mode))
 
+(setq web-mode-markup-indent-offset 2
+      web-mode-code-indent-offset 2
+      web-mode-css-indent-offset 2)
+(setq web-mode-style-padding 0
+      web-mode-script-padding 0)
 (add-hook 'web-mode-hook
           (lambda ()
             (lsp!)
             (js2-refactor-mode 1)
             (js2-minor-mode 1)
-            (when (equal web-mode-content-type "vue")
-              (setq-default web-mode-markup-indent-offset 2
-                            web-mode-code-indent-offset 2
-                            web-mode-css-indent-offset 2)
-              (setq web-mode-style-padding 0
-                    web-mode-script-padding 0))))
+            ;; (when (equal web-mode-content-type "vue")
+            ;;   )
+            ))
 
 (defun toggle-debugger ()
   (interactive)
