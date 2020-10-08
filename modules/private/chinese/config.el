@@ -100,3 +100,9 @@
                  (counsel-search-engine 'zhihu))
              (call-interactively #'counsel-search)
              t)))))
+
+
+
+(setq ispell-extra-args '("--lang=en_US"))
+
+"yellow"
