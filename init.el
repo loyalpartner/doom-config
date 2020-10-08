@@ -183,6 +183,7 @@
 
        
        :checkers
+       (spell +everywhere +aspell)
        (syntax +childframe)
        ;; grammar
 
