@@ -132,6 +132,12 @@
       :i "C-f" 'forward-char
       :v "v" #'er/expand-region
 
+      ;; centaur tab
+      "C-s-," #'centaur-tabs-move-current-tab-to-left
+      "C-s-." #'centaur-tabs-move-current-tab-to-right
+      "s-," #'centaur-tabs-backward
+      "s-." #'centaur-tabs-forward
+
       (:when t :i "C-s" #'company-yasnippet)
 
       (:when t :map override-global-map
