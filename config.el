@@ -8,6 +8,8 @@
 ;; some email clients, file templates and snippets.
 (setq user-full-name "lee"
       user-mail-address "loyalpartner@163.com")
+(setq url-gateway-method 'socks)
+(setq socks-server '("Default server" "127.0.0.1" 1080 5))
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -19,7 +21,7 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 (defvar font (cond (IS-MAC '(:family "SauceCodePro NF" :size 11))
-                   (IS-LINUX '(:family "Sarasa Mono SC" :size 13))
+                   (IS-LINUX '(:family "Sarasa Mono SC" :size 22))
                    (t '(:family "SauceCodePro NF" :size 18))))
 (setq doom-font (apply #'font-spec font)
       doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
@@ -28,8 +30,8 @@
 (after! company-mode
   (setq company-idle-delay 0))
 
-(when IS-LINUX
-  (setq browse-url-browser-function 'browse-url-chrome))
+;; (when IS-LINUX
+;;   (setq browse-url-browser-function 'browse-url-chrome))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the

@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: vuex
+# uuid: vuex
+# key: vuex
+# condition: t
+# --
+const state = {
+};
+
+const mutations = {
+};
+
+const actions = {};
+
+const getters = {};
+
+export default {
+  namespaced: true,
+  state,
+  mutations,
+  actions,
+  getters
+};

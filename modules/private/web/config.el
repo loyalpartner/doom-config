@@ -3,6 +3,19 @@
 (use-package! protobuf-mode
   :mode "\\.proto\\'")
 
+(after! projectile
+  (projectile-register-project-type 'vue '("vue.config.js" "package.json" "src")
+                                    :project-file "vue.config.js"
+                                    :run "npm run serve"
+                                    :test "npm run test:unit"
+                                    :test-suffix ".spec")
+  
+  (map! :leader "p." #'projectile-toggle-between-implementation-and-test)
+  (mapc (apply-partially #'add-to-list 'projectile-other-file-alist)
+        '(("js" "spec.js")
+          ("spec.js" "js"))))
+ 
+;; (add-hook 'js-mode-hook (setq))
 ;; (use-package! indium
 ;;   :hook ((js2-mode . indium-interaction-mode)
 ;;          (web-mode . indium-interaction-mode))
@@ -29,24 +42,24 @@
         web-mode-css-indent-offset 2
         web-mode-style-padding 0
         web-mode-script-padding 0)
-  (when (string= web-mode-content-type "vue")
-    (require 'dap-chrome)
-    ;; https://emacs-lsp.github.io/dap-mode/page/adding-debug-server/
-    (dap-register-debug-template
-     "Vue Debug in chrome"
-     (list :type "chrome"
-           :cwd nil
-           :mode "url"
-           :request "launch"
-           :webRoot "${workspaceFolder}"
-           :runtimeExecutable "/usr/bin/chromium"
-           :url "http://localhost:8080"
-           :sourceMapPathOverrides (list
-                                    :webpack:///src/* "${workspaceFolder}/src/*"
-                                    :webpack:///\./~/* "${workspaceFolder}/node_modules/*"
-                                    :webpack:///\./* "${workspaceFolder}/*"
-                                    :webpack:///* "/*")
-           :name "Chrome Browse URL")))
+  ;; (when (string= web-mode-content-type "vue")
+  ;;   (require 'dap-chrome)
+  ;;   ;; https://emacs-lsp.github.io/dap-mode/page/adding-debug-server/
+  ;;   (dap-register-debug-template
+  ;;    "chrome"
+  ;;    (list :type "chrome"
+  ;;          :cwd nil
+  ;;          :mode "url"
+  ;;          :request "launch"
+  ;;          :webRoot "${workspaceFolder}"
+  ;;          :runtimeExecutable "/usr/bin/chromium"
+  ;;          :url "http://localhost:8080"
+  ;;          :sourceMapPathOverrides '(
+  ;;                                    :webpack:///src/* "${workspaceFolder}/src/*"
+  ;;                                    :webpack:///\./~/* "${workspaceFolder}/node_modules/*"
+  ;;                                    :webpack:///\./* "${workspaceFolder}/*"
+  ;;                                    :webpack:///* "/*")
+  ;;          :name "chrome")))
   (map! :map dap-mode-map
         "C-c C-d" #'dap-debug
         "C-c C-z" #'dap-ui-repl
@@ -101,6 +114,11 @@
               js2-bounce-indent-p t)
 
 
+(defun vue-find-file (path)
+  (let ((file (seq-find 'file-exists-p
+                        (mapcar (apply-partially 'concat path)
+                                '("" ".js" ".vue")))))
+    (if file (find-file file))))
 
 (defun vue-lookup-point-path ()
   (interactive)
@@ -108,13 +126,8 @@
   (let ((path (english-teacher-string-at-point))
         (dir (locate-dominating-file "." "package.json"))
         result)
-    (setq result path)
-    (setq result (replace-regexp-in-string "\"" "" result))
-    (setq result (replace-regexp-in-string "^@" (concat dir "src") result))
-    ;; (setq result (concat result ".js"))
-    (cond
-     ((file-exists-p (concat result ".js")) (find-file (concat result ".js")))
-     ((file-exists-p (concat result ".vue")) (find-file (concat result ".vue"))))))
+    (vue-find-file
+     (replace-regexp-in-string "^@" (concat dir "src") path))))
 
 (map! :map js2-mode-map
       :n "gh"  #'vue-lookup-point-path)

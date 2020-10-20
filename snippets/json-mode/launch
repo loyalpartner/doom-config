@@ -1,0 +1,26 @@
+# -*- mode: snippet -*-
+# name: launch
+# uuid: launch
+# key: launch
+# condition: t
+# --
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "vuejs: chrome",
+      "url": "http://localhost:8080",
+      "runtimeExecutable": "/usr/bin/chromium",
+      "webRoot": "${workspaceFolder}/src",
+      "breakOnLoad": true,
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${workspaceFolder}/src/*",
+        "webpack:///./~/*": "${workspaceFolder}/node_modules/*",
+        "webpack:///./*":   "${workspaceFolder}/*",
+        "webpack:///*":     "/*"
+      }
+    },
+  ]
+}

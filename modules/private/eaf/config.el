@@ -86,5 +86,6 @@
          ("s-Y" . snails-search-point))
   :config
   (use-package! fuz)
+  (add-hook 'snails-mode-hook #'centaur-tabs-local-mode)
   (add-to-list 'evil-emacs-state-modes 'snails-mode))
 

@@ -5,4 +5,4 @@
 
 (package!  protobuf-mode)
 ;; (package! Indium :recipe (:host github :repo "NicolasPetton/Indium"))
-(package! json-process-client)
+;; (package! json-process-client)
