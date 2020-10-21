@@ -12,6 +12,7 @@
 
 ;; (setq +lsp-company-backends '(company-tabnine))
 
+
 (setq company-idle-delay 0.5)
 (setq company-show-numbers nil)
 ;; (set-company-backend! 'js2-mode '(company-tabnine :separate company-capf :with company-yasnippet))

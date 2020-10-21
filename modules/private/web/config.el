@@ -134,8 +134,27 @@
 (map! :map web-mode-map
       :n "gh"  #'vue-lookup-point-path)
 
-;; (use-package! vue-mode)
 
+(use-package! eacl
+  :commands (eacl-complete-line eacl-complete-multiline)
+  :config
+  (map!  "C-x C-l" #'eacl-complete-line
+         "C-x C-m" #'eacl-complete-multiline))
+
+
+(with-eval-after-load 'grep
+  (dolist (v '("node_modules"
+               "bower_components"
+               ".sass_cache"
+               ".cache"
+               ".npm"))
+    (add-to-list 'grep-find-ignored-directories v))
+  (dolist (v '("*.min.js"
+               "*.bundle.js"
+               "*.min.css"
+               "*.json"
+               "*.log"))
+    (add-to-list 'grep-find-ignored-files v)))
 ;; (add-hook 'vue-mode-hook (lambda ()
 ;;                            (lsp!)))
 ;; (add-hook 'vue-mode-hook (lambda () (setq syntax-ppss-table nil)))
