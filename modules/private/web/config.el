@@ -28,7 +28,6 @@
 (add-hook 'web-mode-hook #'web-mode-setup)
 (defun web-mode-setup ()
   (lsp!)
-  (js2-minor-mode 1)
   ;; (tide-setup)
   (setq web-mode-markup-indent-offset 2
         web-mode-code-indent-offset 2
