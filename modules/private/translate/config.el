@@ -1,13 +1,5 @@
 ;;; private/translate/config.el -*- lexical-binding: t; -*-
 
-(use-package! google-translate
-  :commands google-translate-at-point google-translate-translate google-translate-request
-  :init
-  (setq google-translate-default-source-language "en"
-        google-translate-default-target-language "zh-CN"
-        google-translate--tkk-url "http://translate.google.cn"
-        google-translate-base-url "http://translate.google.cn/translate_a/single"
-        google-translate-listen-url "http://translate.google.cn/translate_tts"))
 (use-package! insert-translated-name :commands insert-translated-name-insert)
 
 (use-package! company-english-helper :commands toggle-company-english-helper company-english-helper-search)
@@ -47,24 +39,11 @@
           ;; "高级汉语大词典"
           )))
 
-(use-package! baidu-translator
-  :commands (baidu-translator-translate-thing-at-point
-             baidu-translator-translate-mode
-             evil-baidu-translator-translate-operator)
-  :init
-  (setq baidu-translator-appid "20200607000488675"
-        baidu-translator-secret-key "Nb_cT61hFraVEUpkvp33")
-  ;; :hook ((Info-mode
-  ;;         elfeed-show-mode
-  ;;         Man-mode
-  ;;         Woman-Mode) . baidu-translator-translate-mode)
-  :config
-  ;; (setq baidu-translator-default-show-function #'baidu-translator-show-result-at-bottom)
-  (setq baidu-translator-default-show-function #'baidu-translator-show-result-with-posframe)
-  ;; (set-popup-rules!
-  ;;   '(("^\\*baidu-translator"
-  ;;      :size 0.2 :select nil :modeline nil :quit t :ttl t)))
-  )
+
+(add-hook 'english-teacher-follow-mode-hook
+            (lambda ()
+              (setq-local url-gateway-method 'native
+                          socks-server '("Default server" "socks" 1080 5))))
 
 (use-package! english-teacher
   :commands (english-teacher-smart-translate)
@@ -72,11 +51,10 @@
           elfeed-show-mode
           eww-mode
           Man-mode
-          Woman-Mode
-          helpful-mode) . english-teacher-follow-mode)
+          Woman-Mode) . english-teacher-follow-mode)
   :config
   (setq english-teacher-show-result-function 'english-teacher-eldoc-show-result-function
-        english-teacher-backend 'youdao))
+        english-teacher-backend 'tencent))
 
 (defun translate-chinese-word-p (word)
   (if (and word (string-match "\\cc" word)) t nil))

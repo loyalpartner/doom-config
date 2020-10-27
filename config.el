@@ -8,6 +8,7 @@
 ;; some email clients, file templates and snippets.
 (setq user-full-name "lee"
       user-mail-address "loyalpartner@163.com")
+
 (setq url-gateway-method 'socks)
 (setq socks-server '("Default server" "127.0.0.1" 1080 5))
 
@@ -82,7 +83,7 @@
       avy-style 'pre)
 
 (with-eval-after-load "which-key"
-  (setq which-key-idle-delay 1))
+  (setq which-key-idle-delay 0))
 
 (defun next-theme ()
   (if (custom-theme-enabled-p 'doom-one)
@@ -134,21 +135,15 @@
       :i "C-f" 'forward-char
       :v "v" #'er/expand-region
 
-      ;; centaur tab
-      "C-s-," #'centaur-tabs-move-current-tab-to-left
-      "C-s-." #'centaur-tabs-move-current-tab-to-right
-      "s-," #'centaur-tabs-backward
-      "s-." #'centaur-tabs-forward
-
       (:when t :i "C-s" #'company-yasnippet)
 
-      (:when t :map override-global-map
+      (:when t :map  override-global-map
        :n "C-l" #'evil-window-right
        :n "C-h" #'evil-window-left
        :n "C-k" #'evil-window-up
        :n "C-j" #'evil-window-down)
 
-      (:when t :map eaf-mode-map*
+      (:when t :map (eaf-mode-map* treemacs-mode-map)
        "C-l" #'evil-window-right
        "C-h" #'evil-window-left
        "C-k" #'evil-window-up

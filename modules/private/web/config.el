@@ -22,21 +22,14 @@
 ;;   :config
 ;;   (add-to-list 'evil-insert-state-modes 'indium-repl-mode))
 
-;; (add-hook 'web-mode-hook
-;;           (lambda ()
-;;             (lsp!)
-;;             (js2-refactor-mode 1)
-;;             (js2-minor-mode 1)
-;;             ;; (when (equal web-mode-content-type "vue")
-;;             ;;   )
-;;             ))
-
 (setq web-mode-content-types-alist
       '(("vue" . "\\.vue\\'")))
 
 (add-hook 'web-mode-hook #'web-mode-setup)
 (defun web-mode-setup ()
   (lsp!)
+  (js2-minor-mode 1)
+  ;; (tide-setup)
   (setq web-mode-markup-indent-offset 2
         web-mode-code-indent-offset 2
         web-mode-css-indent-offset 2

@@ -8,18 +8,34 @@
         ("pdf"  (apply fn file nil))
         ("epub" (apply fn file nil))
         (_      (apply orig-fn file args)))))
-  (advice-add #'find-file :around #'adviser-find-file))
+  (advice-add #'find-file :around #'adviser-find-file)
+
+  ;; 用 eaf 打开链接
+  (defun adviser-browser-url (orig-fn url &rest args)
+    (if (commandp 'eaf-open-browser)
+        (eaf-open-browser url)
+      (apply orig-fn url args)))
+
+  (advice-add #'browse-url :around #'adviser-browser-url)
+
+  (defun eaf-open-with-other-browser ()
+    (interactive)
+    (browse-url-chrome (eaf-get-path-or-url)))
+
+  )
 
 (use-package! eaf
   :when IS-LINUX
   :commands (eaf-open-browser eaf-open find-file)
   :init
-  (map! :leader
+  (map! :map eaf-mode-map* "C-." 'eaf-open-with-other-browser
+        :leader
         :desc "eaf open history" "eh" 'eaf-open-browser-with-history
         :desc "eaf open terminal" "et" 'eaf-open-terminal
         :desc "eaf open rss" "er" 'eaf-open-rss-reader)
-
+  
   :config
+  (eaf-setq eaf-browser-chrome-history-file "~/.config/chromium/Default/History")
   (map! (:when t :map eaf-pdf-outline-mode-map
          :n "RET" 'eaf-pdf-outline-jump
          :n "q" '+popup/close)
@@ -27,14 +43,16 @@
         ;;  "C-." #'awesome-tab-forward-tab
         ;;  "C-," #'awesome-tab-backward-tab)
         )
-  
+
   (define-key key-translation-map (kbd "SPC")
     (lambda (prompt)
       (if (derived-mode-p 'eaf-mode)
-          (if (and (member eaf--buffer-app-name (list "browser" "pdf-viewer"))
-                   (not (eaf-call "call_function" eaf--buffer-id "is_focus")))
-              (kbd "C-SPC")
-            (kbd "SPC"))         
+          (pcase eaf--buffer-app-name
+            ("browser" (if (eaf-call "call_function" eaf--buffer-id "is_focus")
+                           (kbd "SPC")
+                         (kbd "C-SPC")))
+            ("pdf-viewer" (kbd "C-SPC"))
+            (_  (kbd "SPC")))
         " ")))
 
 
@@ -55,37 +73,27 @@
      't
      (append '(("e" eaf-open))
              (plist-get ivy--actions-list 't))))
-  :config
+
   (setq eaf-proxy-type "socks5"
         eaf-proxy-host "127.0.0.1"
         eaf-proxy-port "1080")
 
   (require 'eaf-evil)
-  ;; 用 eaf 打开链接
-  (defun adviser-browser-url (orig-fn url &rest args)
-    (let ((whitelist '("github" "wikipekia" "planet" "youtube")))
-      (cond ((and (derived-mode-p 'elfeed-show-mode)
-                  (not (string-match-p "youtube" (downcase url)))) (eww-browse-url url))
-            ((string-match-p (regexp-opt whitelist) (downcase url)) (eaf-open-browser url))
-            (t (apply orig-fn url args)))))
-  (advice-add #'browse-url :around #'adviser-browser-url) 
-  
-  (defun sdcv-search-from-eaf ()
-    (interactive)
-    (let (text)
-      (setq text (eaf-call "call_function" eaf--buffer-id "get_selection_text"))
-      (when text
-        (sdcv-search-input+ text ))))
 
-  (map! :map eaf-mode-map* "C-." #'sdcv-search-from-eaf))
+  ;; (defun sdcv-search-from-eaf ()
+  ;;   (interactive)
+  ;;   (let (text)
+  ;;     (setq text (eaf-call "call_function" eaf--buffer-id "get_selection_text"))
+  ;;     (when text
+  ;;       (sdcv-search-input+ text ))))
 
-
+  ;; (map! :map eaf-mode-map* "C-." #'sdcv-search-from-eaf))
+  )
 (use-package! snails
-  :commands (snails)
-  :bind (("s-y" . snails)
-         ("s-Y" . snails-search-point))
-  :config
-  (use-package! fuz)
-  (add-hook 'snails-mode-hook #'centaur-tabs-local-mode)
-  (add-to-list 'evil-emacs-state-modes 'snails-mode))
-
+    :commands (snails)
+    :bind (("s-y" . snails)
+           ("s-Y" . snails-search-point))
+    :config
+    (use-package! fuz)
+    ;; (add-hook 'snails-mode-hook #'centaur-tabs-local-mode)
+    (add-to-list 'evil-emacs-state-modes 'snails-mode))

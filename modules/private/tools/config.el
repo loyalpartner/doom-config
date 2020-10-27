@@ -1,8 +1,9 @@
 ;;; private/tools/config.el -*- lexical-binding: t; -*-
 
-;; (use-package! atomic-chrome :defer 10 :config (atomic-chrome-start-server))
-;; (use-package! grip-mode :commands (grip-mode))
-;; (use-package! posframe)
+(after! projectile
+  (add-to-list 'projectile-project-search-path "~/Documents/work")
+  (add-to-list 'projectile-project-search-path "~/Documents/study")
+  (add-to-list 'projectile-project-search-path "~/dot"))
 
 (use-package! auto-save
   :config
@@ -12,7 +13,7 @@
         '((lambda () (string-suffix-p "gpg" (buffer-name)))
           (lambda () (string-suffix-p "lua" (buffer-name)))
           (lambda () (string-suffix-p "spec.js" (buffer-name)))))
-  
+
   (remove-hook 'doom-first-buffer-hook #'ws-butler-global-mode)
   (auto-save-enable))
 
@@ -26,10 +27,14 @@
 (defun keyfreq-load-excluded-commands ()
   (let ((path (concat
                (file-name-directory (or load-file-name buffer-file-name))
-               "exclude-commands"))) 
+               "exclude-commands")))
     (with-temp-buffer
       (insert-file-contents path)
       (mapcar #'intern (split-string (buffer-string) "\n" t)))))
+
+(use-package! evil-matchit
+  :config
+  (global-evil-matchit-mode))
 
 (use-package! keyfreq
   :init
@@ -44,7 +49,6 @@
   (setq baidu-ocr-client-id "GT2oXlZprvaxER2ZG0fiBxGD"
         baidu-ocr-seceret-key "d13PpamkalDP7XdPKUQd3MHNffGGEZjN"))
 
-;; (use-package! valign :hook (org-mode . valign-mode))
 
 (set-popup-rules!
   '(("^\\*BigWords" :size 0.35 :select t :modeline t :quit t :ttl t)
@@ -52,9 +56,7 @@
 
 (use-package mingus
   :commands (mingus)
-  :init)
-
-(after! evil
+  :init
+  (map! :leader "oh" #'mingus)
+  :config
   (add-to-list 'evil-emacs-state-modes 'mingus-playlist-mode))
-
-(map! :leader "oh" #'mingus)

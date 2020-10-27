@@ -1,9 +1,7 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; private/tools/packages.el
 
-(package! posframe)
-
-;; (package! atomic-chrome)
+(package! evil-matchit :recipe (:host github :repo "redguardtoo/evil-matchit"))
 
 (package! auto-save :recipe (:host github :repo "loyalpartner/auto-save"))
 
