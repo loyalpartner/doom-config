@@ -22,7 +22,7 @@
        company ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy icons +prescient )                              ; a search engine for love and life
+       (ivy +icons +prescient )                              ; a search engine for love and life
 
        :ui
        ;; deft              ; notational velocity for Emacs
@@ -50,7 +50,7 @@
        vi-tilde-fringe          ; fringe tildes to mark beyond EOB
        (window-select +numbers) ; visually switch windows
        workspaces             ; tab emulation, persistence & separate workspaces
-       zen                    ; distraction-free coding or writing
+       ;; zen                    ; distraction-free coding or writing
 
        :editor
        (evil +everywhere)               ; come to the dark side, we have cookies
@@ -131,11 +131,11 @@
        (javascript) ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
-       latex             ; writing papers in Emacs has never been so fun
+       ;; latex             ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
        ;;ledger            ; an accounting system in Emacs
-       lua               ; one-based indices? one-based indices       
+       ;; lua               ; one-based indices? one-based indices       
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
@@ -156,13 +156,13 @@
        ;;purescript        ; javascript, but functional
        (python +lsp +pyright)                  ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
-       racket                       ; a DSL for DSLs
+       ;; racket                       ; a DSL for DSLs
        ;;rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
        ;;ruby              ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
-       scheme ; a fully conniving family of lisps
+       ;; scheme ; a fully conniving family of lisps
        (sh +lsp)     ; she sells {ba,z,fi}sh shells on the C xor
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
@@ -176,15 +176,15 @@
 
        :app
        ;;calendar
-       irc                              ; how neckbeards socialize
+       ;; irc                              ; how neckbeards socialize
        (rss +org)                       ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
        ;;write             ; emacs for writers (fiction, notes, papers, etc.)
 
        
        :checkers
-       (spell +everywhere +aspell)
-       (syntax +childframe)
+       ;; (spell +everywhere +aspell)
+       syntax
        ;; grammar
 
        
@@ -192,7 +192,7 @@
        ;;literate
        (default +bindings +smartparens)
        :private
-       (chinese +rime)                  ; pyim or rime
+       (chinese +pyim)                  ; pyim or rime
        translate
        rss
        irc

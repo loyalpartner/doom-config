@@ -16,7 +16,7 @@
     :after pyim
     :config
     (setq default-input-method "pyim"
-          pyim-default-scheme 'xiaohe-shuangpin
+          ;; pyim-default-scheme 'xiaohe-shuangpin
           pyim-page-tooltip 'posframe
           pyim-page-length 5)
     (setq-default pyim-english-input-switch-functions (private/pyim-english-prober))

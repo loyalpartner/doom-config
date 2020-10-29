@@ -12,16 +12,17 @@
 
   ;; 用 eaf 打开链接
   (defun adviser-browser-url (orig-fn url &rest args)
-    (if (commandp 'eaf-open-browser)
-        (eaf-open-browser url)
-      (apply orig-fn url args)))
+    (cond ((string-prefix-p "file:" url) (eww url))
+          ((and (commandp 'eaf-open-browser)
+                (display-graphic-p))
+           (eaf-open-browser url))
+          (t (apply orig-fn url args))))
 
   (advice-add #'browse-url :around #'adviser-browser-url)
 
   (defun eaf-open-with-other-browser ()
     (interactive)
     (browse-url-chrome (eaf-get-path-or-url)))
-
   )
 
 (use-package! eaf
@@ -33,7 +34,7 @@
         :desc "eaf open history" "eh" 'eaf-open-browser-with-history
         :desc "eaf open terminal" "et" 'eaf-open-terminal
         :desc "eaf open rss" "er" 'eaf-open-rss-reader)
-  
+
   :config
   (eaf-setq eaf-browser-chrome-history-file "~/.config/chromium/Default/History")
   (map! (:when t :map eaf-pdf-outline-mode-map
@@ -90,10 +91,10 @@
   ;; (map! :map eaf-mode-map* "C-." #'sdcv-search-from-eaf))
   )
 (use-package! snails
-    :commands (snails)
-    :bind (("s-y" . snails)
-           ("s-Y" . snails-search-point))
-    :config
-    (use-package! fuz)
-    ;; (add-hook 'snails-mode-hook #'centaur-tabs-local-mode)
-    (add-to-list 'evil-emacs-state-modes 'snails-mode))
+  :commands (snails)
+  :bind (("s-y" . snails)
+         ("s-Y" . snails-search-point))
+  :config
+  (use-package! fuz)
+  ;; (add-hook 'snails-mode-hook #'centaur-tabs-local-mode)
+  (add-to-list 'evil-emacs-state-modes 'snails-mode))

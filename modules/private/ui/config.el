@@ -15,6 +15,7 @@
 (defun awesome-tab-buffer-groups ()
   (list
    (cond
+    ((derived-mode-p 'web-mode 'js2-mode) "Web")
     ((derived-mode-p 'emacs-lisp-mode) "Elisp")
     ((derived-mode-p 'eaf-mode) "Eaf")
     ((or (string-equal "*" (substring (buffer-name) 0 1))

@@ -11,9 +11,14 @@
 
 (set-company-backend! 'indium-repl-mode '(company-indium-repl))
 (set-company-backend! 'dap-ui-repl-mode '(company-dap-ui-repl))
-;; (set-company-backend! 'web-mode '(company-capf :separate company-etags :separate company-yasnippet))
+
+(add-hook 'tide-mode-hook
+          (lambda ()
+            (run-at-time 2 nil
+                         (lambda ()
+                           (set-company-backend! 'js2-mode '(company-yasnippet :with company-tide))))))
+
 ;; (set-company-backend! 'web-mode '(company-capf :with company-yasnippet :with company-css :with company-web))
 
 (add-hook 'dap-stopped-hook
           (lambda (arg) (call-interactively #'dap-hydra)))
-

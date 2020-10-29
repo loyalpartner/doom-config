@@ -31,8 +31,8 @@
 (after! company-mode
   (setq company-idle-delay 0))
 
-;; (when IS-LINUX
-;;   (setq browse-url-browser-function 'browse-url-chrome))
+(when IS-LINUX
+  (setq browse-url-browser-function 'browse-url-chrome))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -64,6 +64,7 @@
         '(ol-info ol-irc)))
 ;; (dolist (module '(ol-info ol-irc)) (add-to-list 'org-modules module)))
 
+;; (setq +ivy-buffer-preview t)
 ;; (after! ivy
 ;;   (when IS-MAC
 ;;     (setq counsel-locate-cmd #'counsel-locate-cmd-noregex)))
@@ -83,7 +84,7 @@
       avy-style 'pre)
 
 (with-eval-after-load "which-key"
-  (setq which-key-idle-delay 0))
+  (setq which-key-idle-delay 0.3))
 
 (defun next-theme ()
   (if (custom-theme-enabled-p 'doom-one)
@@ -196,18 +197,18 @@
       :n "gd" (lambda () (interactive) (elisp-index-search (thing-at-point 'word t)))
 
       :leader
-      (:when (featurep! :ui window-select +numbers)
-       :leader
-       :desc "[0]" "0" 'winum-select-window-0-or-10
-       :desc "[1]" "1" 'winum-select-window-1
-       :desc "[2]" "2" 'winum-select-window-2
-       :desc "[3]" "3" 'winum-select-window-3
-       :desc "[4]" "4" 'winum-select-window-4
-       :desc "[5]" "5" 'winum-select-window-5
-       :desc "[6]" "6" 'winum-select-window-6
-       :desc "[7]" "7" 'winum-select-window-7
-       :desc "[8]" "8" 'winum-select-window-8
-       :desc "[9]" "9" 'winum-select-window-9)
+      ;; (:when (featurep! :ui window-select +numbers)
+      ;;  :leader
+      ;;  :desc "[0]" "0" 'winum-select-window-0-or-10
+      ;;  :desc "[1]" "1" 'winum-select-window-1
+      ;;  :desc "[2]" "2" 'winum-select-window-2
+      ;;  :desc "[3]" "3" 'winum-select-window-3
+      ;;  :desc "[4]" "4" 'winum-select-window-4
+      ;;  :desc "[5]" "5" 'winum-select-window-5
+      ;;  :desc "[6]" "6" 'winum-select-window-6
+      ;;  :desc "[7]" "7" 'winum-select-window-7
+      ;;  :desc "[8]" "8" 'winum-select-window-8
+      ;;  :desc "[9]" "9" 'winum-select-window-9)
       :desc "copy file path" "by" #'copy-file-path
       :desc "split window" "ws" (lambda () (interactive) (split-window-vertically) (select-window (next-window)))
       :desc "vsplit window" "wv" (lambda () (interactive) (split-window-horizontally) (select-window (next-window)))

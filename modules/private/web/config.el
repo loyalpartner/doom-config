@@ -9,12 +9,12 @@
                                     :run "npm run serve"
                                     :test "npm run test:unit"
                                     :test-suffix ".spec")
-  
+
   (map! :leader "p." #'projectile-toggle-between-implementation-and-test)
   (mapc (apply-partially #'add-to-list 'projectile-other-file-alist)
         '(("js" "spec.js")
           ("spec.js" "js"))))
- 
+
 ;; (add-hook 'js-mode-hook (setq))
 ;; (use-package! indium
 ;;   :hook ((js2-mode . indium-interaction-mode)
@@ -26,32 +26,19 @@
       '(("vue" . "\\.vue\\'")))
 
 (add-hook 'web-mode-hook #'web-mode-setup)
+
+(add-hook 'js2-mode-hook
+          (lambda ()
+            (setq rotate-text-local-words
+                  '(("log" "error" "info" "warn")))))
+
 (defun web-mode-setup ()
   (lsp!)
-  ;; (tide-setup)
   (setq web-mode-markup-indent-offset 2
         web-mode-code-indent-offset 2
         web-mode-css-indent-offset 2
         web-mode-style-padding 0
         web-mode-script-padding 0)
-  ;; (when (string= web-mode-content-type "vue")
-  ;;   (require 'dap-chrome)
-  ;;   ;; https://emacs-lsp.github.io/dap-mode/page/adding-debug-server/
-  ;;   (dap-register-debug-template
-  ;;    "chrome"
-  ;;    (list :type "chrome"
-  ;;          :cwd nil
-  ;;          :mode "url"
-  ;;          :request "launch"
-  ;;          :webRoot "${workspaceFolder}"
-  ;;          :runtimeExecutable "/usr/bin/chromium"
-  ;;          :url "http://localhost:8080"
-  ;;          :sourceMapPathOverrides '(
-  ;;                                    :webpack:///src/* "${workspaceFolder}/src/*"
-  ;;                                    :webpack:///\./~/* "${workspaceFolder}/node_modules/*"
-  ;;                                    :webpack:///\./* "${workspaceFolder}/*"
-  ;;                                    :webpack:///* "/*")
-  ;;          :name "chrome")))
   (map! :map dap-mode-map
         "C-c C-d" #'dap-debug
         "C-c C-z" #'dap-ui-repl
@@ -69,24 +56,6 @@
       (save-excursion
         (insert "debugger\n")))))
 
-
-;; (map! :map indium-debugger-mode-map
-;;       :n "h" #'indium-debugger-here
-;;       :n "l" #'indium-debugger-locals
-;;       :n "gs" #'indium-debugger-stack-frames
-;;       :map (web-mode-map js2-mode-map indium-repl-mode-map indium-debugger-mode-map)
-;;       "C-c C-r" #'indium-reload
-;;       "C-c q" #'indium-quit
-;;       "C-c r" #'indium-launch
-;;       :map (web-mode-map js2-mode-map)
-;;       "C-c t" #'toggle-debugger)
-
-;; (after! indium-repl-mode
-;;   (set-company-backend! 'indium-repl-mode 'company-indium-repl))
-
-;; (set-popup-rules!
-;;   '(("^\\*JS REPL"
-;;      :size 0.2 :select nil :modeline nil :quit t :ttl t)))
 
 (setq-default js2-use-font-lock-faces t
               js2-mode-must-byte-compile nil
