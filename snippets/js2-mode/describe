@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: describe
+# uuid: describe
+# key: des
+# condition: t
+# --
+describe('$1', () => {
+  it('$2', ()=> {
+    $3
+  })
+})

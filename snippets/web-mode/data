@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: data
+# uuid: data
+# key: data
+# condition: t
+# --
+data(){
+    return {
+           $1
+    }
+}
