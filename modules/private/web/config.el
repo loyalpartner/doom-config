@@ -27,10 +27,13 @@
 
 (add-hook 'web-mode-hook #'web-mode-setup)
 
-(add-hook 'js2-mode-hook
-          (lambda ()
-            (setq rotate-text-local-words
-                  '(("log" "error" "info" "warn")))))
+;; (add-hook 'js2-mode-hook
+;;           (lambda ()
+;;             (js-mode)
+;;             (tide-setup)
+;;             (js2-minor-mode 1)
+;;             (setq rotate-text-local-words
+;;                   '(("log" "error" "info" "warn")))))
 
 (defun web-mode-setup ()
   (lsp!)
@@ -66,7 +69,7 @@
               typescript-indent-level 2
               ;; }}
               js2-strict-trailing-comma-warning nil ; it's encouraged to use trailing comma in ES6
-              js2-idle-timer-delay 0.5 ; NOT too big for real time syntax check
+              js2-idle-timer-delay 0.1 ; NOT too big for real time syntax check
               js2-auto-indent-p nil
               js2-indent-on-enter-key nil ; annoying instead useful
               js2-skip-preprocessor-directives t
