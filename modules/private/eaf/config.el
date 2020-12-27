@@ -77,14 +77,16 @@
 
   (defun eaf--browser-display (buf)
     (let ((browser-window (eaf--browser-get-window)))
-      (if browser-window
-          (unless (eq (selected-window) browser-window)
-            (switch-to-buffer-other-window (window-buffer browser-window)))
-        (progn
-          (select-window (split-window-no-error (selected-window) nil 'left))))
+      (select-window (or browser-window (split-window-no-error (selected-window) nil 'right)))
       (switch-to-buffer buf)))
 
   (add-to-list 'eaf-app-display-function-alist '("browser" . eaf--browser-display))
+
+  (defun adviser-elfeed-show-entry (orig-fn entry &rest args)
+    (if (featurep 'elfeed)
+        (eaf-open-browser (elfeed-entry-link entry))
+      (apply orig-fn entry args)))
+  (advice-add #'elfeed-show-entry :around #'adviser-elfeed-show-entry)
 
   ;;ivy 添加 action, 用 eaf-open 打开
   (after! counsel
