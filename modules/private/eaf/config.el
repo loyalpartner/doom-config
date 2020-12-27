@@ -67,7 +67,23 @@
       (or (and (buffer-mode-p buffer 'eaf-mode)
                (not (eq buffer (current-buffer))))
           (apply orig-fn args))))
-
+  (defun eaf--browser-get-window ()
+    (get-window-with-predicate
+     (lambda (window)
+       (with-current-buffer (window-buffer window)
+         (string= eaf--buffer-app-name "browser")))))
+  (defun eaf--browser-display (buf)
+    (let ((browser-window (eaf--browser-get-window)))
+      (if browser-window
+          (unless (eq (selected-window) browser-window)
+            (switch-to-buffer-other-window (window-buffer browser-window)))
+        (progn
+          (split-window-right)
+          (evil-window-move-far-right)))
+      (switch-to-buffer buf)
+      ))
+  (add-to-list 'eaf-app-display-function-alist '("browser" . eaf--browser-display))
+  
   ;;ivy 添加 action, 用 eaf-open 打开
   (after! counsel
     (ivy-set-actions
