@@ -9,8 +9,10 @@
   (map! "M-h" #'awesome-tab-backward-tab
         "M-j" #'awesome-tab-forward-group
         "M-k" #'awesome-tab-backward-group
-        "M-l" #'awesome-tab-forward-tab))
-
+        "M-l" #'awesome-tab-forward-tab
+        "M-H" #'awesome-tab-move-current-tab-to-left
+        "M-L" #'awesome-tab-move-current-tab-to-right
+        :nv "M-A" #'awesome-tab-move-current-tab-to-beg))
 
 (defun awesome-tab-buffer-groups ()
   (list
