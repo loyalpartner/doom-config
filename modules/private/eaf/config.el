@@ -61,12 +61,32 @@
     (eq (buffer-local-value 'major-mode buffer) mode))
 
   ;; eaf buffer look as workspace buffer
-  (advice-add '+ivy--is-workspace-other-buffer-p :around #'is-workspace-other-buffer-p-advice)
-  (defun is-workspace-other-buffer-p-advice (orig-fn  &rest args)
+  (advice-add '+ivy--is-workspace-other-buffer-p :around #'advicer-is-workspace-ther-buffer-p)
+  (defun advicer-is-workspace-ther-buffer-p (orig-fn  &rest args)
     (let ((buffer (cdar args)))
-      (or (and (buffer-mode-p buffer 'eaf-mode)
+      (if (derived-mode-p 'eaf-mode)
+          (and (buffer-mode-p buffer 'eaf-mode)
                (not (eq buffer (current-buffer))))
-          (apply orig-fn args))))
+        (apply orig-fn args))))
+
+  (defun eaf--browser-get-window ()
+    (get-window-with-predicate
+     (lambda (window)
+       (with-current-buffer (window-buffer window)
+         (string= eaf--buffer-app-name "browser")))))
+
+  (defun eaf--browser-display (buf)
+    (let ((browser-window (eaf--browser-get-window)))
+      (select-window (or browser-window (split-window-no-error (selected-window) nil 'right)))
+      (switch-to-buffer buf)))
+
+  (add-to-list 'eaf-app-display-function-alist '("browser" . eaf--browser-display))
+
+  (defun adviser-elfeed-show-entry (orig-fn entry &rest args)
+    (if (featurep 'elfeed)
+        (eaf-open-browser (elfeed-entry-link entry))
+      (apply orig-fn entry args)))
+  (advice-add #'elfeed-show-entry :around #'adviser-elfeed-show-entry)
 
   ;;ivy 添加 action, 用 eaf-open 打开
   (after! counsel

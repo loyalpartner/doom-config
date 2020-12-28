@@ -2,8 +2,11 @@
 
 (after! projectile
   (add-to-list 'projectile-project-search-path "~/Documents/work")
-  (add-to-list 'projectile-project-search-path "~/Documents/study")
-  (add-to-list 'projectile-project-search-path "~/dot"))
+  ;; (add-to-list 'projectile-project-search-path "~/dot")
+  (add-to-list 'projectile-project-search-path "~/Documents/study"))
+
+(after! magit
+  (setq magit-view-git-manual-method 'man))
 
 (use-package! auto-save
   :config
