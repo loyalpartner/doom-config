@@ -2,13 +2,14 @@
 
 ;; open pdf with eaf
 (when IS-LINUX
-  (defun adviser-find-file (orig-fn file &rest args)
-    (let ((fn (if (commandp 'eaf-open) 'eaf-open orig-fn)))
-      (pcase (file-name-extension file)
-        ("pdf"  (apply fn file nil))
-        ("epub" (apply fn file nil))
-        (_      (apply orig-fn file args)))))
-  (advice-add #'find-file :around #'adviser-find-file)
+  ;; eaf 已经采用了这段代码
+  ;; (defun adviser-find-file (orig-fn file &rest args)
+  ;;   (let ((fn (if (commandp 'eaf-open) 'eaf-open orig-fn)))
+  ;;     (pcase (file-name-extension file)
+  ;;       ("pdf"  (apply fn file nil))
+  ;;       ("epub" (apply fn file nil))
+  ;;       (_      (apply orig-fn file args)))))
+  ;; (advice-add #'find-file :around #'adviser-find-file)
 
   ;; 用 eaf 打开链接
   (defun adviser-browser-url (orig-fn url &rest args)
@@ -18,32 +19,25 @@
            (eaf-open-browser url))
           (t (apply orig-fn url args))))
 
-  (advice-add #'browse-url :around #'adviser-browser-url)
-
-  (defun eaf-open-with-other-browser ()
-    (interactive)
-    (browse-url-chrome (eaf-get-path-or-url)))
-  )
+  (advice-add #'browse-url :around #'adviser-browser-url))
 
 (use-package! eaf
   :when IS-LINUX
   :commands (eaf-open-browser eaf-open find-file)
   :init
-  (map! :map eaf-mode-map* "C-." 'eaf-open-with-other-browser
-        :leader
+  (map! :leader
         :desc "eaf open history" "eh" 'eaf-open-browser-with-history
         :desc "eaf open terminal" "et" 'eaf-open-terminal
         :desc "eaf open rss" "er" 'eaf-open-rss-reader)
 
   :config
+  (setq eaf-proxy-type "socks5"
+        eaf-proxy-host "127.0.0.1"
+        eaf-proxy-port "1080")
   (eaf-setq eaf-browser-chrome-history-file "~/.config/chromium/Default/History")
   (map! (:when t :map eaf-pdf-outline-mode-map
          :n "RET" 'eaf-pdf-outline-jump
-         :n "q" '+popup/close)
-        ;; (:when t :map eaf-mode-map
-        ;;  "C-." #'awesome-tab-forward-tab
-        ;;  "C-," #'awesome-tab-backward-tab)
-        )
+         :n "q" '+popup/close))
 
   (define-key key-translation-map (kbd "SPC")
     (lambda (prompt)
@@ -60,7 +54,7 @@
   (defun buffer-mode-p (buffer mode)
     (eq (buffer-local-value 'major-mode buffer) mode))
 
-  ;; eaf buffer look as workspace buffer
+  ;; 让 eaf buffer 支持 doom 的 leader b b 按键
   (advice-add '+ivy--is-workspace-other-buffer-p :around #'advicer-is-workspace-ther-buffer-p)
   (defun advicer-is-workspace-ther-buffer-p (orig-fn  &rest args)
     (let ((buffer (cdar args)))
@@ -69,16 +63,14 @@
                (not (eq buffer (current-buffer))))
         (apply orig-fn args))))
 
-  (defun eaf--browser-get-window ()
-    (get-window-with-predicate
-     (lambda (window)
-       (with-current-buffer (window-buffer window)
-         (string= eaf--buffer-app-name "browser")))))
-
   (defun eaf--browser-display (buf)
-    (let ((browser-window (eaf--browser-get-window)))
-      (select-window (or browser-window (split-window-no-error (selected-window) nil 'right)))
-      (switch-to-buffer buf)))
+    (let* ((split-direction 'right)
+           (browser-window (or (get-window-with-predicate
+                                (lambda (window)
+                                  (with-current-buffer (window-buffer window)
+                                    (string= eaf--buffer-app-name "browser"))))
+                               (split-window-no-error nil nil split-direction))))
+      (set-window-buffer browser-window buf)))
 
   (add-to-list 'eaf-app-display-function-alist '("browser" . eaf--browser-display))
 
@@ -89,27 +81,17 @@
   (advice-add #'elfeed-show-entry :around #'adviser-elfeed-show-entry)
 
   ;;ivy 添加 action, 用 eaf-open 打开
-  (after! counsel
-    (ivy-set-actions
-     't
-     (append '(("e" eaf-open))
-             (plist-get ivy--actions-list 't))))
+  ;; (after! counsel
+  ;;   (ivy-set-actions
+  ;;    't
+  ;;    (append '(("e" eaf-open))
+  ;;            (plist-get ivy--actions-list 't))))
 
-  (setq eaf-proxy-type "socks5"
-        eaf-proxy-host "127.0.0.1"
-        eaf-proxy-port "1080")
 
   (require 'eaf-evil)
 
-  ;; (defun sdcv-search-from-eaf ()
-  ;;   (interactive)
-  ;;   (let (text)
-  ;;     (setq text (eaf-call "call_function" eaf--buffer-id "get_selection_text"))
-  ;;     (when text
-  ;;       (sdcv-search-input+ text ))))
-
-  ;; (map! :map eaf-mode-map* "C-." #'sdcv-search-from-eaf))
   )
+
 (use-package! snails
   :commands (snails)
   :bind (("s-y" . snails)
