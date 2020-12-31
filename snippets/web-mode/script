@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: script
+# uuid: script
+# key: script
+# condition: t
+# --
+<script type="text/javascript">
+export default {
+  name: "",
+  components:{},
+  data(){},
+  computed:{
+    
+  },
+  created(){},
+  mounted(){},
+}
+</script>
