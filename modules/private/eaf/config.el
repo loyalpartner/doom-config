@@ -35,6 +35,7 @@
         eaf-proxy-host "127.0.0.1"
         eaf-proxy-port "1080")
   (eaf-setq eaf-browser-chrome-history-file "~/.config/chromium/Default/History")
+  (eaf-bind-key copy_text "y" eaf-browser-caret-mode-keybinding)
   (map! (:when t :map eaf-pdf-outline-mode-map
          :n "RET" 'eaf-pdf-outline-jump
          :n "q" '+popup/close))
@@ -47,6 +48,7 @@
                            (kbd "SPC")
                          (kbd "C-SPC")))
             ("pdf-viewer" (kbd "C-SPC"))
+            ("image-viewer" (kbd "C-SPC"))
             (_  (kbd "SPC")))
         " ")))
 
@@ -73,6 +75,8 @@
       (set-window-buffer browser-window buf)))
 
   (add-to-list 'eaf-app-display-function-alist '("browser" . eaf--browser-display))
+
+  
 
   (defun adviser-elfeed-show-entry (orig-fn entry &rest args)
     (if (featurep 'elfeed)
