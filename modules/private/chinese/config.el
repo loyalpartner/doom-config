@@ -1,6 +1,5 @@
 ;;; private/chinese/config.el -*- lexical-binding: t; -*-
 ;; TODO: add pyim package
-我可以 
 (when (featurep! +pyim)
   (defun private/pyim-english-prober ()
     (cond ((and (boundp 'insert-translated-name-active-overlay)
