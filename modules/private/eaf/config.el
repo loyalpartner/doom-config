@@ -35,6 +35,7 @@
         eaf-proxy-host "127.0.0.1"
         eaf-proxy-port "1080")
   (eaf-setq eaf-browser-chrome-history-file "~/.config/chromium/Default/History")
+  (eaf-bind-key insert_or_copy_text "y" eaf-browser-keybinding)
   (eaf-bind-key copy_text "y" eaf-browser-caret-mode-keybinding)
   (map! (:when t :map eaf-pdf-outline-mode-map
          :n "RET" 'eaf-pdf-outline-jump
@@ -46,11 +47,11 @@
           (pcase eaf--buffer-app-name
             ("browser" (if (eaf-call "call_function" eaf--buffer-id "is_focus")
                            (kbd "SPC")
-                         (kbd "C-SPC")))
-            ("pdf-viewer" (kbd "C-SPC"))
-            ("image-viewer" (kbd "C-SPC"))
+                         (kbd eaf-evil-leader-key)))
+            ("pdf-viewer" (kbd eaf-evil-leader-key))
+            ("image-viewer" (kbd eaf-evil-leader-key))
             (_  (kbd "SPC")))
-        " ")))
+        (kbd "SPC"))))
 
 
   (defun buffer-mode-p (buffer mode)
@@ -76,7 +77,7 @@
 
   (add-to-list 'eaf-app-display-function-alist '("browser" . eaf--browser-display))
 
-  
+
 
   (defun adviser-elfeed-show-entry (orig-fn entry &rest args)
     (if (featurep 'elfeed)

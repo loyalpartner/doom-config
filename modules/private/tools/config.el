@@ -63,3 +63,12 @@
   (map! :leader "oh" #'mingus)
   :config
   (add-to-list 'evil-emacs-state-modes 'mingus-playlist-mode))
+
+
+(defun generate-pdf-file ()
+  (call-process-shell-command (format "pdftex %s" (buffer-file-name)) nil 0))
+
+(add-hook
+ 'plain-tex-mode-hook '(lambda ()
+    (add-hook 'after-save-hook #'generate-pdf-file nil t)
+    ))

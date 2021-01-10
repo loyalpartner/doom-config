@@ -9,8 +9,27 @@
 (setq user-full-name "lee"
       user-mail-address "loyalpartner@163.com")
 
-(setq url-gateway-method 'socks)
-(setq socks-server '("Default server" "127.0.0.1" 1080 5))
+(setq socks-server 'nil)
+(defun set-proxy ()
+  "Set http/https proxy."
+  (interactive)
+  (setq url-gateway-method 'socks)
+  (setq socks-server '("Default server" "127.0.0.1" 1080 5))
+  (message "enabled proxy"))
+
+(defun unset-proxy ()
+  "Unset http/https proxy."
+  (interactive)
+  (setq url-gateway-method nil)
+  (setq socks-server nil)
+  (message "disabled proxy."))
+
+(defun toggle-proxy ()
+  "Toggle http/https proxy."
+  (interactive)
+  (if socks-server
+      (unset-proxy)
+    (set-proxy)))
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -171,9 +190,9 @@
        :i "C-k" #'lispy-kill
        :i "C-y" #'lispy-yank)
 
-      (:when (and (featurep! :tools lsp) (featurep! :tools debugger))
-       :map dap-mode-map
-       :n "C-c '" #'dap-hydra)
+      ;; (:when (and (featurep! :tools lsp) (featurep! :tools debugger))
+      ;;  :map dap-mode-map
+      ;;  :n "C-c '" #'dap-hydra)
 
       (:when (featurep! :tools gist)
        :map gist-mode-map
