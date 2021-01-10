@@ -1,14 +1,16 @@
 ;;; private/chinese/config.el -*- lexical-binding: t; -*-
 ;; TODO: add pyim package
+我可以 
 (when (featurep! +pyim)
   (defun private/pyim-english-prober ()
     (cond ((and (boundp 'insert-translated-name-active-overlay)
                 insert-translated-name-active-overlay)
            nil)
           ((eq major-mode 'eaf-mode) nil)
-          (t '(pyim-probe-dynamic-english
+          (t '(
+               pyim-probe-dynamic-english
                pyim-probe-isearch-mode
-               pyim-probe-program-mode
+               ;; pyim-probe-program-mode
                pyim-probe-org-structure-template))))
 
   (use-package! pyim)
