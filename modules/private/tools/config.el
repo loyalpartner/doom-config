@@ -57,7 +57,7 @@
   '(("^\\*BigWords" :size 0.35 :select t :modeline t :quit t :ttl t)
     ("^\\*frequencies" :size 0.35 :select t :modeline nil :quit t :ttl t)))
 
-(use-package mingus
+(use-package! mingus
   :commands (mingus)
   :init
   (map! :leader "oh" #'mingus)
@@ -72,3 +72,7 @@
  'plain-tex-mode-hook '(lambda ()
     (add-hook 'after-save-hook #'generate-pdf-file nil t)
     ))
+
+(use-package! rfc-mode
+  :config
+  (setq rfc-mode-directory (expand-file-name "~/org/book/rfc")))

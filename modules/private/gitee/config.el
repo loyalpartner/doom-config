@@ -1,4 +1,6 @@
 ;;; private/gitee/config.el -*- lexical-binding: t; -*-
+(require 'gitee)
+
 (defun gitee--list-enterprise ()
   "return alist"
   (let ((enterprises (gitee-get "/user/enterprises" nil
