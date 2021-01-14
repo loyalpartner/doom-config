@@ -40,9 +40,15 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(defvar font (cond (IS-MAC '(:family "SauceCodePro NF" :size 11))
-                   (IS-LINUX '(:family "Sarasa Mono SC" :size 22))
-                   (t '(:family "SauceCodePro NF" :size 18))))
+;;
+(defvar font-size (cond ((> (display-pixel-width) 1920) 22)
+                        (t 16)))
+(defvar font (cond (IS-MAC `(:family "SauceCodePro NF" :size ,font-size))
+                   (IS-LINUX `(:family "Sarasa Mono SC" :size ,font-size))
+                   (t `(:family "SauceCodePro NF" :size ,font-size))))
+;; (defvar font (cond (IS-MAC '(:family "SauceCodePro NF" :size 11))
+;;                    (IS-LINUX '(:family "Sarasa Mono SC" :size 22))
+;;                    (t '(:family "SauceCodePro NF" :size 18))))
 (setq doom-font (apply #'font-spec font)
       doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
       doom-unicode-font (font-spec :family "Sarasa Fixed SC"))
@@ -79,6 +85,7 @@
 (setq org-directory "~/org/")
 
 (after! org
+  (setq org-time-stamp-custom-formats '("<%y/%m/%y %d>" . "<%y/%m/%d %a %H:%M>"))
   (setq elfeed-db-directory "~/org/elfeeddb")
   (add-to-list 'org-capture-templates
                '("l" "links" item
