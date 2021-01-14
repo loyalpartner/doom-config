@@ -41,10 +41,10 @@
 ;;           (lambda ()
 ;;             (setq-local browse-url-browser-function #'browse-url-eww)))
 
-(add-hook 'eww-mode-hook
-          (lambda ()
-            (setq-local url-gateway-method 'socks)
-            (setq-local socks-server '("Default server" "127.0.0.1" 1080 5))))
+;; (add-hook 'eww-mode-hook
+;;           (lambda ()
+;;             (setq-local url-gateway-method 'socks)
+;;             (setq-local socks-server '("Default server" "127.0.0.1" 1080 5))))
 
 (map! (:when (featurep! :app rss)
         :map elfeed-search-mode-map

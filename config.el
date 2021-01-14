@@ -59,6 +59,17 @@
 (setq doom-theme 'doom-one)
 
 ;; (setq doom-scratch-buffer-major-mode 'lisp-interaction-mode)
+(setq org-clock-idle-time 15
+      calendar-day-abbrev-array ["周日" "周一" "周二" "周三" "周四" "周五" "周六"]
+      calendar-day-name-array ["周日" "周一" "周二" "周三" "周四" "周五" "周六"]
+      calendar-month-name-array ["一月" "二月" "三月" "四月" "五月" "六月" "七月" "八月" "九月" "十月" "十一月" "十二月"]
+      org-agenda-deadline-leaders (quote ("截止日期:  " "%3d 天后到期: " "%2d 天前: "))
+      org-agenda-scheduled-leaders '("预 " "应%02d天前开始 ")
+      calendar-week-start-day 1)
+
+
+;; (setq org-agenda-deadline-leaders '("止 " "过%02d天后到期 " "已经过期%02d天"))
+
 
 (with-eval-after-load "evil"
   (add-to-list 'evil-emacs-state-modes 'debugger-mode)
