@@ -42,12 +42,12 @@
         web-mode-css-indent-offset 2
         web-mode-style-padding 0
         web-mode-script-padding 0)
-  (map! :map dap-mode-map
-        "C-c C-d" #'dap-debug
-        "C-c C-z" #'dap-ui-repl
-        "C-c C-r" #'dap-debug-recent
-        "C-c C-s" #'dap-debug-last
-        "C-c C-k" #'dap-debug-restart)
+  (map! :map dap-mode-map)
+        ;; "C-c C-d" #'dap-debug
+        ;; "C-c C-z" #'dap-ui-repl
+        ;; "C-c C-r" #'dap-debug-recent
+        ;; "C-c C-s" #'dap-debug-last
+        ;; "C-c C-k" #'dap-debug-restart)
 
   )
 
