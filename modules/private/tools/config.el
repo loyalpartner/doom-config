@@ -70,9 +70,13 @@
 
 (add-hook
  'plain-tex-mode-hook '(lambda ()
-    (add-hook 'after-save-hook #'generate-pdf-file nil t)
-    ))
+                         (add-hook 'after-save-hook #'generate-pdf-file nil t)
+                         ))
 
 (use-package! rfc-mode
   :config
-  (setq rfc-mode-directory (expand-file-name "~/org/book/rfc")))
+  (setq rfc-mode-directory (expand-file-name "~/org/book/rfc"))
+  ;; (map! :leader
+  ;;       :map (rfc-mode-map)
+  ;;       "m" #'rfc-mode-goto-section)
+  )

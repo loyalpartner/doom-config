@@ -6,6 +6,14 @@
         awesome-tab-terminal-dark-select-background-color "red")
   :config
   (awesome-tab-mode)
+  (require 'project)
+  ;; (add-to-list 'project-find-functions #'projectile-project-root)
+  (add-to-list 'project-find-functions
+               #'(lambda (dir)
+                   (locate-dominating-file "." "package.json")
+                   ))
+  ;; (defun my-project-root (dir)
+  ;;   )
   (map! "M-h" #'awesome-tab-backward-tab
         "M-j" #'awesome-tab-forward-group
         "M-k" #'awesome-tab-backward-group
@@ -32,5 +40,3 @@
     ;; ((locate-dominating-file "vue.config.js") "VueJs")
     ((memq major-mode '(org-mode org-agenda-mode diary-mode)) "OrgMode")
     (t (awesome-tab-get-group-name (current-buffer))))))
-
-
