@@ -17,4 +17,6 @@
 (package! mingus)
 
 (package! rfc-mode)
+
+(package! mermaid-mode)
 ;; (package! valign :recipe (:host github :repo "casouri/valign"))

@@ -1,26 +1,91 @@
 ;;; private/ui/config.el -*- lexical-binding: t; -*-
 
+(defun project-try-web (dir)
+  (let ((root (or (vc-file-getprop dir 'project-npm-root)
+                  (vc-file-setprop dir 'project-npm-root
+                                   (locate-dominating-file dir "package.json")))))
+    (and root (cons 'npm root))))
+
+(after! project
+  (add-to-list 'project-find-functions #'project-try-web))
+
+(defun awesome-tab-evil-forward-tab (tab-number)
+  (interactive "P")
+  (cond ((not (numberp tab-number)) (awesome-tab-forward))
+        ((> tab-number 0) (awesome-tab-select-visible-nth-tab tab-number))
+        ((< tab-number 0) (awesome-tab-backward))))
+
+(defun awesome-tab-evil-backward-tab ()
+  (interactive)
+  (awesome-tab-goto-tab -1))
+
 (use-package! awesome-tab
   :init
   (setq awesome-tab-height 150
-        awesome-tab-terminal-dark-select-background-color "red")
+        awesome-tab-dark-active-bar-color "yellow"
+        awesome-tab-dark-selected-foreground-color "green"
+        awesome-tab-dark-unselected-foreground-color "white"
+        awesome-tab-terminal-dark-select-background-color "red"
+        awesome-tab-display-sticky-function-name nil
+        awesome-tab-label-max-length 0
+        awesome-tab-show-tab-index t
+        awesome-tab-cycle-scope 'tabs)
   :config
   (awesome-tab-mode)
   (require 'project)
-  ;; (add-to-list 'project-find-functions #'projectile-project-root)
-  (add-to-list 'project-find-functions
-               #'(lambda (dir)
-                   (locate-dominating-file "." "package.json")
-                   ))
-  ;; (defun my-project-root (dir)
-  ;;   )
   (map! "M-h" #'awesome-tab-backward-tab
-        "M-j" #'awesome-tab-forward-group
-        "M-k" #'awesome-tab-backward-group
+        "s-j" #'awesome-tab-forward-group
+        "s-k" #'awesome-tab-backward-group
         "M-l" #'awesome-tab-forward-tab
-        "M-H" #'awesome-tab-move-current-tab-to-left
+        "M-k" #'awesome-tab-move-current-tab-to-left
         "M-L" #'awesome-tab-move-current-tab-to-right
+        :nv "gt" #'awesome-tab-evil-forward-tab
+        :nv "gT" #'awesome-tab-evil-backward-tab
         :nv "M-A" #'awesome-tab-move-current-tab-to-beg))
+
+(defun adviser-awesome-buffer-name (orig-fn buffer &rest args)
+  (if-let* ((file-name (buffer-file-name buffer))
+            (chunks (split-string file-name "/"))
+            (second-last (if (equal (length chunks) 1)  "" (car (last chunks 2))))
+            (buffer-name (buffer-name buffer))
+            (short (substring second-last 0 (min 3 (length second-last)))))
+      (if (and awesome-tab-display-sticky-function-name
+               (boundp 'awesome-tab-last-sticky-func-name)
+               awesome-tab-last-sticky-func-name
+               (equal buffer (current-buffer)))
+          (format "%s/%s [%s]" short buffer-name awesome-tab-last-sticky-func-name)
+        (format "%s/%s" short buffer-name))
+    (buffer-name buffer)))
+
+
+(advice-add #'awesome-tab-buffer-name :around #'adviser-awesome-buffer-name)
+
+(add-hook 'post-command-hook #'awesome-tab-monitor-window-scroll-for-modeline)
+
+(defun awesome-tab-monitor-window-scroll-for-modeline ()
+  "This function is used to monitor the window scroll.
+Currently, this function is only use for option `awesome-tab-display-sticky-function-name'."
+  (let ((scroll-y (window-start)))
+    (when (and scroll-y
+               (integerp scroll-y))
+      (unless (equal scroll-y awesome-tab-last-scroll-y)
+        (let ((func-name (save-excursion
+                           (goto-char scroll-y)
+                           (require 'which-func)
+                           (which-function))))
+          (when (or
+                 (not (boundp 'awesome-tab-last-sticky-func-name))
+                 (not (equal func-name awesome-tab-last-sticky-func-name)))
+            (set (make-local-variable 'awesome-tab-last-sticky-func-name) func-name)
+
+            ;; Use `ignore-errors' avoid integerp error when execute `awesome-tab-line-format'.
+            (setq global-mode-string awesome-tab-last-sticky-func-name)
+              
+            ))))
+    (setq awesome-tab-last-scroll-y scroll-y)))
+
+
+
 
 (defun awesome-tab-buffer-groups ()
   (list

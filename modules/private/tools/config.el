@@ -80,3 +80,5 @@
   ;;       :map (rfc-mode-map)
   ;;       "m" #'rfc-mode-goto-section)
   )
+
+(use-package! mermaid-mode)
