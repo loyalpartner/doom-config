@@ -1,7 +1,7 @@
 ;;; private/tools/config.el -*- lexical-binding: t; -*-
 
 (after! projectile
-  (add-to-list 'projectile-project-search-path "~/Documents/work")
+  (add-to-list 'projectile-project-search-path "~/Documents/work/damopan")
   ;; (add-to-list 'projectile-project-search-path "~/dot")
   (add-to-list 'projectile-project-search-path "~/Documents/study"))
 

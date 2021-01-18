@@ -223,6 +223,8 @@
        :map gist-mode-map
        :n "go" #'gist-fetch-current)
 
+      :map Man-mode-map :n "RET" #'man-follow
+
       :map Info-mode-map
       :nv "w" #'evil-forward-word-begin
       :nv "W" #'evil-forward-WORD-begin
@@ -256,4 +258,5 @@
       :desc "copy file path" "by" #'copy-file-path
       :desc "split window" "ws" (lambda () (interactive) (split-window-vertically) (select-window (next-window)))
       :desc "vsplit window" "wv" (lambda () (interactive) (split-window-horizontally) (select-window (next-window)))
+
       )

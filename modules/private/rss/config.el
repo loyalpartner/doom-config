@@ -2,7 +2,7 @@
 
 (defvar +rss-workspace-name "*RSS*")
 
-(setenv "ALL_PROXY" "socks5://localhost:1080")
+;; (setenv "ALL_PROXY" "socks5://localhost:1080")
 
 (defun +rss-setup-wconf (&optional inhibit-workspace)
   (when (and (featurep! :ui workspaces)

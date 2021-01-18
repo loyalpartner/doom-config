@@ -39,6 +39,7 @@
         "M-l" #'awesome-tab-forward-tab
         "M-k" #'awesome-tab-move-current-tab-to-left
         "M-L" #'awesome-tab-move-current-tab-to-right
+        "s-a" #'awesome-tab-switch-group
         :nv "gt" #'awesome-tab-evil-forward-tab
         :nv "gT" #'awesome-tab-evil-backward-tab
         :nv "M-A" #'awesome-tab-move-current-tab-to-beg))
