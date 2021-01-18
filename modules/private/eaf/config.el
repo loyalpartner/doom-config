@@ -97,11 +97,13 @@
 
   )
 
+(use-package! fuz)
 (use-package! snails
-  :commands (snails)
-  :bind (("s-y" . snails)
-         ("s-Y" . snails-search-point))
+  :commands (snails snails-search-point)
+  :init
+  (map! "s-y" #'snails-search-point
+        "s-a" #'snails)
   :config
-  (use-package! fuz)
+  (setq snails-show-with-frame t)
   ;; (add-hook 'snails-mode-hook #'centaur-tabs-local-mode)
   (add-to-list 'evil-emacs-state-modes 'snails-mode))

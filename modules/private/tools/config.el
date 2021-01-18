@@ -55,7 +55,8 @@
 
 (set-popup-rules!
   '(("^\\*BigWords" :size 0.35 :select t :modeline t :quit t :ttl t)
-    ("^\\*frequencies" :size 0.35 :select t :modeline nil :quit t :ttl t)))
+    ("^\\*frequencies" :size 0.35 :select t :modeline nil :quit t :ttl t)
+    ("^\\*rfc" :size 0.5 :select t :modeline t :quit t :ttl t :side right)))
 
 (use-package! mingus
   :commands (mingus)
@@ -74,11 +75,17 @@
                          ))
 
 (use-package! rfc-mode
+  :commands (rfc-mode-browse)
   :config
-  (setq rfc-mode-directory (expand-file-name "~/org/book/rfc"))
-  ;; (map! :leader
-  ;;       :map (rfc-mode-map)
-  ;;       "m" #'rfc-mode-goto-section)
-  )
+  (setq rfc-mode-directory (expand-file-name "~/org/book/rfc")))
 
-(use-package! mermaid-mode)
+(map! (:when t
+       :map rfc-mode-map
+       :n "g" nil
+       :nv "gm" #'rfc-mode-goto-section))
+
+(use-package! mermaid-mode :commands (mermaid-mode))
+
+(use-package! ob-mermaid
+  :config
+  (setq ob-mermaid-cli-path "/home/lee/.config/yarn/global/node_modules/.bin/mmdc"))

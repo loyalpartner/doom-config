@@ -19,4 +19,5 @@
 (package! rfc-mode)
 
 (package! mermaid-mode)
+(package! ob-mermaid)
 ;; (package! valign :recipe (:host github :repo "casouri/valign"))

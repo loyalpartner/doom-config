@@ -27,7 +27,7 @@
         awesome-tab-dark-unselected-foreground-color "white"
         awesome-tab-terminal-dark-select-background-color "red"
         awesome-tab-display-sticky-function-name nil
-        awesome-tab-label-max-length 0
+        awesome-tab-label-max-length 30
         awesome-tab-show-tab-index t
         awesome-tab-cycle-scope 'tabs)
   :config
@@ -86,7 +86,6 @@ Currently, this function is only use for option `awesome-tab-display-sticky-func
 
 
 
-
 (defun awesome-tab-buffer-groups ()
   (list
    (cond
@@ -94,6 +93,7 @@ Currently, this function is only use for option `awesome-tab-display-sticky-func
     ;; ((derived-mode-p 'js2-mode) "Js")
     ((derived-mode-p 'emacs-lisp-mode) "Elisp")
     ((derived-mode-p 'eaf-mode) "Eaf")
+    ((derived-mode-p 'rfc-mode) "rfc")
     ((or (string-equal "*" (substring (buffer-name) 0 1))
          (memq major-mode '(magit-process-mode
                             magit-status-mode magit-diff-mode magit-log-mode
