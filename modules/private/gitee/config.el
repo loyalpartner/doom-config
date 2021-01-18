@@ -17,6 +17,7 @@
 (run-with-idle-timer 3 nil #'gitee-pull-enterprise-repos 'linakesi)
 
 (defun gitee-pull-enterprise-repos (name)
+  (interactive (list 'linakesi))
   (let ((response (gitee-get
                    (format "/enterprises/%s/repos" name) nil
                    :query '((page . 1)

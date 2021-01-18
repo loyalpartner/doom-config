@@ -8,7 +8,6 @@
 ;; some email clients, file templates and snippets.
 (setq user-full-name "lee"
       user-mail-address "loyalpartner@163.com")
-
 (setq socks-server 'nil)
 (defun set-proxy ()
   "Set http/https proxy."
@@ -30,6 +29,14 @@
   (if socks-server
       (unset-proxy)
     (set-proxy)))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((plantuml . t)))
+
+(setq org-plantuml-jar-path
+      (expand-file-name
+       (concat doom-private-dir "bin/plantuml.jar")))
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:

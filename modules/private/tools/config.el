@@ -88,4 +88,4 @@
 
 (use-package! ob-mermaid
   :config
-  (setq ob-mermaid-cli-path "/home/lee/.config/yarn/global/node_modules/.bin/mmdc"))
+  (setq ob-mermaid-cli-path "/home/lee/.yarn/bin/mmdc"))

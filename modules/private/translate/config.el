@@ -49,7 +49,6 @@
   :commands (english-teacher-smart-translate)
   :hook ((Info-mode
           elfeed-show-mode
-          eww-mode
           Man-mode
           Woman-Mode) . english-teacher-follow-mode)
   :config
