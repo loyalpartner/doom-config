@@ -60,8 +60,7 @@
       doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
       doom-unicode-font (font-spec :family "Sarasa Fixed SC"))
 
-(after! company-mode
-  (setq company-idle-delay 0))
+(setq company-idle-delay 0)
 
 (when IS-LINUX
   (setq browse-url-browser-function 'browse-url-chrome))

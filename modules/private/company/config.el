@@ -2,7 +2,7 @@
 
 ;; https://github.com/emacs-lsp/lsp-mode/issues/533
 (after! lsp-mode
-  (setq lsp-auto-guess-root t))
+  (setq lsp-auto-guess-root nil))
 
 ;; (setq +lsp-company-backends '(company-yasnippet :separate company-capf))
 
