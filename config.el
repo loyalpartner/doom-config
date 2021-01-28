@@ -126,8 +126,7 @@
 (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)
       avy-style 'pre)
 
-(with-eval-after-load "which-key"
-  (setq which-key-idle-delay 0.3))
+(setq which-key-idle-delay 0.1)
 
 (defun next-theme ()
   (if (custom-theme-enabled-p 'doom-one)

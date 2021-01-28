@@ -61,7 +61,7 @@
 
 (advice-add #'awesome-tab-buffer-name :around #'adviser-awesome-buffer-name)
 
-(add-hook 'post-command-hook #'awesome-tab-monitor-window-scroll-for-modeline)
+;; (add-hook 'post-command-hook #'awesome-tab-monitor-window-scroll-for-modeline)
 
 (defun awesome-tab-monitor-window-scroll-for-modeline ()
   "This function is used to monitor the window scroll.

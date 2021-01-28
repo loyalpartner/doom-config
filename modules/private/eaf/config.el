@@ -21,6 +21,8 @@
 
   (advice-add #'browse-url :around #'adviser-browser-url))
 
+
+
 (use-package! eaf
   :when IS-LINUX
   :commands (eaf-open-browser eaf-open find-file)
@@ -31,6 +33,9 @@
         :desc "eaf open rss" "er" 'eaf-open-rss-reader)
 
   :config
+  (use-package! ctable)
+  (use-package! deferred)
+  (use-package! epc)
   (setq eaf-proxy-type "socks5"
         eaf-proxy-host "127.0.0.1"
         eaf-proxy-port "1080")
@@ -45,7 +50,7 @@
     (lambda (prompt)
       (if (derived-mode-p 'eaf-mode)
           (pcase eaf--buffer-app-name
-            ("browser" (if (eaf-call "call_function" eaf--buffer-id "is_focus")
+            ("browser" (if (string= (eaf-call-sync "call_function" eaf--buffer-id "is_focus") "True")
                            (kbd "SPC")
                          (kbd eaf-evil-leader-key)))
             ("pdf-viewer" (kbd eaf-evil-leader-key))
