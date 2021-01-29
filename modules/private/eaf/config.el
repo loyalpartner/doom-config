@@ -75,7 +75,7 @@
                                (split-window-no-error nil nil split-direction))))
       (set-window-buffer browser-window buf)))
 
-  (add-to-list 'eaf-app-display-function-alist '("browser" . eaf--browser-display))
+  ;; (add-to-list 'eaf-app-display-function-alist '("browser" . eaf--browser-display))
 
 
 
@@ -83,7 +83,7 @@
     (if (featurep 'elfeed)
         (eaf-open-browser (elfeed-entry-link entry))
       (apply orig-fn entry args)))
-  (advice-add #'elfeed-show-entry :around #'adviser-elfeed-show-entry)
+  ;; (advice-add #'elfeed-show-entry :around #'adviser-elfeed-show-entry)
 
   ;;ivy 添加 action, 用 eaf-open 打开
   ;; (after! counsel

@@ -1,5 +1,5 @@
 ;;; private/gitee/config.el -*- lexical-binding: t; -*-
-(require 'gitee)
+;; (require 'gitee)
 
 (defface gitee-mode-face
   '((t :inherit font-lock-preprocessor-face))
@@ -14,7 +14,7 @@
 
 (defvar gitee--enterprise-list-cache (make-hash-table :test 'equal))
 
-(run-with-idle-timer 3 nil #'gitee-pull-enterprise-repos 'linakesi)
+;; (run-with-idle-timer 3 nil #'gitee-pull-enterprise-repos 'linakesi)
 
 (defun gitee-pull-enterprise-repos (name)
   (interactive (list 'linakesi))
