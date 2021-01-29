@@ -199,6 +199,7 @@
        mu4e
        tools
        eaf
+       lsp
        gitee
        ctags
        dired

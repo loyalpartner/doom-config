@@ -8,7 +8,7 @@
 ;; some email clients, file templates and snippets.
 (setq user-full-name "lee"
       user-mail-address "loyalpartner@163.com")
-(setq socks-server 'nil)
+
 (defun set-proxy ()
   "Set http/https proxy."
   (interactive)

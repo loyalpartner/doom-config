@@ -33,16 +33,17 @@
   :config
   (awesome-tab-mode)
   (require 'project)
-  (map! "M-h" #'awesome-tab-backward-tab
-        "s-j" #'awesome-tab-forward-group
-        "s-k" #'awesome-tab-backward-group
-        "M-l" #'awesome-tab-forward-tab
-        "M-k" #'awesome-tab-move-current-tab-to-left
-        "M-L" #'awesome-tab-move-current-tab-to-right
-        "s-a" #'awesome-tab-switch-group
-        :nv "gt" #'awesome-tab-evil-forward-tab
-        :nv "gT" #'awesome-tab-evil-backward-tab
-        :nv "M-A" #'awesome-tab-move-current-tab-to-beg))
+  (map! (:when t :map general-override-mode-map
+         :nv "M-h" #'awesome-tab-backward-tab
+         "s-j" #'awesome-tab-forward-group
+         "s-k" #'awesome-tab-backward-group
+         :nv "M-l" #'awesome-tab-forward-tab
+         :nv "M-k" #'awesome-tab-move-current-tab-to-left
+         :nv "M-L" #'awesome-tab-move-current-tab-to-right
+         "s-a" #'awesome-tab-switch-group
+         :nv "gt" #'awesome-tab-evil-forward-tab
+         :nv "gT" #'awesome-tab-evil-backward-tab
+         :nv "M-A" #'awesome-tab-move-current-tab-to-beg)))
 
 (defun adviser-awesome-buffer-name (orig-fn buffer &rest args)
   (if-let* ((file-name (buffer-file-name buffer))
