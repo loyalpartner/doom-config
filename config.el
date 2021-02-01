@@ -16,6 +16,9 @@
   (setq socks-server '("Default server" "127.0.0.1" 1080 5))
   (message "enabled proxy"))
 
+(define-key evil-emacs-state-map (kbd "C-z") nil)
+(define-key evil-insert-state-map (kbd "C-z") nil)
+(define-key evil-motion-state-map (kbd "C-z") nil)
 ;; (setq url-gateway-method 'socks)
 ;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
 
@@ -30,7 +33,7 @@
 (defun toggle-proxy ()
   "Toggle http/https proxy."
   (interactive)
-  (if socks-server
+  (if (and (boundp 'socks-server) socks-server)
       (unset-proxy)
     (set-proxy)))
 

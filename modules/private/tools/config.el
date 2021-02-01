@@ -58,7 +58,7 @@
     ("^\\*frequencies" :size 0.35 :select t :modeline nil :quit t :ttl t)
     ("^\\*rfc" :size 0.5 :select t :modeline t :quit t :ttl t :side right)
     ("^\\*Man" :size 0.99 :select t :modeline t :quit t :ttl t :side bottom)
-    ))
+    ("^\\*eww" :size 0.5 :select t :modeline t :quit t :ttl t :side bottom)))
 
 (use-package! mingus
   :commands (mingus)

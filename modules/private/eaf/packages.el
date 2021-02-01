@@ -4,6 +4,7 @@
 
 (when (package! eaf :recipe (:host github
                              :repo "loyalpartner/emacs-application-framework"
+                             :fork (:host github :repo "manateelazycat/emacs-application-framework")
                              :files ("*.el" "*.py" "app" "core")
                              :no-byte-compile t))
 
