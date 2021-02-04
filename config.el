@@ -64,7 +64,6 @@
       doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
       doom-unicode-font (font-spec :family "Sarasa Fixed SC"))
 
-;; (setq company-idle-delay 0)
 
 (when IS-LINUX
   (setq browse-url-browser-function 'browse-url-chrome))
@@ -75,41 +74,13 @@
 (setq doom-theme 'doom-one)
 
 ;; (setq doom-scratch-buffer-major-mode 'lisp-interaction-mode)
-(setq org-clock-idle-time 15
-      calendar-day-abbrev-array ["周日" "周一" "周二" "周三" "周四" "周五" "周六"]
-      calendar-day-name-array ["周日" "周一" "周二" "周三" "周四" "周五" "周六"]
-      calendar-month-name-array ["一月" "二月" "三月" "四月" "五月" "六月" "七月" "八月" "九月" "十月" "十一月" "十二月"]
-      org-agenda-deadline-leaders (quote ("截止日期:  " "%3d 天后到期: " "%2d 天前: "))
-      org-agenda-scheduled-leaders '("预 " "应%02d天前开始 ")
-      calendar-week-start-day 1)
 
-
-;; (setq org-agenda-deadline-leaders '("止 " "过%02d天后到期 " "已经过期%02d天"))
 
 
 ;; (with-eval-after-load "evil"
 ;;   (add-to-list 'evil-emacs-state-modes 'debugger-mode)
 ;;   (delete 'debugger-mode evil-normal-state-modes))
 
-;; If you intend to use org, it is recommended you change this!
-(setq org-directory "~/org/")
-
-(after! org
-  (setq org-time-stamp-custom-formats '("<%y/%m/%y %d>" . "<%y/%m/%d %a %H:%M>"))
-  (setq elfeed-db-directory "~/org/elfeeddb")
-  (add-to-list 'org-capture-templates
-               '("l" "links" item
-                 (file+olp "~/org/inbox.org" "Links" )
-                 "- %:annotation \n\n"))
-  (add-to-list 'org-capture-templates
-               '("R" "RSS" entry
-                 (file+olp "~/org/elfeed.org" "Links" "blogs" )
-                 "** %:annotation \n\n"))
-
-  (mapc (lambda (mode)
-          (add-to-list 'org-modules mode))
-        '(ol-info ol-irc)))
-;; (dolist (module '(ol-info ol-irc)) (add-to-list 'org-modules module)))
 
 ;; (setq +ivy-buffer-preview t)
 ;; (after! ivy
@@ -144,7 +115,7 @@
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
-;; - `load!' for loading external *.el files relative to this one 
+;; - `load!' for loading external *.el files relative to this one
 ;; - `use-package' for configuring packages
 ;; - `after!' for running code after a package has loaded
 ;; - `add-load-path!' for adding directories to the `load-path', where Emacs
@@ -177,6 +148,9 @@
             (evil-motion-state-p))
         (kbd "C-x") "\\")))
 
+(setq overriding-terminal-local-map
+      (or overriding-terminal-local-map
+          (make-sparse-keymap)))
 
 (map! :i "C-b" 'backward-char
       :i "C-f" 'forward-char
@@ -184,17 +158,13 @@
 
       (:when t :i "C-s" #'company-yasnippet)
 
-      (:when t :map general-override-mode-map
-       :n "C-l" #'evil-window-right
-       :n "C-h" #'evil-window-left
-       :n "C-k" #'evil-window-up
-       :n "C-j" #'evil-window-down)
+      (:when t :map overriding-terminal-local-map
 
-      ;; (:when t :map (eaf-mode-map* treemacs-mode-map)
-      ;;  "C-l" #'evil-window-right
-      ;;  "C-h" #'evil-window-left
-      ;;  "C-k" #'evil-window-up
-      ;;  "C-j" #'evil-window-down)
+       "C-l" #'evil-window-right
+       "C-h" #'evil-window-left
+       "C-k" #'evil-window-up
+       "C-j" #'evil-window-down)
+
       ;; info-mode 使用 gss gs-SPC 定位
       ;; :n "gss" #'evil-avy-goto-char-2
       ;; :n "gs SPC" (λ!! #'evil-avy-goto-char-timer t)

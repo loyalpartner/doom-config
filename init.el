@@ -204,6 +204,7 @@
        ctags
        dired
        company
+       org
        ui
        web
        )
