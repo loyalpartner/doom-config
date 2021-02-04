@@ -91,3 +91,21 @@
 (use-package! ob-mermaid
   :config
   (setq ob-mermaid-cli-path "/home/lee/.yarn/bin/mmdc"))
+
+(defun rss-add-feed (url)
+  (evil-set-register ?* url)
+  (org-capture t "R")
+  (message "add rss feed: %s" url))
+
+;; 
+(defun adviser-browse-url (orig-fn url &rest args)
+  (let ((uri-object (url-generic-parse-url url))
+        (rss-files '("/feed.xml" "/atom.xml" "/rss.xml" "/index.rss" "/posts.atom" "/rss/")))
+    (if (member (url-filename uri-object) rss-files)
+        (rss-add-feed url)
+      (apply orig-fn url args))))
+
+(advice-add #'browse-url :around #'adviser-browse-url)
+(advice-add #'eww :around #'adviser-browse-url)
+
+
