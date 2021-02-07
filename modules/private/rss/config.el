@@ -2,7 +2,7 @@
 
 (defvar +rss-workspace-name "*RSS*")
 
-(setenv "ALL_PROXY" "socks5://localhost:1080")
+;; (setenv "ALL_PROXY" "socks5://localhost:1080")
 
 (defun +rss-setup-wconf (&optional inhibit-workspace)
   (when (and (featurep! :ui workspaces)
@@ -41,10 +41,10 @@
 ;;           (lambda ()
 ;;             (setq-local browse-url-browser-function #'browse-url-eww)))
 
-(add-hook 'eww-mode-hook
-          (lambda ()
-            (setq-local url-gateway-method 'socks)
-            (setq-local socks-server '("Default server" "127.0.0.1" 1080 5))))
+;; (add-hook 'eww-mode-hook
+;;           (lambda ()
+;;             (setq-local url-gateway-method 'socks)
+;;             (setq-local socks-server '("Default server" "127.0.0.1" 1080 5))))
 
 (map! (:when (featurep! :app rss)
         :map elfeed-search-mode-map

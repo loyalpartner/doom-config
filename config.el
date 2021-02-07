@@ -9,8 +9,38 @@
 (setq user-full-name "lee"
       user-mail-address "loyalpartner@163.com")
 
-(setq url-gateway-method 'socks)
-(setq socks-server '("Default server" "127.0.0.1" 1080 5))
+(defun set-proxy ()
+  "Set http/https proxy."
+  (interactive)
+  (setq url-gateway-method 'socks)
+  (setq socks-server '("Default server" "127.0.0.1" 1080 5))
+  (message "enabled proxy"))
+
+;; (setq url-gateway-method 'socks)
+;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
+
+
+(defun unset-proxy ()
+  "Unset http/https proxy."
+  (interactive)
+  (setq url-gateway-method 'native)
+  (setq socks-server nil)
+  (message "disabled proxy."))
+
+(defun toggle-proxy ()
+  "Toggle http/https proxy."
+  (interactive)
+  (if (and (boundp 'socks-server) socks-server)
+      (unset-proxy)
+    (set-proxy)))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((plantuml . t)))
+
+(setq org-plantuml-jar-path
+      (expand-file-name
+       (concat doom-private-dir "bin/plantuml.jar")))
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -21,15 +51,19 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(defvar font (cond (IS-MAC '(:family "SauceCodePro NF" :size 11))
-                   (IS-LINUX '(:family "Sarasa Mono SC" :size 22))
-                   (t '(:family "SauceCodePro NF" :size 18))))
+;;
+(defvar font-size (cond ((> (display-pixel-width) 1920) 22)
+                        (t 16)))
+(defvar font (cond (IS-MAC `(:family "SauceCodePro NF" :size ,font-size))
+                   (IS-LINUX `(:family "Sarasa Mono SC" :size ,font-size))
+                   (t `(:family "SauceCodePro NF" :size ,font-size))))
+;; (defvar font (cond (IS-MAC '(:family "SauceCodePro NF" :size 11))
+;;                    (IS-LINUX '(:family "Sarasa Mono SC" :size 22))
+;;                    (t '(:family "SauceCodePro NF" :size 18))))
 (setq doom-font (apply #'font-spec font)
       doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
       doom-unicode-font (font-spec :family "Sarasa Fixed SC"))
 
-(after! company-mode
-  (setq company-idle-delay 0))
 
 (when IS-LINUX
   (setq browse-url-browser-function 'browse-url-chrome))
@@ -41,28 +75,12 @@
 
 ;; (setq doom-scratch-buffer-major-mode 'lisp-interaction-mode)
 
-(with-eval-after-load "evil"
-  (add-to-list 'evil-emacs-state-modes 'debugger-mode)
-  (delete 'debugger-mode evil-normal-state-modes))
 
-;; If you intend to use org, it is recommended you change this!
-(setq org-directory "~/org/")
 
-(after! org
-  (setq elfeed-db-directory "~/org/elfeeddb")
-  (add-to-list 'org-capture-templates
-               '("l" "links" item
-                 (file+olp "~/org/inbox.org" "Links" )
-                 "- %:annotation \n\n"))
-  (add-to-list 'org-capture-templates
-               '("R" "RSS" entry
-                 (file+olp "~/org/elfeed.org" "Links" "blogs" )
-                 "** %:annotation \n\n"))
+;; (with-eval-after-load "evil"
+;;   (add-to-list 'evil-emacs-state-modes 'debugger-mode)
+;;   (delete 'debugger-mode evil-normal-state-modes))
 
-  (mapc (lambda (mode)
-          (add-to-list 'org-modules mode))
-        '(ol-info ol-irc)))
-;; (dolist (module '(ol-info ol-irc)) (add-to-list 'org-modules module)))
 
 ;; (setq +ivy-buffer-preview t)
 ;; (after! ivy
@@ -83,8 +101,7 @@
 (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)
       avy-style 'pre)
 
-(with-eval-after-load "which-key"
-  (setq which-key-idle-delay 0.3))
+(setq which-key-idle-delay 0.1)
 
 (defun next-theme ()
   (if (custom-theme-enabled-p 'doom-one)
@@ -98,7 +115,7 @@
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
-;; - `load!' for loading external *.el files relative to this one 
+;; - `load!' for loading external *.el files relative to this one
 ;; - `use-package' for configuring packages
 ;; - `after!' for running code after a package has loaded
 ;; - `add-load-path!' for adding directories to the `load-path', where Emacs
@@ -112,7 +129,7 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
-(setq lsp-enable-snippet nil)
+;; (setq lsp-enable-snippet nil)
 
 (defun copy-string (text)
   (with-temp-buffer
@@ -131,6 +148,9 @@
             (evil-motion-state-p))
         (kbd "C-x") "\\")))
 
+(setq overriding-terminal-local-map
+      (or overriding-terminal-local-map
+          (make-sparse-keymap)))
 
 (map! :i "C-b" 'backward-char
       :i "C-f" 'forward-char
@@ -138,17 +158,13 @@
 
       (:when t :i "C-s" #'company-yasnippet)
 
-      (:when t :map  override-global-map
-       :n "C-l" #'evil-window-right
-       :n "C-h" #'evil-window-left
-       :n "C-k" #'evil-window-up
-       :n "C-j" #'evil-window-down)
+      (:when t :map overriding-terminal-local-map
 
-      (:when t :map (eaf-mode-map* treemacs-mode-map)
        "C-l" #'evil-window-right
        "C-h" #'evil-window-left
        "C-k" #'evil-window-up
        "C-j" #'evil-window-down)
+
       ;; info-mode 使用 gss gs-SPC 定位
       ;; :n "gss" #'evil-avy-goto-char-2
       ;; :n "gs SPC" (λ!! #'evil-avy-goto-char-timer t)
@@ -171,13 +187,15 @@
        :i "C-k" #'lispy-kill
        :i "C-y" #'lispy-yank)
 
-      (:when (and (featurep! :tools lsp) (featurep! :tools debugger))
-       :map dap-mode-map
-       :n "C-c '" #'dap-hydra)
+      ;; (:when (and (featurep! :tools lsp) (featurep! :tools debugger))
+      ;;  :map dap-mode-map
+      ;;  :n "C-c '" #'dap-hydra)
 
       (:when (featurep! :tools gist)
        :map gist-mode-map
        :n "go" #'gist-fetch-current)
+
+      :map Man-mode-map :n "RET" #'man-follow
 
       :map Info-mode-map
       :nv "w" #'evil-forward-word-begin
@@ -197,19 +215,8 @@
       :n "gd" (lambda () (interactive) (elisp-index-search (thing-at-point 'word t)))
 
       :leader
-      ;; (:when (featurep! :ui window-select +numbers)
-      ;;  :leader
-      ;;  :desc "[0]" "0" 'winum-select-window-0-or-10
-      ;;  :desc "[1]" "1" 'winum-select-window-1
-      ;;  :desc "[2]" "2" 'winum-select-window-2
-      ;;  :desc "[3]" "3" 'winum-select-window-3
-      ;;  :desc "[4]" "4" 'winum-select-window-4
-      ;;  :desc "[5]" "5" 'winum-select-window-5
-      ;;  :desc "[6]" "6" 'winum-select-window-6
-      ;;  :desc "[7]" "7" 'winum-select-window-7
-      ;;  :desc "[8]" "8" 'winum-select-window-8
-      ;;  :desc "[9]" "9" 'winum-select-window-9)
       :desc "copy file path" "by" #'copy-file-path
       :desc "split window" "ws" (lambda () (interactive) (split-window-vertically) (select-window (next-window)))
       :desc "vsplit window" "wv" (lambda () (interactive) (split-window-horizontally) (select-window (next-window)))
+
       )

@@ -1,7 +1,7 @@
 ;;; private/tools/config.el -*- lexical-binding: t; -*-
 
 (after! projectile
-  (add-to-list 'projectile-project-search-path "~/Documents/work")
+  (add-to-list 'projectile-project-search-path "~/Documents/work/damopan")
   ;; (add-to-list 'projectile-project-search-path "~/dot")
   (add-to-list 'projectile-project-search-path "~/Documents/study"))
 
@@ -55,11 +55,57 @@
 
 (set-popup-rules!
   '(("^\\*BigWords" :size 0.35 :select t :modeline t :quit t :ttl t)
-    ("^\\*frequencies" :size 0.35 :select t :modeline nil :quit t :ttl t)))
+    ("^\\*frequencies" :size 0.35 :select t :modeline nil :quit t :ttl t)
+    ("^\\*rfc" :size 0.5 :select t :modeline t :quit t :ttl t :side right)
+    ("^\\*Man" :size 0.99 :select t :modeline t :quit t :ttl t :side bottom)
+    ("^\\*eww" :size 0.5 :select t :modeline t :quit t :ttl t :side bottom)))
 
-(use-package mingus
+(use-package! mingus
   :commands (mingus)
   :init
   (map! :leader "oh" #'mingus)
   :config
   (add-to-list 'evil-emacs-state-modes 'mingus-playlist-mode))
+
+
+(defun generate-pdf-file ()
+  (call-process-shell-command (format "pdftex %s" (buffer-file-name)) nil 0))
+
+(add-hook
+ 'plain-tex-mode-hook '(lambda ()
+                         (add-hook 'after-save-hook #'generate-pdf-file nil t)
+                         ))
+
+(use-package! rfc-mode
+  :commands (rfc-mode-browse)
+  :config
+  (setq rfc-mode-directory (expand-file-name "~/org/book/rfc")))
+
+(map! (:when t
+       :map rfc-mode-map
+       :n "g" nil
+       :nv "gm" #'rfc-mode-goto-section))
+
+(use-package! mermaid-mode :commands (mermaid-mode))
+
+(use-package! ob-mermaid
+  :config
+  (setq ob-mermaid-cli-path "/home/lee/.yarn/bin/mmdc"))
+
+(defun rss-add-feed (url)
+  (evil-set-register ?* url)
+  (org-capture t "R")
+  (message "add rss feed: %s" url))
+
+;; 
+(defun adviser-browse-url (orig-fn url &rest args)
+  (let ((uri-object (url-generic-parse-url url))
+        (rss-files '("/feed.xml" "/atom.xml" "/rss.xml" "/index.rss" "/posts.atom" "/rss/")))
+    (if (member (url-filename uri-object) rss-files)
+        (rss-add-feed url)
+      (apply orig-fn url args))))
+
+(advice-add #'browse-url :around #'adviser-browse-url)
+(advice-add #'eww :around #'adviser-browse-url)
+
+

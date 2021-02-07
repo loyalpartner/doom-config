@@ -40,16 +40,15 @@
           )))
 
 
-(add-hook 'english-teacher-follow-mode-hook
-            (lambda ()
-              (setq-local url-gateway-method 'native
-                          socks-server '("Default server" "socks" 1080 5))))
+;; (add-hook 'english-teacher-follow-mode-hook
+;;             (lambda ()
+;;               (setq-local url-gateway-method 'native
+;;                           socks-server '("Default server" "socks" 1080 5))))
 
 (use-package! english-teacher
   :commands (english-teacher-smart-translate)
   :hook ((Info-mode
           elfeed-show-mode
-          eww-mode
           Man-mode
           Woman-Mode) . english-teacher-follow-mode)
   :config

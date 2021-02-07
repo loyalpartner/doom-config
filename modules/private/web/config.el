@@ -42,12 +42,12 @@
         web-mode-css-indent-offset 2
         web-mode-style-padding 0
         web-mode-script-padding 0)
-  (map! :map dap-mode-map
-        "C-c C-d" #'dap-debug
-        "C-c C-z" #'dap-ui-repl
-        "C-c C-r" #'dap-debug-recent
-        "C-c C-s" #'dap-debug-last
-        "C-c C-k" #'dap-debug-restart)
+  ;; (map! :map dap-mode-map)
+        ;; "C-c C-d" #'dap-debug
+        ;; "C-c C-z" #'dap-ui-repl
+        ;; "C-c C-r" #'dap-debug-recent
+        ;; "C-c C-s" #'dap-debug-last
+        ;; "C-c C-k" #'dap-debug-restart)
 
   )
 
@@ -101,9 +101,10 @@
 
 (use-package! eacl
   :commands (eacl-complete-line eacl-complete-multiline)
-  :config
-  (map!  "C-x C-l" #'eacl-complete-line
-         "C-x C-m" #'eacl-complete-multiline))
+  :init
+  (map!  :i "C-x C-l" #'eacl-complete-line
+         :i "C-x C-/" #'eacl-complete-multiline))
+
 
 
 (with-eval-after-load 'grep
@@ -122,3 +123,7 @@
 ;; (add-hook 'vue-mode-hook (lambda ()
 ;;                            (lsp!)))
 ;; (add-hook 'vue-mode-hook (lambda () (setq syntax-ppss-table nil)))
+(use-package! restclient)
+(set-popup-rules!
+  '(("^\\*HTTP Response" :size 0.5 :select t :modeline t :quit t :ttl t :side right)
+    ("^\\*info" :size 0.5 :select t :modeline t :quit t :ttl t :side right)))

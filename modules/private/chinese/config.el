@@ -6,9 +6,10 @@
                 insert-translated-name-active-overlay)
            nil)
           ((eq major-mode 'eaf-mode) nil)
-          (t '(pyim-probe-dynamic-english
+          (t '(
+               pyim-probe-dynamic-english
                pyim-probe-isearch-mode
-               pyim-probe-program-mode
+               ;; pyim-probe-program-mode
                pyim-probe-org-structure-template))))
 
   (use-package! pyim)
