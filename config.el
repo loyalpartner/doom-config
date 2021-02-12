@@ -60,9 +60,9 @@
 ;; (defvar font (cond (IS-MAC '(:family "SauceCodePro NF" :size 11))
 ;;                    (IS-LINUX '(:family "Sarasa Mono SC" :size 22))
 ;;                    (t '(:family "SauceCodePro NF" :size 18))))
-(setq doom-font (apply #'font-spec font)
-      doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
-      doom-unicode-font (font-spec :family "Sarasa Fixed SC"))
+;; (setq doom-font (apply #'font-spec font)
+;;       doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
+;;       doom-unicode-font (font-spec :family "Sarasa Fixed SC"))
 
 
 (when IS-LINUX
