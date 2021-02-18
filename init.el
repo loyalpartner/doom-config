@@ -200,7 +200,7 @@
        tools
        eaf
        lsp
-       gitee
+       ;gitee
        ctags
        dired
        company

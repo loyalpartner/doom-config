@@ -8,11 +8,11 @@
 (package! mybigword
   :recipe (:host github :repo "loyalpartner/mybigword"
            :files ("*.el" "*.py" "*.zipf")
-           :no-byte-compile t))
+           :build (:not compile)))
 
 (package! keyfreq :recipe (:host github :repo "dacap/keyfreq"))
 
-(package! baidu-ocr :recipe (:host github :repo "loyalpartner/baidu-ocr" :no-byte-compile t))
+(package! baidu-ocr :recipe (:host github :repo "loyalpartner/baidu-ocr" :build (:not compile)))
 
 (package! mingus)
 

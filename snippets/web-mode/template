@@ -1,0 +1,29 @@
+# -*- mode: snippet -*-
+# name: template
+# uuid: template
+# key: template
+# condition: t
+# --
+<template>
+  <div class="homework-info">
+  
+  </div>
+</template>
+
+<script type="text/javascript">
+export default {
+  name: "",
+  components: {},
+  data() {
+    return {};
+  },
+  computed: {},
+  created() {
+  },
+  mounted() {},
+  methods: {},
+};
+</script>
+
+<style lang="scss" scoped>
+</style>

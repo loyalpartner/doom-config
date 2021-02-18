@@ -6,11 +6,11 @@
                              :repo "loyalpartner/emacs-application-framework"
                              :fork (:host github :repo "manateelazycat/emacs-application-framework")
                              :files ("*.el" "*.py" "app" "core")
-                             :no-byte-compile t))
+                             :build (:not compile)))
 
   (package! ctable :recipe (:host github :repo "kiwanami/emacs-ctable"))
   (package! deferred :recipe (:host github :repo "kiwanami/emacs-deferred"))
   (package! epc :recipe (:host github :repo "kiwanami/emacs-epc")))
 
 (package! fuz)
-(package! snails :recipe (:host github :repo "manateelazycat/snails" :no-byte-compile t))
+(package! snails :recipe (:host github :repo "manateelazycat/snails" :build (:not compile)))
