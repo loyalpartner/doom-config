@@ -218,5 +218,4 @@
       :desc "copy file path" "by" #'copy-file-path
       :desc "split window" "ws" (lambda () (interactive) (split-window-vertically) (select-window (next-window)))
       :desc "vsplit window" "wv" (lambda () (interactive) (split-window-horizontally) (select-window (next-window)))
-
-      )
+      :desc "toggle et" "te" #'english-teacher-follow-mode)
