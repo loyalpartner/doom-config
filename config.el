@@ -9,16 +9,17 @@
 (setq user-full-name "lee"
       user-mail-address "loyalpartner@163.com")
 
+
+;; (setq url-gateway-method 'socks)
+;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
+
+
 (defun set-proxy ()
   "Set http/https proxy."
   (interactive)
   (setq url-gateway-method 'socks)
   (setq socks-server '("Default server" "127.0.0.1" 1080 5))
   (message "enabled proxy"))
-
-;; (setq url-gateway-method 'socks)
-;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
-
 
 (defun unset-proxy ()
   "Unset http/https proxy."

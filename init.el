@@ -15,7 +15,7 @@
 ;;      directory (for easy access to its source code).
 
 (doom! :input
-       ;; chinese
+       chinese
        ;;japanese
 
        :completion
@@ -192,7 +192,7 @@
        ;;literate
        (default +bindings +smartparens)
        :private
-       (chinese +pyim)                  ; pyim or rime
+       chinese                  ; pyim or rime
        translate
        rss
        irc
