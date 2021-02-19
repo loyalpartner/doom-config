@@ -55,15 +55,18 @@
 ;;
 (defvar font-size (cond ((> (display-pixel-width) 1920) 22)
                         (t 16)))
-(defvar font (cond (IS-MAC `(:family "SauceCodePro NF" :size ,font-size))
-                   (IS-LINUX `(:family "Sarasa Mono SC" :size ,font-size))
-                   (t `(:family "SauceCodePro NF" :size ,font-size))))
-;; (defvar font (cond (IS-MAC '(:family "SauceCodePro NF" :size 11))
-;;                    (IS-LINUX '(:family "Sarasa Mono SC" :size 22))
-;;                    (t '(:family "SauceCodePro NF" :size 18))))
-;; (setq doom-font (apply #'font-spec font)
-;;       doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
-;;       doom-unicode-font (font-spec :family "Sarasa Fixed SC"))
+(defun default-font (font-name)
+  (if (font-info font-name) font-name nil))
+
+(defvar font
+  (cond (IS-MAC `(:family ,(default-font "SauceCodePro NF") :size ,font-size))
+        (IS-LINUX `(:family ,(default-font "Sarasa Mono SC") :size ,font-size))
+        (t `(:family ,(default-font "SauceCodePro NF") :size ,font-size))))
+
+(setq doom-font (apply #'font-spec font)
+      ;; doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
+      ;; doom-unicode-font (font-spec :family "Sarasa Fixed SC")
+      )
 
 
 (when IS-LINUX
@@ -150,8 +153,7 @@
         (kbd "C-x") "\\")))
 
 (setq overriding-terminal-local-map
-      (or overriding-terminal-local-map
-          (make-sparse-keymap)))
+      (make-sparse-keymap))
 
 (map! :i "C-b" 'backward-char
       :i "C-f" 'forward-char
