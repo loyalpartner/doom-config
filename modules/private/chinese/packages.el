@@ -11,3 +11,5 @@
   (package! emacs-rime
     :recipe (:host github :repo "DogLooksGood/emacs-rime"
              :files ("*.el" "Makefile" "lib.c"))))
+
+(package! sis :recipe (:host github :repo "laishulu/emacs-smart-input-source"))
