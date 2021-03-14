@@ -108,4 +108,11 @@
 (advice-add #'browse-url :around #'adviser-browse-url)
 (advice-add #'eww :around #'adviser-browse-url)
 
+;; disable evil in vterm mode
+(add-hook 'evil-normal-state-entry-hook
+          (lambda ()
+            (when (derived-mode-p 'vterm-mode)
+              ;; (define-key eaf-mode-map (kbd eaf-evil-leader-key) eaf-evil-leader-keymap)
+              (setq-local emulation-mode-map-alists
+                          (delq 'evil-mode-map-alist emulation-mode-map-alists)))))
 

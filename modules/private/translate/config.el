@@ -14,7 +14,8 @@
         sdcv-say-word-p t
         sdcv-tooltip-timeout 20)
   (setq sdcv-dictionary-simple-list     ;setup dictionary list for simple search
-        '("懒虫简明英汉词典"
+        '("牛津英汉双解美化版"
+          "懒虫简明英汉词典"
           "懒虫简明汉英词典"
           "朗道英汉字典5.0"
           "朗道汉英字典5.0"
