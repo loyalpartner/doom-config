@@ -12,7 +12,7 @@
                ;; pyim-probe-program-mode
                pyim-probe-org-structure-template))))
 
-  (use-package! pyim)
+  ;; (use-package! pyim)
   (use-package! pyim-basedict
     :after pyim
     :config
