@@ -110,7 +110,7 @@
   :config
   (sis-ism-lazyman-config "1" "2" 'fcitx5)
   ;; enable the /cursor color/ mode
-  (sis-global-cursor-color-mode t)
+  ;; (sis-global-cursor-color-mode t)
   ;; enable the /respect/ mode
   (sis-global-respect-mode t)
   ;; enable the /context/ mode for all buffers

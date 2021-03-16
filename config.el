@@ -37,7 +37,8 @@
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((plantuml . t)))
+ '((plantuml . t)
+   (protobuf . t)))
 
 (setq org-plantuml-jar-path
       (expand-file-name
@@ -63,10 +64,10 @@
         (IS-LINUX `(:family ,(default-font "Sarasa Mono SC") :size ,font-size))
         (t `(:family ,(default-font "SauceCodePro NF") :size ,font-size))))
 
-(setq doom-font (apply #'font-spec font)
-      ;; doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
-      ;; doom-unicode-font (font-spec :family "Sarasa Fixed SC")
-      )
+;; (setq doom-font (apply #'font-spec font)
+;;       ;; doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
+;;       ;; doom-unicode-font (font-spec :family "Sarasa Fixed SC")
+;;       )
 
 
 (when IS-LINUX
@@ -166,7 +167,10 @@
        "C-l" #'evil-window-right
        "C-h" #'evil-window-left
        "C-k" #'evil-window-up
-       "C-j" #'evil-window-down)
+       "C-j" #'evil-window-down
+
+       "M-h" #'awesome-tab-backward-tab
+       "M-l" #'awesome-tab-forward-tab)
 
       ;; info-mode 使用 gss gs-SPC 定位
       ;; :n "gss" #'evil-avy-goto-char-2
