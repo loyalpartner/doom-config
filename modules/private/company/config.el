@@ -4,8 +4,8 @@
 
 ;; (setq +lsp-company-backends '(company-yasnippet :separate company-capf))
 
-;; (setq company-idle-delay 0
-;;       company-show-numbers nil)
+(setq company-idle-delay 0
+      company-show-numbers nil)
 
 
 ;; (add-hook 'tide-mode-hook
