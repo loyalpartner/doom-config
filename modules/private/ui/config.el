@@ -33,10 +33,10 @@
   :config
   (awesome-tab-mode)
   (require 'project)
-  (map! (:when t :map general-override-mode-map
-         :nv "M-h" #'awesome-tab-backward-tab
+  (map! (:when t :map (general-override-mode-map)
          "s-j" #'awesome-tab-forward-group
          "s-k" #'awesome-tab-backward-group
+         :nv "M-h" #'awesome-tab-backward-tab
          :nv "M-l" #'awesome-tab-forward-tab
          :nv "M-k" #'awesome-tab-move-current-tab-to-left
          :nv "M-L" #'awesome-tab-move-current-tab-to-right
