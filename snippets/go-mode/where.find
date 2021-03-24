@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: where.find
+# uuid: where.find
+# key: gorm.where.find
+# condition: t
+# --
+
+if err := ${1:database.DB}.Where(${2:"name like ?"}, ${3:"...opts"}).Find(${4:users}).Error; err != nil {
+   t.Errorf("$5", $6)
+}
+$0

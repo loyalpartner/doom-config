@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: gorm.first
+# uuid: gorm.first
+# key: gorm.first
+# condition: t
+# --
+
+
+if err := ${1:database.DB}.First(${4:&User\{\}}, $5).Error; err != nil {
+   t.Errorf("$6", $7)
+}
+$0

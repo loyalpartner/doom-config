@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: where().first
+# uuid: where().first
+# key: gormwhere.first
+# condition: t
+# --
+
+if err := ${1:database.DB}.Where(${2:"name like ?"}, ${3:"...opts"}).First(${4:&User{}}).Error; err != nil {
+   $0
+}

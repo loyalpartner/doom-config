@@ -58,7 +58,9 @@
     ("^\\*frequencies" :size 0.35 :select t :modeline nil :quit t :ttl t)
     ("^\\*rfc" :size 0.5 :select t :modeline t :quit t :ttl t :side right)
     ("^\\*Man" :size 0.99 :select t :modeline t :quit t :ttl t :side bottom)
-    ("^\\*eww" :size 0.5 :select t :modeline t :quit t :ttl t :side bottom)))
+    ("^\\*eww" :size 0.5 :select t :modeline t :quit t :ttl t :side bottom)
+    ("^\\*compilation" :size 0.35 :select t :modeline t :quit t :ttl t :side bottom)
+    ("^\\*SDCV" :size 0.35 :select t :modeline t :quit t :ttl t :side bottom)))
 
 (use-package! mingus
   :commands (mingus)
@@ -97,7 +99,7 @@
   (org-capture t "R")
   (message "add rss feed: %s" url))
 
-;; 
+;;
 (defun adviser-browse-url (orig-fn url &rest args)
   (let ((uri-object (url-generic-parse-url url))
         (rss-files '("/feed.xml" "/atom.xml" "/rss.xml" "/index.rss" "/posts.atom" "/rss/")))
@@ -109,10 +111,26 @@
 (advice-add #'eww :around #'adviser-browse-url)
 
 ;; disable evil in vterm mode
-(add-hook 'evil-normal-state-entry-hook
-          (lambda ()
-            (when (derived-mode-p 'vterm-mode)
-              ;; (define-key eaf-mode-map (kbd eaf-evil-leader-key) eaf-evil-leader-keymap)
-              (setq-local emulation-mode-map-alists
-                          (delq 'evil-mode-map-alist emulation-mode-map-alists)))))
+;; (add-hook 'evil-normal-state-entry-hook
+;;           (lambda ()
+;;             (when (derived-mode-p 'vterm-mode)
+;;               ;; (define-key eaf-mode-map (kbd eaf-evil-leader-key) eaf-evil-leader-keymap)
+;;               (setq-local
+;;                emulation-mode-map-alists
+;;                (delq 'evil-mode-map-alist emulation-mode-map-alists)))))
 
+(defun go-defun-name ()
+  (save-excursion
+    (beginning-of-defun)
+    (re-search-forward "[^ ]+\(" nil t 1)
+    (backward-char 1)
+    (word-at-point t)))
+
+(defun go-test-at-point (&optional verbose)
+  (interactive "P")
+  (setq counsel-compile--current-build-dir (counsel--compile-root))
+  (let ((command-line-format "go test -v %s -run %s"))
+    (counsel-compile--action
+     (format command-line-format
+             (buffer-file-name)
+             (go-defun-name)))))
