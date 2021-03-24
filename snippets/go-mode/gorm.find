@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: gorm.find
+# uuid: gorm.find
+# key: gorm.find
+# condition: t
+# --
+
+if err := ${1:database.DB}.Find(${4:users}, $5).Error; err != nil {
+   t.Errorf("$6", $7)
+}
+$0

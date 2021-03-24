@@ -64,10 +64,10 @@
         (IS-LINUX `(:family ,(default-font "Sarasa Mono SC") :size ,font-size))
         (t `(:family ,(default-font "SauceCodePro NF") :size ,font-size))))
 
-;; (setq doom-font (apply #'font-spec font)
-;;       ;; doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
-;;       ;; doom-unicode-font (font-spec :family "Sarasa Fixed SC")
-;;       )
+(setq doom-font (apply #'font-spec font)
+      ;; doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
+      ;; doom-unicode-font (font-spec :family "Sarasa Fixed SC")
+      )
 
 
 (when IS-LINUX
@@ -162,7 +162,7 @@
 
       (:when t :i "C-s" #'company-yasnippet)
 
-      (:when t :map overriding-terminal-local-map
+      (:when t :map (overriding-terminal-local-map ) 
 
        "C-l" #'evil-window-right
        "C-h" #'evil-window-left

@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: bash
+# uuid: bash
+# key: bash
+# condition: t
+# --
+
+#+begin_src bash :results pp
+$1
+#+end_src
+$2

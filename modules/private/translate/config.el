@@ -133,6 +133,7 @@
 (map! :g "C-c ." #'insert-translated-name-insert
       :i "C-x C-y" #'company-english-helper-search
       :nv  "g." #'sdcv-search-pointer+
+      :nv  "g SPC" #'sdcv-search-pointer
       :map english-teacher-follow-mode-map :n "." 'english-teacher-next-backend
       :map baidu-translator-map :n "q" 'baidu-translator-quit
       :map Info-mode-map
@@ -143,6 +144,8 @@
       :desc "翻译长句" "yY" #'evil-baidu-translator-translate-operator
       :desc "中文英文互相转换" "yr" #'evil-translate-and-replace-operator
       :desc "SDCV 翻译短语" "yd" #'evil-sdcv-translate-operator
+
+      :map sdcv-mode-map "Esc" 'sdcv-quit
       )
 
 ;; (evil-define-key '(normal visual) Info-mode-map "gs" #'evil-baidu-translate-operator)
