@@ -19,31 +19,31 @@
   (interactive)
   (awesome-tab-goto-tab -1))
 
-(use-package! awesome-tab
-  :init
-  (setq awesome-tab-height 150
-        awesome-tab-dark-active-bar-color "yellow"
-        awesome-tab-dark-selected-foreground-color "green"
-        awesome-tab-dark-unselected-foreground-color "white"
-        awesome-tab-terminal-dark-select-background-color "red"
-        awesome-tab-display-sticky-function-name nil
-        awesome-tab-label-max-length 30
-        awesome-tab-show-tab-index t
-        awesome-tab-cycle-scope 'tabs)
-  :config
-  (awesome-tab-mode)
-  (require 'project)
-  (map! (:when t :map (general-override-mode-map)
-         "s-j" #'awesome-tab-forward-group
-         "s-k" #'awesome-tab-backward-group
-         :nv "M-h" #'awesome-tab-backward-tab
-         :nv "M-l" #'awesome-tab-forward-tab
-         :nv "M-k" #'awesome-tab-move-current-tab-to-left
-         :nv "M-L" #'awesome-tab-move-current-tab-to-right
-         "s-a" #'awesome-tab-switch-group
-         :nv "gt" #'awesome-tab-evil-forward-tab
-         :nv "gT" #'awesome-tab-evil-backward-tab
-         :nv "M-A" #'awesome-tab-move-current-tab-to-beg)))
+;; (use-package! awesome-tab
+;;   :init
+;;   (setq awesome-tab-height 150
+;;         awesome-tab-dark-active-bar-color "yellow"
+;;         awesome-tab-dark-selected-foreground-color "green"
+;;         awesome-tab-dark-unselected-foreground-color "white"
+;;         awesome-tab-terminal-dark-select-background-color "red"
+;;         awesome-tab-display-sticky-function-name nil
+;;         awesome-tab-label-max-length 30
+;;         awesome-tab-show-tab-index t
+;;         awesome-tab-cycle-scope 'tabs)
+;;   :config
+;;   (awesome-tab-mode)
+;;   (require 'project)
+;;   (map! (:when t :map (general-override-mode-map)
+;;          "s-j" #'awesome-tab-forward-group
+;;          "s-k" #'awesome-tab-backward-group
+;;          :nv "M-h" #'awesome-tab-backward-tab
+;;          :nv "M-l" #'awesome-tab-forward-tab
+;;          :nv "M-k" #'awesome-tab-move-current-tab-to-left
+;;          :nv "M-L" #'awesome-tab-move-current-tab-to-right
+;;          "s-a" #'awesome-tab-switch-group
+;;          :nv "gt" #'awesome-tab-evil-forward-tab
+;;          :nv "gT" #'awesome-tab-evil-backward-tab
+;;          :nv "M-A" #'awesome-tab-move-current-tab-to-beg)))
 
 (defun adviser-awesome-buffer-name (orig-fn buffer &rest args)
   (if-let* ((file-name (buffer-file-name buffer))

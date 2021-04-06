@@ -15,6 +15,8 @@
 ;;                            (set-company-backend! 'js2-mode '(company-yasnippet :with company-tide))))))
 
 ;; (set-company-backend! 'web-mode '(company-capf :with company-yasnippet :with company-css :with company-web))
+(set-company-backend! 'go-mode '(company-capf :with company-yasnippet))
 
-(add-hook 'dap-stopped-hook
-          (lambda (arg) (call-interactively #'dap-hydra)))
+;; (add-hook 'dap-stopped-hook
+;;           (lambda (arg) (call-interactively #'dap-hydra))
+;;           )

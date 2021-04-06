@@ -60,6 +60,7 @@
     ("^\\*Man" :size 0.99 :select t :modeline t :quit t :ttl t :side bottom)
     ("^\\*eww" :size 0.5 :select t :modeline t :quit t :ttl t :side bottom)
     ("^\\*compilation" :size 0.35 :select t :modeline t :quit t :ttl t :side bottom)
+    ("^\\*Launch File" :ignore t :size 0 :select nil :modeline nil :quit t :ttl t :side bottom)
     ("^\\*SDCV" :size 0.35 :select t :modeline t :quit t :ttl t :side bottom)))
 
 (use-package! mingus
@@ -68,7 +69,6 @@
   (map! :leader "oh" #'mingus)
   :config
   (add-to-list 'evil-emacs-state-modes 'mingus-playlist-mode))
-
 
 (defun generate-pdf-file ()
   (call-process-shell-command (format "pdftex %s" (buffer-file-name)) nil 0))

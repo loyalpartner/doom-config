@@ -35,15 +35,6 @@
       (unset-proxy)
     (set-proxy)))
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((plantuml . t)
-   (protobuf . t)))
-
-(setq org-plantuml-jar-path
-      (expand-file-name
-       (concat doom-private-dir "bin/plantuml.jar")))
-
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -162,7 +153,7 @@
 
       (:when t :i "C-s" #'company-yasnippet)
 
-      (:when t :map (overriding-terminal-local-map ) 
+      (:when t :map (overriding-terminal-local-map )
 
        "C-l" #'evil-window-right
        "C-h" #'evil-window-left

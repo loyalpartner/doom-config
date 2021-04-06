@@ -3,14 +3,22 @@
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
 
-
 (after! org
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((plantuml . t)
+     (protobuf . t)))
+
+  (setq org-plantuml-jar-path
+        (expand-file-name
+         (concat doom-private-dir "bin/plantuml.jar")))
+
   (let ((templates
-       '(("l" "links" item (file+olp "~/org/inbox.org" "Links" ) "- %:annotation \n\n")
-         ("R" "RSS" entry (file+olp "~/org/elfeed.org" "Links" "blogs" ) "** %x\n\n" :immediate-finish t))))
-  (dolist (template templates)
-    (unless (member template org-capture-templates)
-      (add-to-list 'org-capture-templates template))))
+         '(("l" "links" item (file+olp "~/org/inbox.org" "Links" ) "- %:annotation \n\n")
+           ("R" "RSS" entry (file+olp "~/org/elfeed.org" "Links" "blogs" ) "** %x\n\n" :immediate-finish t))))
+    (dolist (template templates)
+      (unless (member template org-capture-templates)
+        (add-to-list 'org-capture-templates template))))
 
   (setq org-clock-idle-time 15
         calendar-day-abbrev-array ["周日" "周一" "周二" "周三" "周四" "周五" "周六"]
@@ -20,6 +28,8 @@
         org-agenda-scheduled-leaders '("预 " "应%02d天前开始 ")
         calendar-week-start-day 1)
   (setq org-time-stamp-custom-formats '("<%y/%m/%y %d>" . "<%y/%m/%d %a %H:%M>"))
+
+
   (setq elfeed-db-directory "~/org/elfeeddb")
 
   (mapc (lambda (mode)
