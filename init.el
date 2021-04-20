@@ -193,8 +193,7 @@
        ;;literate
        (default +bindings +smartparens)
        :private
-       (chinese +pyim)                  ; pyim or rime
-       chinese                  ; pyim or rime
+       (chinese +rime)                  ; pyim or rime
        translate
        rss
        irc
