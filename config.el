@@ -155,13 +155,14 @@
 
       (:when t :map (overriding-terminal-local-map )
 
-       "C-l" #'evil-window-right
-       "C-h" #'evil-window-left
-       "C-k" #'evil-window-up
-       "C-j" #'evil-window-down
+       ;; "C-l" #'evil-window-right
+       ;; "C-h" #'evil-window-left
+       ;; "C-k" #'evil-window-up
+       ;; "C-j" #'evil-window-down
 
-       "M-h" #'awesome-tab-backward-tab
-       "M-l" #'awesome-tab-forward-tab)
+       ;; "M-h" #'awesome-tab-backward-tab
+       ;; "M-l" #'awesome-tab-forward-tab
+       )
 
       ;; info-mode 使用 gss gs-SPC 定位
       ;; :n "gss" #'evil-avy-goto-char-2

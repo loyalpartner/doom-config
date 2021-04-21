@@ -6,12 +6,12 @@
 (after! org
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((plantuml . t)
+   '(;; (plantuml . t)
      (protobuf . t)))
 
-  (setq org-plantuml-jar-path
-        (expand-file-name
-         (concat doom-private-dir "bin/plantuml.jar")))
+  ;; (setq org-plantuml-jar-path
+  ;;       (expand-file-name
+  ;;        (concat doom-private-dir "bin/plantuml.jar")))
 
   (let ((templates
          '(("l" "links" item (file+olp "~/org/inbox.org" "Links" ) "- %:annotation \n\n")
@@ -25,7 +25,7 @@
         calendar-day-name-array ["周日" "周一" "周二" "周三" "周四" "周五" "周六"]
         calendar-month-name-array ["一月" "二月" "三月" "四月" "五月" "六月" "七月" "八月" "九月" "十月" "十一月" "十二月"]
         org-agenda-deadline-leaders (quote ("截止日期:  " "%3d 天后到期: " "%2d 天前: "))
-        org-agenda-scheduled-leaders '("预 " "应%02d天前开始 ")
+        org-agenda-scheduled-leaders '("预 " "已经开始%01d天")
         calendar-week-start-day 1)
   (setq org-time-stamp-custom-formats '("<%y/%m/%y %d>" . "<%y/%m/%d %a %H:%M>"))
 

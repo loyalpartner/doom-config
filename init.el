@@ -33,7 +33,7 @@
        hl-todo     ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;; hydra
        ;;indent-guides     ; highlighted indent columns
-       modeline    ; snazzy, Atom-inspired modeline, plus API
+       ;; modeline    ; snazzy, Atom-inspired modeline, plus API
        nav-flash   ; blink the current line after jumping
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints                    ; highlight the region an operation acts on
@@ -83,7 +83,7 @@
        ;;ansible
        (debugger +lsp)              ; FIXME stepping through code, to help you add bugs
        ;;direnv
-       ;;docker
+       docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)                  ; run code, run (also, repls)
@@ -107,6 +107,7 @@
 
        :lang
        json 
+       yaml
        ;;agda              ; types of types of types of types...
        ;;assembly          ; assembly for fun or debugging
        ;; cc                ; C/C++/Obj-C madness
@@ -153,7 +154,7 @@
         )    ; using org-mode for presentations
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother
-       ;;plantuml          ; diagrams for confusing people more
+       plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        ;; (python +lsp +pyright)                  ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
@@ -184,7 +185,7 @@
 
        
        :checkers
-       (spell +everywhere +aspell)
+       ;; (spell +everywhere +aspell)
        syntax
        ;; grammar
 
