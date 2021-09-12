@@ -102,13 +102,13 @@
              t)))))
 
 (use-package sis
-  ;; :hook
+  ;; :hook 
   ;; enable the /follow context/ and /inline region/ mode for specific buffers
   ;; (((text-mode prog-mode) . sis-context-mode)
   ;;  ((text-mode prog-mode) . sis-inline-mode))
   :config
-  ;; (sis-ism-lazyman-config "1" "2" 'fcitx5)
-  (sis-ism-lazyman-config nil "rime" 'native)
+  (sis-ism-lazyman-config "1" "2" 'fcitx5)
+  ;; (sis-ism-lazyman-config nil "rime" 'native)
   ;; enable the /cursor color/ mode
   ;; (sis-global-cursor-color-mode t)
   ;; enable the /respect/ mode

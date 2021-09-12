@@ -54,7 +54,7 @@
           Woman-Mode) . english-teacher-follow-mode)
   :config
   (setq english-teacher-show-result-function 'english-teacher-eldoc-show-result-function
-        english-teacher-backend 'tencent))
+        english-teacher-backend 'baidu))
 
 (defun translate-chinese-word-p (word)
   (if (and word (string-match "\\cc" word)) t nil))

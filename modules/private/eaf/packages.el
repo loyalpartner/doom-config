@@ -3,9 +3,8 @@
 
 
 (when (package! eaf :recipe (:host github
-                             :repo "loyalpartner/emacs-application-framework"
-                             :fork (:host github :repo "manateelazycat/emacs-application-framework")
-                             :files ("*.el" "*.py" "app" "core")
+                             :repo "emacs-eaf/emacs-application-framework"
+                             :files ("*.el" "*" "extension" "core" "app")
                              :build (:not compile)))
 
   (package! ctable :recipe (:host github :repo "kiwanami/emacs-ctable"))

@@ -61,7 +61,8 @@
     ("^\\*eww" :size 0.5 :select t :modeline t :quit t :ttl t :side bottom)
     ("^\\*compilation" :size 0.35 :select t :modeline t :quit t :ttl t :side bottom)
     ("^\\*Launch File" :ignore t :size 0 :select nil :modeline nil :quit t :ttl t :side bottom)
-    ("^\\*SDCV" :size 0.35 :select t :modeline t :quit t :ttl t :side bottom)))
+    ("^\\*SDCV" :size 0.35 :select t :modeline t :quit t :ttl t :side bottom)
+    ("^\\*input/output" :size 0.35 :select nil :modeline t :quit t :ttl t :side bottom)))
 
 (use-package! mingus
   :commands (mingus)

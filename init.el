@@ -22,7 +22,9 @@
        company ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +icons)                              ; a search engine for love and life
+       ;; (ivy +icons)
+                                        ; a search engine for love and life
+       vertico
 
        :ui
        ;; deft              ; notational velocity for Emacs
@@ -33,7 +35,7 @@
        hl-todo     ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;; hydra
        ;;indent-guides     ; highlighted indent columns
-       ;; modeline    ; snazzy, Atom-inspired modeline, plus API
+       modeline    ; snazzy, Atom-inspired modeline, plus API
        nav-flash   ; blink the current line after jumping
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints                    ; highlight the region an operation acts on
@@ -58,7 +60,7 @@
        fold                             ; (nigh) universal code folding
        (format)                         ;; +onsave  ; automated prettiness
        ;; god               ; run Emacs commands without modifier keys
-       lispy                       ; vim for lisp, for people who don't like vim
+       ;; lispy                       ; vim for lisp, for people who don't like vim
        ;; multiple-cursors            ; editing in many places at once
        ;;objed             ; text object editing for the innocent
        ;;parinfer          ; turn lisp into python, sort of
@@ -81,7 +83,7 @@
 
        :tools
        ;;ansible
-       (debugger +lsp)              ; FIXME stepping through code, to help you add bugs
+       (debugger)              ; FIXME stepping through code, to help you add bugs
        ;;direnv
        docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
@@ -110,7 +112,7 @@
        yaml
        ;;agda              ; types of types of types of types...
        ;;assembly          ; assembly for fun or debugging
-       ;; cc                ; C/C++/Obj-C madness
+       (cc +lsp)                ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
@@ -194,7 +196,7 @@
        ;;literate
        (default +bindings +smartparens)
        :private
-       (chinese +rime)                  ; pyim or rime
+       (chinese)                  ; pyim or rime
        translate
        rss
        irc
