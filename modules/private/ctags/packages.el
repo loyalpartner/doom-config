@@ -3,4 +3,4 @@
 
 (package! company-ctags)
 
-(package! counsel-etags :recipe (:host github :repo "redguardtoo/counsel-etags"))
+;(package! counsel-etags :recipe (:host github :repo "redguardtoo/counsel-etags"))

@@ -56,50 +56,51 @@
 
 ;; https://support.google.com/websearch/forum/AAAAgtjJeM4P4qBTZlImoA/?hl=en&gpf=%23!topic%2Fwebsearch%2FP4qBTZlImoA
 ;; 替换默认的 google engine 建议，使其在国内也能用
-(after! ivy
-  (use-package! ace-pinyin
-    :init (setq ace-pinyin-use-avy t)
-    :config (ace-pinyin-global-mode t))
+;; (after! ivy
+;;   (use-package! ace-pinyin
+;;     :init (setq ace-pinyin-use-avy t)
+;;     :config (ace-pinyin-global-mode t))
 
-  (setf (alist-get 'zhihu counsel-search-engines-alist)
-        '("https://www.zhihu.com/api/v4/search/suggest"
-          "https://www.zhihu.com/search?type=content&q="
-          counsel--search-request-data-zhihu))
-  (setf (alist-get 'google counsel-search-engines-alist)
-        '("https://suggestqueries.google.cn/complete/search?oe=utf-8&output=firefox"
-          "https://www.google.com/search?q="
-          counsel--search-request-data-google))
+;;   (setf (alist-get 'zhihu counsel-search-engines-alist)
+;;         '("https://www.zhihu.com/api/v4/search/suggest"
+;;           "https://www.zhihu.com/search?type=content&q="
+;;           counsel--search-request-data-zhihu))
+;;   (setf (alist-get 'google counsel-search-engines-alist)
+;;         '("https://suggestqueries.google.cn/complete/search?oe=utf-8&output=firefox"
+;;           "https://www.google.com/search?q="
+;;           counsel--search-request-data-google))
   
-  (defun counsel--search-request-data-google (data)
-    (mapcar #'identity (aref data 1)))
+;;   (defun counsel--search-request-data-google (data)
+;;     (mapcar #'identity (aref data 1)))
 
-  (mapc (lambda (engine) (add-to-list '+lookup-provider-url-alist engine))
-        '(("Baidu" "http://www.baidu.com?wd=%s")
-          ("Emacs China" "https://emacs-china.org/search?q=%s")
-          ("Arch Linux cn" "https://emacs-china.org/search?q=%s")
-          ("zhihu" lookup-backend-zhihu "https://www.zhihu.com/search?type=content&q=%s")))
+;;   (mapc (lambda (engine) (add-to-list '+lookup-provider-url-alist engine))
+;;         '(("Baidu" "http://www.baidu.com?wd=%s")
+;;           ("Emacs China" "https://emacs-china.org/search?q=%s")
+;;           ("Arch Linux cn" "https://emacs-china.org/search?q=%s")
+;;           ("zhihu" lookup-backend-zhihu "https://www.zhihu.com/search?type=content&q=%s")))
 
-  (defun re-builder-extended-pattern (str)
-    (require 'pinyinlib)
-    (ivy--regex-plus
-     (cond ((<= (length str) 0) str)
-           ((string-prefix-p ";" str)
-            (pinyinlib-build-regexp-string (substring str 1) t))
-           (t str))))
+;;   (defun re-builder-extended-pattern (str)
+;;     (require 'pinyinlib)
+;;     (ivy--regex-plus
+;;      (cond ((<= (length str) 0) str)
+;;            ((string-prefix-p ";" str)
+;;             (pinyinlib-build-regexp-string (substring str 1) t))
+;;            (t str))))
   
-  (setq ivy-re-builders-alist '((t . re-builder-extended-pattern)))
+;;   (setq ivy-re-builders-alist '((t . re-builder-extended-pattern)))
 
-  (defun counsel--search-request-data-zhihu (data)
-    (mapcar (apply-partially 'alist-get 'query)
-            (alist-get 'suggest data)))
+;;   (defun counsel--search-request-data-zhihu (data)
+;;     (mapcar (apply-partially 'alist-get 'query)
+;;             (alist-get 'suggest data)))
 
-;;;###autoload
-  (defun lookup-backend-zhihu (query)
-    (cond ((fboundp 'counsel-search)
-           (let ((ivy-initial-inputs-alist `((t . ,query)))
-                 (counsel-search-engine 'zhihu))
-             (call-interactively #'counsel-search)
-             t)))))
+;; ;;;###autoload
+;;   (defun lookup-backend-zhihu (query)
+;;     (cond ((fboundp 'counsel-search)
+;;            (let ((ivy-initial-inputs-alist `((t . ,query)))
+;;                  (counsel-search-engine 'zhihu))
+;;              (call-interactively #'counsel-search)
+;;              t)))))
+
 
 (use-package sis
   ;; :hook 

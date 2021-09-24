@@ -45,20 +45,22 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 ;;
-(defvar font-size (cond ((> (display-pixel-width) 1920) 22)
-                        (t 16)))
+(defvar font-size (if (> (third (frame-monitor-geometry)) 1920) 22 14))
+
 (defun default-font (font-name)
   (if (font-info font-name) font-name nil))
 
-(defvar font
-  (cond (IS-MAC `(:family ,(default-font "SauceCodePro NF") :size ,font-size))
-        (IS-LINUX `(:family ,(default-font "Sarasa Mono SC") :size ,font-size))
-        (t `(:family ,(default-font "SauceCodePro NF") :size ,font-size))))
-
-(setq doom-font (apply #'font-spec font)
-      ;; doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
-      ;; doom-unicode-font (font-spec :family "Sarasa Fixed SC")
-      )
+(when (display-graphic-p)
+  (defvar font
+    (cond (IS-MAC
+           `(:family ,(default-font "SauceCodePro NF") :size ,font-size))
+          (IS-LINUX 
+           `(:family ,(default-font "Sarasa Mono SC") :size ,font-size))
+          (t `(:family ,(default-font "SauceCodePro NF") :size ,font-size))))
+  (setq doom-font (apply #'font-spec font)
+        ;; doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
+        ;; doom-unicode-font (font-spec :family "Sarasa Fixed SC")
+        ))
 
 
 (when IS-LINUX
@@ -86,6 +88,9 @@
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
 (setq display-line-numbers-type t)
+
+(setq plantuml-indent-offset 2
+      plantuml-indent-level 2)
 
 (setq evil-escape-key-sequence "hh"
       evil-escape-delay 0.3)

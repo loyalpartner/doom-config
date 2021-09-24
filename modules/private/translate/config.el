@@ -54,7 +54,13 @@
           Woman-Mode) . english-teacher-follow-mode)
   :config
   (setq english-teacher-show-result-function 'english-teacher-eldoc-show-result-function
-        english-teacher-backend 'baidu))
+        english-teacher-backend 'baidu
+        english-teacher-disabled-functions
+        '((lambda ()
+            (and
+             (or (string-suffix-p ".h" (buffer-file-name))
+                 (string-suffix-p ".cc" (buffer-file-name)))
+             (not (english-teacher-in-comment-p)))))))
 
 (defun translate-chinese-word-p (word)
   (if (and word (string-match "\\cc" word)) t nil))
