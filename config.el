@@ -53,10 +53,10 @@
 (when (display-graphic-p)
   (defvar font
     (cond (IS-MAC
-           `(:family ,(default-font "SauceCodePro NF") :size ,font-size))
+           `(:family ,(default-font "JetBrainsMono Nerd Font") :size ,font-size))
           (IS-LINUX 
-           `(:family ,(default-font "Sarasa Mono SC") :size ,font-size))
-          (t `(:family ,(default-font "SauceCodePro NF") :size ,font-size))))
+           `(:family ,(default-font "JetBrainsMono Nerd Font") :size ,font-size))
+          (t `(:family ,(default-font "JetBrainsMono Nerd Font") :size ,font-size))))
   (setq doom-font (apply #'font-spec font)
         ;; doom-variable-pitch-font (font-spec :family "Sarasa Fixed SC")
         ;; doom-unicode-font (font-spec :family "Sarasa Fixed SC")
